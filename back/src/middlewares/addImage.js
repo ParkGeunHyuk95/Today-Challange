@@ -3,12 +3,7 @@ const path = require("path");
 const fs = require("fs");
 
 function addImage(imgPath) {
-  fs.readdir(imgPath, (error) => {
-    if (error) {
-      console.error("fail to make uploads folder.");
-      fs.mkdirSync("uploads");
-    }
-  });
+  !fs.existsSync(imgPath) && fs.mkdirSync(imgPath);
   // const storage = multer({ dest: "uploads/" });
 
   const storage = multer.diskStorage({
@@ -19,7 +14,7 @@ function addImage(imgPath) {
       const ext = path.extname(file.originalname);
       cb(null, path.basename(file.originalname, ext) + "-" + Date.now() + ext);
     },
-    limits: { fileSize: 10 * 1024 * 1024 },
+    limits: { fileSize: 200 * 1024 * 1024 }, //200MB
   });
 
   return multer({ storage: storage });

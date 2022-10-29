@@ -67,7 +67,7 @@ userRouter.get("/currentUser", loginRequired, async (req, res, next) => {
       throw new Error(currentUser.errorMessage);
     }
     res.status(200).json(currentUser);
-    console.log(currentUser.img);
+    // console.log(currentUser.img);
   } catch (error) {
     next(error);
   }
@@ -119,13 +119,9 @@ userRouter.put(
 
 userRouter.get("/userImg", loginRequired, async (req, res, next) => {
   try {
-    const imgUrl = "http://localhost:3000/images/";
     const userId = req.currentUserId;
     const getImg = await userService.getCurrentImg({ userId });
-    const result = imgUrl + getImg;
-
     res.status(200).send(getImg);
-    // res.status(200).send(result);
   } catch (error) {
     next(error);
   }
@@ -143,19 +139,23 @@ userRouter.put(
       const timeStamp = +new Date();
 
       let fileName = userId + "_" + timeStamp + "." + `${ext}`;
-      console.log(req.body.img.split(",")[0]);
+      // console.log(req.body.img);
+      // 폴더 있는지 확인, 없으면 생성
+      !fs.existsSync("userImg/") && fs.mkdirSync("userImg/");
+
       /*이미지 저장 */
       fs.writeFileSync(
-        `uploads/${fileName}`,
+        `userImg/${fileName}`,
         req.body.img.split(",")[1],
         "base64"
       );
       if (req.body.img === undefined) {
         return res.status(400).send("이미지가 존재하지 않습니다.");
       }
+
       const EditImg = await userService.updateUserImg({
         userId,
-        img: `${fileName}`,
+        img: `./userImg/${fileName}`,
       });
       res.status(200).json({ EditImg });
     } catch (error) {
