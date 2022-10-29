@@ -3,11 +3,11 @@ const path = require("path");
 const fs = require("fs");
 
 function addImage(imgPath) {
-  fs.readdir(imgPath, (error) => {
-    if (error) {
-      console.error("fail to make uploads folder.");
-    }
-  });
+  // fs.readdir(imgPath, (error) => {
+  //   if (error) {
+  //     console.error("fail to make uploads folder.");
+  //   }
+  // });
   // const storage = multer({ dest: "uploads/" });
   const storage = multer.diskStorage({
     destination: function (req, file, cb) {
