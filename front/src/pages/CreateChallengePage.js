@@ -133,23 +133,13 @@ const CreateChallenge = () => {
   // }, []);
   // console.log()
 
-  // async function post(endpoint, formData) {
-  //   // JSON.stringify 함수: Javascript 객체를 JSON 형태로 변환함.
-  //   // 예시: {name: "Kim"} => {"name": "Kim"}
-  //   console.log(`%cPOST 요청: ${serverUrl + endpoint}`, "color: #296aba;");
-  //   console.log(`%cPOST 요청 데이터: ${formData}`, "color: #296aba;");
-
-  //   return axios.post(serverUrl + endpoint, formData, {
-  //     headers: {
-  //       "Content-Type": "multipart/form-data",
-  //       Authorization: `Bearer ${sessionStorage.getItem("accessToken")}`,
-  //     },
-  //   });
-  // }
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     let res = {};
-    console.log(formData);
+
+    for (let key of formData.entries()) {
+      console.log({ key });
+    }
     try {
       axios({
         method: "post",
@@ -180,25 +170,7 @@ const CreateChallenge = () => {
     // formData.append("explainImg", goodImage);
     // formData.append("explainImg", badImage);
   };
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   let res = {};
-  //   try {
-  //     res = await Api.post("challenges", {
-  //       title,
-  //       method,
-  //       description,
-  //       fromDate,
-  //       toDate,
-  //       mainImg: challengeImage,
-  //       explainImg: { badImage, goodImage },
-  //     });
-  //     console.log("res.data", res.data);
-  //     console.log(res.data.explainImg);
-  //   } catch (err) {
-  //     console.log("챌린지 생성 실패!");
-  //   }
-  // };
+
   return (
     <>
       {isLogin === true ? (

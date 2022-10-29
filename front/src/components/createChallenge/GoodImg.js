@@ -9,10 +9,10 @@ const GoodImg = ({ goodImage, setGoodImage, formData }) => {
       // console.log("e.target.files[0].filename", e.target.files[0]);
       // console.log("e.target.files[0].name", e.target.files[0].name);
       formData.append("explainImg", e.target.files[0]);
-      setGoodImage(e.target.files[0]);
+      // setGoodImage(e.target.files[0]);
     } else {
       //업로드 취소할 시
-      setGoodImage({ blankImg });
+      setGoodImage(blankImg);
       return;
     }
     //화면에 챌린지 사진 표시

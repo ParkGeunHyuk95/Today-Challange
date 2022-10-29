@@ -5,11 +5,15 @@ import "../../styles/mypage/mypage.css";
 import UserEditForm from "./UserEditForm";
 import * as Api from "../../api";
 import axios from "axios";
+
 const UserCard = () => {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
+
   useEffect(() => {
     Api.get("currentUser").then((res) => setName(res.data.name));
+
+
   //   Api.get("userImg").then((res) => setProfileImage(res.data));
   }, []);
   const [showForm, setShowForm] = useState(false);
@@ -17,76 +21,44 @@ const UserCard = () => {
   const [profileImage, setProfileImage] = useState(
     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdW1f0vtx6CSeYeTkNJtlAR27mmUGtANNA1g&usqp=CAU"
   );
+  // const [img, setImg] = useState("");
+  const formData = new FormData();
   const fileInput = useRef(null);
-  const onChangeImage = (e) => {
-    console.log("e.target.files[0]", e.target.files[0]);
-    const nowImageUrl = URL.createObjectURL(e.target.files[0]);
-    console.log("nowImageUrl", nowImageUrl);
-    if (e.target.files[0]) {
-      const formData = new FormData();
-      formData.append("img", e.target.files[0]);
-      console.log("formData", formData.object);
-      const reader = new FileReader();
-      reader.onload = () => {
-        if (reader.readyState === 2) {
-          axios({
-            method: "put",
-            url: "http://localhost:5001/userImg",
-            data: formData,
-            headers: {
-              "Content-Type": "multipart/form-data",
-              Authorization: `Bearer ${sessionStorage.getItem("accessToken")}`,
-            },
-          });
-          //   // Api.put("userImg", reader.result);
-          // };
-          reader.readAsDataURL(e.target.files[0]);
-        }
-      };
-    } else {
-      setProfileImage(
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdW1f0vtx6CSeYeTkNJtlAR27mmUGtANNA1g&usqp=CAU"
-      );
-      Api.get("userImg").then((res) => setProfileImage(res.data));
-      return;
-    }
-  };
-  const onSubmit = (e) => {
-    // //   e.preventDefault();
-    // //   const formData = new FormData();
-    // //   formData.append("img", e.target.files[0]);
-    // //   axios({
-    // //     method: "put",
-    // //     url: "http://localhost:5001/userImg",
-    // //     data: formData,
-    // //     headers: {
-    // //       "Content-Type": "multipart/form-data",
-    // //       Authorization: `Bearer ${sessionStorage.getItem("accessToken")}`,
-    // //     },
-    // //   });
-    // // }
-    //   // .post("http://localhost:5001/upload", formData)
-    //   //         .then(res => {
-    //   //             const { fileName } = res.data;
-    //   //             console.log(fileName);
-    //   //             setUploadedImg({ fileName });
-    //   //             alert("The file is successfully uploaded");
-    //   //         })
-    //   //         .catch(err => {
-    //   //             console.error(err);
-    //   //         });
-  };
 
+  const onChangeImage = (e) => {
+    // let res = {};
+    let img = "";
+    var reader = new FileReader();
+    reader.readAsDataURL(e.target.files[0]);
+    reader.onload = async function () {
+      img = reader.result;
+      try {
+        await Api.put("userImg", {
+          img,
+        });
+        // console.log("res.data :", res.data);
+      } catch (err) {
+        console.log("userImg 업로드 실패!");
+        // }
+      }
+      try {
+        const res = await Api.get("userImg");
+        setProfileImage(res.data);
+        console.log("getRes : ", res.data);
+        // console.log("profileImage : ", profileImage);
+      } catch (err) {
+        console.log("유저이미지를 get하지 못함", err);
+      }
+    };
+  };
+  console.log("profileImage :", profileImage);
   return (
     <div className="userprofile">
-      <form
-        className="imageForm"
-        onSubmit={onChangeImage}
-        encType="multipart/form-data"
-      >
+      <form className="imageForm" encType="multipart/form-data">
         <img
           className="profileImage"
           src={profileImage}
+          encType="multipart/form-data"
           onClick={() => {
             fileInput.current.click();
           }}

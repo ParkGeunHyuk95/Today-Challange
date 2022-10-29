@@ -44,14 +44,14 @@ function loginRequired(req, res, next) {
           };
           const refreshFromDb = token();
         } catch (error) {
-          res
+          return res
             .status(400)
             .send("Refresh token does not exist, 로그인후 이용해주세요");
-          return;
+          // return;
         }
       } else {
         console.log("access not ");
-        res.status(400).send("access token이 유효하지 않습니다.");
+        return res.status(400).send("access token이 유효하지 않습니다.");
       }
       return;
     }

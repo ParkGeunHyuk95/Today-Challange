@@ -8,7 +8,7 @@ const BadImg = ({ badImage, setBadImage, formData }) => {
   const onChangeBadImage = (e) => {
     if (e.target.files[0]) {
       formData.append("explainImg", e.target.files[0]);
-      setBadImage(e.target.files[0]);
+      // setBadImage(e.target.files[0]);
     } else {
       //업로드 취소할 시
       setBadImage(blankImg);

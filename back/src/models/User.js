@@ -88,9 +88,12 @@ class User {
     });
     return img.img;
   }
-  // //img 수정(sh),
+
+  // img 수정(sh),
   static async EditImg({ userId, img }) {
     const addedImage = `${img}`;
+    // console.log("2. 모델 : ", img);
+    // console.log("2. 모델 : ", addedImage);
     const updateImg = await prisma.user.update({
       where: {
         userId: userId,
@@ -103,8 +106,8 @@ class User {
   }
 
   static async updateUserImg({ userId, img }) {
-    console.log("이미지모델:", img);
-    console.log("userId:", userId);
+    // console.log("이미지모델:", img);
+    // console.log("userId:", userId);
 
     const updateimg = await prisma.user.update({
       where: {
@@ -112,12 +115,12 @@ class User {
       },
       data: { img },
     });
-    console.log("updateimg:", updateimg);
+    // console.log("updateimg:", updateimg);
     return updateimg;
   }
   //img 삭제,
   static async deleteUserImg({ userId }) {
-    console.log("userId:", userId);
+    // console.log("userId:", userId);
 
     const updateimg = await prisma.user.update({
       where: {
@@ -125,7 +128,7 @@ class User {
       },
       data: { img: null },
     });
-    console.log("updateimg:", updateimg.img);
+    // console.log("updateimg:", updateimg.img);
     return updateimg;
   }
 

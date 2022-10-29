@@ -92,9 +92,6 @@ challengeRouter.put("/:id", multiImg, loginRequired, async (req, res, next) => {
     if (image === undefined) {
       return res.status(400).send("cannot find image.");
     }
-    if (image === undefined) {
-      return res.status(400).send("cannot find image.");
-    }
 
     const updatedChallenge = await challengeService.updateChallenge({
       id,

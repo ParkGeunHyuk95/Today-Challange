@@ -8,6 +8,7 @@ function addImage(imgPath) {
       console.error("fail to make uploads folder.");
     }
   });
+  // const storage = multer({ dest: "uploads/" });
   const storage = multer.diskStorage({
     destination: function (req, file, cb) {
       cb(null, "uploads/");

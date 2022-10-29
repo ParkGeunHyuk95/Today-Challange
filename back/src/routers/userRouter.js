@@ -3,12 +3,15 @@ const userRouter = Router();
 import { userService } from "../services/userService";
 import { loginRequired } from "../middlewares/loginRequired";
 import is from "@sindresorhus/is";
-import multer from "multer";
+// import multer from "multer";
 import assert from "assert";
 import { config } from "dotenv";
 import { addImage } from "../middlewares/addImage";
+import { executionAsyncId } from "async_hooks";
+const fs = require("fs");
+const path = require("path");
 
-const upload = addImage("uploads");
+// const upload = addImage("uploads");
 
 userRouter.post("/register", async (req, res, next) => {
   try {
@@ -64,6 +67,7 @@ userRouter.get("/currentUser", loginRequired, async (req, res, next) => {
       throw new Error(currentUser.errorMessage);
     }
     res.status(200).json(currentUser);
+    console.log(currentUser.img);
   } catch (error) {
     next(error);
   }
@@ -115,9 +119,13 @@ userRouter.put(
 
 userRouter.get("/userImg", loginRequired, async (req, res, next) => {
   try {
+    const imgUrl = "http://localhost:3000/images/";
     const userId = req.currentUserId;
     const getImg = await userService.getCurrentImg({ userId });
+    const result = imgUrl + getImg;
+
     res.status(200).send(getImg);
+    // res.status(200).send(result);
   } catch (error) {
     next(error);
   }
@@ -126,19 +134,28 @@ userRouter.get("/userImg", loginRequired, async (req, res, next) => {
 userRouter.put(
   "/userImg",
   loginRequired,
-  upload.single("img"),
+  // upload.single("img"),
   async (req, res, next) => {
     try {
       const userId = req.currentUserId;
-      const img = req.file.path;
+      const ext = req.body.img.split(";")[0].split("/")[1];
 
-      if (img === undefined) {
+      const timeStamp = +new Date();
+
+      let fileName = userId + "_" + timeStamp + "." + `${ext}`;
+      console.log(req.body.img.split(",")[0]);
+      /*이미지 저장 */
+      fs.writeFileSync(
+        `uploads/${fileName}`,
+        req.body.img.split(",")[1],
+        "base64"
+      );
+      if (req.body.img === undefined) {
         return res.status(400).send("이미지가 존재하지 않습니다.");
       }
-
       const EditImg = await userService.updateUserImg({
         userId,
-        img,
+        img: `${fileName}`,
       });
       res.status(200).json({ EditImg });
     } catch (error) {

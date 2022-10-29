@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import styled from "styled-components";
 import challengeInfo from "../../styles/createChallenge/challengeInfo.css";
 import DatePicker from "react-datepicker";
@@ -29,13 +29,15 @@ const ChallengeInfo = ({
   var endMonth = ("0" + (endDate.getMonth() + 1)).slice(-2);
   var endDay = ("0" + endDate.getDate()).slice(-2);
   var toDate = endYear + "-" + endMonth + "-" + endDay;
-
+  const ref = useRef(null);
   const onStartDate = (data) => {
     setStartDate(data);
   };
   const onEndDate = (data) => {
     setEndDate(data);
   };
+  console.log("descroption", description);
+  console.log("title", title);
   formData.append("title", title);
   formData.append("method", method);
   formData.append("description", description);
@@ -60,7 +62,8 @@ const ChallengeInfo = ({
 
         <textarea
           className="description"
-          onChange={(e) => setDescription(e.target.value)}
+          ref={ref}
+          onChange={(e) => setDescription(...description, e.target.value)}
           placeholder=" 조깅을 하면서 쓰레기를 줍는 활동 "
         ></textarea>
 

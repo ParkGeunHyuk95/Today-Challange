@@ -112,7 +112,7 @@ class userService {
     const newImg = await User.getUserImg({ userId });
 
     if (!newImg) {
-      const errorMessage = "no iamge";
+      const errorMessage = "no image";
       return errorMessage;
     }
     ("");
@@ -127,7 +127,7 @@ class userService {
         "프로필사진 수정 권한이 없습니다. 로그인 후 이용해주세요";
       return { errorMessage };
     }
-    console.log("서비스");
+    // console.log("서비스", img);
     const updateimg = await User.EditImg({ userId, img });
     return updateimg;
   }
