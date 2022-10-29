@@ -8,10 +8,10 @@ import axios from "axios";
 const UserCard = () => {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
-  // useEffect(() => {
+  useEffect(() => {
     Api.get("currentUser").then((res) => setName(res.data.name));
   //   Api.get("userImg").then((res) => setProfileImage(res.data));
-  // }, []);
+  }, []);
   const [showForm, setShowForm] = useState(false);
   const [showContent, setShowContent] = useState("정보수정");
   const [profileImage, setProfileImage] = useState(
@@ -118,6 +118,7 @@ const UserCard = () => {
           password={password}
           setPassword={setPassword}
           setShowForm={setShowForm}
+          setShowContent={setShowContent}
         />
       ) : null}
     </div>

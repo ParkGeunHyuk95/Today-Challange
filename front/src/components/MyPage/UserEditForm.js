@@ -3,7 +3,7 @@ import StyledButton from "../../styles/commonstyles/Button";
 import "../../styles/mypage/userEditForm.css";
 import * as Api from '../../api'
 import { Form } from "react-bootstrap";
-const UserEditForm = ({name, setName, password, setPassword, setShowForm}) => {
+const UserEditForm = ({name, setName, password, setPassword, setShowForm, setShowContent}) => {
   const validatePwd = (password) => {
     // 비밀번호 : 숫자+영문자+특수문자 조합으로 8자리 이상 입력
     return password
@@ -24,6 +24,7 @@ const handleSubmit=async(e)=>{
       password: password
     })
     setShowForm(false)
+    setShowContent('정보수정')
   } catch(e){
     console.error(e)
   }
@@ -49,6 +50,7 @@ const handleSubmit=async(e)=>{
         placeholder="비밀번호 변경"
         onChange={(e)=>{
             setPassword(e.target.value)
+            console.log(name)
         }}
         />
       </div>
