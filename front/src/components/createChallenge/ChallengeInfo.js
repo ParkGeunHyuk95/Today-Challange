@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useCallback, useState, useRef } from "react";
 import styled from "styled-components";
 import challengeInfo from "../../styles/createChallenge/challengeInfo.css";
 import DatePicker from "react-datepicker";
@@ -30,12 +30,17 @@ const ChallengeInfo = ({
   var endDay = ("0" + endDate.getDate()).slice(-2);
   var toDate = endYear + "-" + endMonth + "-" + endDay;
   const ref = useRef(null);
+  let timer;
   const onStartDate = (data) => {
     setStartDate(data);
   };
   const onEndDate = (data) => {
     setEndDate(data);
   };
+  const useDebouncedEffect = (func, delay, deps) => {
+    const callback = useCallback(func, deps);
+  };
+  const onChangeHandler = (e) => {};
   console.log("descroption", description);
   console.log("title", title);
   formData.append("title", title);
