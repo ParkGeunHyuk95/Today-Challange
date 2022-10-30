@@ -17,11 +17,11 @@ challengeRouter.post("/", loginRequired, multiImg, async (req, res, next) => {
 
     const { title, description, fromDate, toDate, method } = req.body;
     const image = req.files;
-
+    // console.log("image:", image);
     const mainImg = image.main[0];
-
+    console.log("mainImage:", mainImg.originalname);
     const explainImg = image.explain;
-    const explainImgPath = explainImg.map((img) => img.path);
+    const explainImgOriginalname = explainImg.map((img) => img.originalname);
 
     if (image === undefined) {
       return res.status(400).send("이미지가 존재하지 않습니다.");
@@ -33,8 +33,8 @@ challengeRouter.post("/", loginRequired, multiImg, async (req, res, next) => {
       description,
       fromDate,
       toDate,
-      mainImg: `${mainImg.path}`,
-      explainImg: `${explainImgPath}`,
+      mainImg: `http://localhost:5001/${mainImg.originalname}`,
+      explainImg: `http://localhost:5001/${explainImgOriginalname}`,
       method,
     });
     if (newChallenge.errorMessage) {
