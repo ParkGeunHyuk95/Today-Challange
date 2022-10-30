@@ -11,7 +11,8 @@ import { likedRouter } from "./routers/likedRouter";
 const app = express();
 app.use(cors());
 
-// app.use(express.static(__dirname + "/userImg"));
+app.use(express.static("userImg"));
+app.use(express.static("uploads"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 

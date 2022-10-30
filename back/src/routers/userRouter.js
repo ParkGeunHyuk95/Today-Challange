@@ -155,7 +155,7 @@ userRouter.put(
 
       const EditImg = await userService.updateUserImg({
         userId,
-        img: `./userImg/${fileName}`,
+        img: `http://localhost:5001/${fileName}`,
       });
       res.status(200).json({ EditImg });
     } catch (error) {
