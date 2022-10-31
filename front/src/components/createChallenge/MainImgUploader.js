@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import blankImg from "../../images/createChallengePage/blankImg.png";
 import MainImgUploader from "../../styles/createChallenge/MainImgUploader.css";
 
@@ -9,7 +9,6 @@ const MainImgUpoloader = ({ challengeImage, setChallengeImage, formData }) => {
 
   const onChange = (e) => {
     if (e.target.files[0]) {
-      formData.append("mainImg", e.target.files[0]);
       setChallengeImage(e.target.files[0]);
     } else {
       //업로드 취소할 시
@@ -29,7 +28,9 @@ const MainImgUpoloader = ({ challengeImage, setChallengeImage, formData }) => {
     };
     reader.readAsDataURL(e.target.files[0]);
   };
-
+  useEffect(() => {
+    formData.append("mainImg", challengeImage);
+  }, []);
   return (
     <>
       {/**useRef()변수를 생성해서 사진을 클릭하면 파일 업로더를 띄울 수 있도록 onClick함수의 이벤트에 넣어줌 */}

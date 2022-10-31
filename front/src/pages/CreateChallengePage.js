@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState, useEffect, useRef } from "react";
 import NavBar from "../components/NavBar";
 import ChallengeInfo from "../components/createChallenge/ChallengeInfo";
 import MainImgUpoloader from "../components/createChallenge/MainImgUploader";
@@ -102,36 +102,8 @@ const CreateChallenge = () => {
   //useState로 챌린지 끝날짜 생성
   const [endDate, setEndDate] = useState(new Date());
   const formData = new FormData();
-
-  // var startYear = startDate.getFullYear();
-  // var startMonth = ("0" + (startDate.getMonth() + 1)).slice(-2);
-  // var startDay = ("0" + startDate.getDate()).slice(-2);
-  // var fromDate = startYear + "-" + startMonth + "-" + startDay;
-  // /**endDate yyyy-MM-dd형식으로 변경 */
-  // var endYear = endDate.getFullYear();
-  // var endMonth = ("0" + (endDate.getMonth() + 1)).slice(-2);
-  // var endDay = ("0" + endDate.getDate()).slice(-2);
-  // var toDate = endYear + "-" + endMonth + "-" + endDay;
-
   const [goodImage, setGoodImage] = useState(blankImg);
   const [badImage, setBadImage] = useState(blankImg);
-
-  // formData.append("mainImg", blob, challengeImage);
-  // formData.append("explainImg", blob, goodImage);
-  // formData.append("explainImg", blob, badImage);
-  // console.log(formData);
-
-  // useEffect(() => {
-  //   Api.post("title").then((req) => title);
-  //   Api.post("method").then((req) => method);
-  //   Api.post("description").then((req) => description);
-  //   Api.post("fromDate").then((req) => fromDate);
-  //   Api.post("toDate").then((req) => toDate);
-  //   Api.post("mainImg").then((req) => challengeImage);
-  //   Api.post("explainImg").then((req) => goodImage);
-  //   Api.post("explainImg").then((req) => badImage);
-  // }, []);
-  // console.log()
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -160,15 +132,6 @@ const CreateChallenge = () => {
     // }).then(function () {
     //   navigate("/network", { replace: true });
     // });
-    // const formData = new FormData();
-    // formData.append("title", title);
-    // formData.append("method", method);
-    // formData.append("description", description);
-    // formData.append("fromDate", fromDate);
-    // formData.append("toDate", toDate);
-    // formData.append("mainImg", challengeImage);
-    // formData.append("explainImg", goodImage);
-    // formData.append("explainImg", badImage);
   };
 
   return (

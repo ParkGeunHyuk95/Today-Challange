@@ -1,4 +1,4 @@
-import React, { useState, useRef, forwardRef } from "react";
+import React, { useState, useRef, forwardRef, useEffect } from "react";
 import blankImg from "../../images/createChallengePage/blankImg.png";
 import sad from "../../images/createChallengePage/sad.png";
 import badImg from "../../styles/createChallenge/BadImg.css";
@@ -7,8 +7,8 @@ const BadImg = ({ badImage, setBadImage, formData }) => {
   const fileInput = useRef(null);
   const onChangeBadImage = (e) => {
     if (e.target.files[0]) {
-      formData.append("explainImg", e.target.files[0]);
-      // setBadImage(e.target.files[0]);
+      // formData.append("explainImg", e.target.files[0]);
+      setBadImage(e.target.files[0]);
     } else {
       //업로드 취소할 시
       setBadImage(blankImg);
@@ -26,6 +26,10 @@ const BadImg = ({ badImage, setBadImage, formData }) => {
     };
     reader.readAsDataURL(e.target.files[0]);
   };
+
+  useEffect(() => {
+    formData.append("explainImg", badImage);
+  });
   return (
     <>
       <div className="checkImgInner">

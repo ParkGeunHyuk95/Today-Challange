@@ -1,4 +1,4 @@
-import React, { useCallback, useState, useRef } from "react";
+import React, { useCallback, useState, useRef, useEffect } from "react";
 import styled from "styled-components";
 import challengeInfo from "../../styles/createChallenge/challengeInfo.css";
 import DatePicker from "react-datepicker";
@@ -6,11 +6,12 @@ import "react-datepicker/dist/react-datepicker.css";
 import { ko } from "date-fns/esm/locale";
 import { addDays } from "date-fns";
 import { excludeDateIntervals } from "date-fns";
-import { ConsoleSqlOutlined } from "@ant-design/icons";
+// import { useDebouncedValue } from "./useDebouncedValue";
+
 const ChallengeInfo = ({
   setTitle,
   setMethod,
-  setDescription,
+  // setDescription,
   setStartDate,
   setEndDate,
   startDate,
@@ -18,7 +19,7 @@ const ChallengeInfo = ({
   formData,
   title,
   method,
-  description,
+  // description,
 }) => {
   var startYear = startDate.getFullYear();
   var startMonth = ("0" + (startDate.getMonth() + 1)).slice(-2);
@@ -29,25 +30,29 @@ const ChallengeInfo = ({
   var endMonth = ("0" + (endDate.getMonth() + 1)).slice(-2);
   var endDay = ("0" + endDate.getDate()).slice(-2);
   var toDate = endYear + "-" + endMonth + "-" + endDay;
+  const [description, setDescription] = useState("");
   const ref = useRef(null);
-  let timer;
+
   const onStartDate = (data) => {
     setStartDate(data);
   };
   const onEndDate = (data) => {
     setEndDate(data);
   };
-  const useDebouncedEffect = (func, delay, deps) => {
-    const callback = useCallback(func, deps);
+  const handleSetValue = (e) => {
+    const text = ref.current.value;
+    setDescription(text);
   };
-  const onChangeHandler = (e) => {};
-  console.log("descroption", description);
-  console.log("title", title);
-  formData.append("title", title);
-  formData.append("method", method);
-  formData.append("description", description);
-  formData.append("fromDate", fromDate);
-  formData.append("toDate", toDate);
+
+  useEffect(() => {
+    formData.append("title :", title);
+    formData.append("method :", method);
+    formData.append("description :", description);
+    formData.append("fromDate :", fromDate);
+    formData.append("toDate :", toDate);
+  }, []);
+
+  console.log("description in Info :", description);
   return (
     <>
       <div className="inner">
@@ -68,8 +73,10 @@ const ChallengeInfo = ({
         <textarea
           className="description"
           ref={ref}
-          onChange={(e) => setDescription(...description, e.target.value)}
+          value={description}
+          onChange={handleSetValue}
           placeholder=" 조깅을 하면서 쓰레기를 줍는 활동 "
+          maxLength={450}
         ></textarea>
 
         <span className="infoSpan">기간(시작일 ~ 종료일)</span>
