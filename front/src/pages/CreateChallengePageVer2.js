@@ -15,9 +15,9 @@ import happy from "../images/createChallengePage/happy.png";
 import { addDays } from "date-fns";
 import sad from "../images/createChallengePage/sad.png";
 import Swal from "sweetalert2";
-import { post } from "../api";
-
+import * as Api from '../api'
 const CreateChallenge = () => {
+  
   const navigate = useNavigate("/");
   const userState = useContext(UserStateContext);
   const [user, setUsers] = useState([]);
@@ -166,7 +166,13 @@ const CreateChallenge = () => {
           Authorization: `Bearer ${sessionStorage.getItem("accessToken")}`,
         },
       });
+      const postChallengeId=res.data.newChallenge.challengeId
       console.log("res : ", res);
+      
+      await Api.post('userToChallenge',{
+        "challengeId":postChallengeId
+      })
+      
       if (res.status === 200 || res.status === 201) {
         Swal.fire({
           position: "top-center",
