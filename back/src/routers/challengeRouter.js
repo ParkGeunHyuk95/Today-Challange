@@ -21,7 +21,7 @@ challengeRouter.post("/", loginRequired, multiImg, async (req, res, next) => {
     const mainImg = image.main[0];
     const explainImg = image.explain;
     const explainImgOriginalname = explainImg.map((img) => img.originalname);
-    const explainImgPath = explainImg.map((img) => img.Path);
+    const explainImgPath = explainImg.map((img) => img.path);
 
     const PORT = process.env.SERVER_PORT || 5000;
     const titleImg = mainImg.originalname;
@@ -38,8 +38,8 @@ challengeRouter.post("/", loginRequired, multiImg, async (req, res, next) => {
       description,
       fromDate,
       toDate,
-      mainImg: `${mainImg.path}`,
-      explainImg: `${explainImgPath}`,
+      mainImg: `http://localhost:${PORT}/${titleImg}`,
+      explainImg: `http://localhost:${PORT}/${goodImg},http://localhost:${PORT}/${badImg}`,
       method,
     });
     if (newChallenge.errorMessage) {

@@ -3,7 +3,6 @@ const userRouter = Router();
 import { userService } from "../services/userService";
 import { loginRequired } from "../middlewares/loginRequired";
 import is from "@sindresorhus/is";
-// import multer from "multer";
 import assert from "assert";
 import { config } from "dotenv";
 import { addImage } from "../middlewares/addImage";
