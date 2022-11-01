@@ -159,25 +159,27 @@ const CreateChallenge = () => {
     try {
       res = await axios({
         method: "post",
-        url: "http://localhost:5001/challenges/",
+        url: "http://localhost:5001/challenges",
         data: formData,
-        // headers: {
-        //   "Content-Type": "multipart/form-data",
-        //   Authorization: `Bearer ${sessionStorage.getItem("accessToken")}`,
-        // },
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${sessionStorage.getItem("accessToken")}`,
+        },
       });
       console.log("res : ", res);
+      if (res.status === 200 || res.status === 201) {
+        Swal.fire({
+          position: "top-center",
+          icon: "success",
+          text: "챌린지 생성 성공",
+        }).then(function () {
+          navigate("/network", { replace: true });
+        });
+      }
     } catch (err) {
       //handle fail
       console.log("챌린지 생성 실패", err);
     }
-    // Swal.fire({
-    //   position: "top-center",
-    //   icon: "success",
-    //   text: "챌린지 생성 성공",
-    // }).then(function () {
-    //   navigate("/network", { replace: true });
-    // });
   };
 
   return (
