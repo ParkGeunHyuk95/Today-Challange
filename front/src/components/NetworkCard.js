@@ -3,18 +3,19 @@ import Card from "react-bootstrap/Card";
 import "../styles/network/networkcard.css";
 import ChallengeDetailModal from "./ChallengeDetailModal/ChallengeDetailModal";
 import UserLike from "./UserLike";
-import * as Api from '../api'
+import * as Api from "../api";
 const NetworkCard = ({ item, countPerson }) => {
-  const getDateDiff=(d1,d2)=>{
-    const date1=new Date(d1);
-    const date2=new Date(d2);
-    const diffDate=date1.getTime()-date2.getTime();
-    return Math.abs(diffDate/(1000*60*60*24));
-  }
+  const getDateDiff = (d1, d2) => {
+    const date1 = new Date(d1);
+    const date2 = new Date(d2);
+    const diffDate = date1.getTime() - date2.getTime();
+    return Math.abs(diffDate / (1000 * 60 * 60 * 24));
+  };
   const [challengeDetailModalOpen, setChallengeDetailModalOpen] =
     useState(false);
   const [challengeItem, setChallengeItem] = useState(null);
-  console.log(item)
+  console.log(item);
+  console.log(item.mainImg);
   const showChallengeDetailModalOpen = () => {
     setChallengeDetailModalOpen(true);
     setChallengeItem(item.challengeId);
@@ -24,13 +25,14 @@ const NetworkCard = ({ item, countPerson }) => {
   const month = ("0" + (today.getMonth() + 1)).slice(-2);
   const day = ("0" + today.getDate()).slice(-2);
   const dateString = year + "-" + month + "-" + day;
-  const Id=item.challengeId
-  console.log(Id)
-  const [person,setPerson]=useState()
-    useEffect(()=>{
-      Api.get('countJoinUser',item.challengeId).then((res)=>setPerson(res))
-    },[])
-  console.log(person)
+  const Id = item.challengeId;
+  const mainImg = item.mainImg;
+  console.log(Id);
+  const [person, setPerson] = useState();
+  useEffect(() => {
+    Api.get("countJoinUser", item.challengeId).then((res) => setPerson(res));
+  }, []);
+  console.log(person);
   return (
     <Card
       id="cardBody"
@@ -52,12 +54,12 @@ const NetworkCard = ({ item, countPerson }) => {
         <div className="imageWrap">
           <Card.Img
             className="mb-3"
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRM79qhm5WWiW46jcsrREwPVX87kZygj9CQDw&usqp=CAU"
+            src={mainImg}
             alt="대표 사진"
             onClick={showChallengeDetailModalOpen}
           />
 
-<Card.Title onClick={showChallengeDetailModalOpen}>
+          <Card.Title onClick={showChallengeDetailModalOpen}>
             {item?.title}
           </Card.Title>
 
@@ -70,7 +72,7 @@ const NetworkCard = ({ item, countPerson }) => {
               {item?.fromDate}-{item?.toDate}
             </a>{" "}
           </div>
-          
+
           {challengeDetailModalOpen && (
             <ChallengeDetailModal
               setChallengeDetailModalOpen={setChallengeDetailModalOpen}

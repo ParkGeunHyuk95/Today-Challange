@@ -27,7 +27,7 @@ const CreateChallenge = () => {
   //mainImg
   const [challengeImage, setChallengeImage] = useState({
     image_file: "",
-    preview_URL: "../images/createChallengePage/blankImg.png",
+    preview_URL: blankImg,
   });
 
   {
@@ -57,11 +57,11 @@ const CreateChallenge = () => {
   //goodImg and badImg
   const [goodImage, setGoodImage] = useState({
     image_file: "",
-    preview_URL: "../images/createChallengePage/blankImg.png",
+    preview_URL: blankImg,
   });
   const [badImage, setBadImage] = useState({
     image_file: "",
-    preview_URL: "../images/createChallengePage/blankImg.png",
+    preview_URL: blankImg,
   });
 
   const explainImg = new Array();
@@ -193,8 +193,11 @@ const CreateChallenge = () => {
             <Inner>
               {/**useRef()변수를 생성해서 사진을 클릭하면 파일 업로더를 띄울 수 있도록 onClick함수의 이벤트에 넣어줌 */}
               <div className="mainInner">
-                <img src="" alt=""></img>
-                <form name="mainImg" encType="multipart/form-data">
+                <form
+                  name="mainImg"
+                  encType="multipart/form-data"
+                  accept-charset="UTF-8"
+                >
                   <img
                     className="main"
                     src={challengeImage.preview_URL}
@@ -291,7 +294,11 @@ const CreateChallenge = () => {
                         <img className="icon" src={happy}></img>이렇게
                         찍어주세요!
                       </span>
-                      <form name="explainImg" encType="multipart/form-data">
+                      <form
+                        name="explainImg"
+                        encType="multipart/form-data"
+                        accept-charset="UTF-8"
+                      >
                         <img
                           className="img"
                           src={goodImage.preview_URL}
@@ -319,7 +326,11 @@ const CreateChallenge = () => {
                         <img className="icon" src={sad}></img>이렇게 찍으면
                         안돼요!
                       </span>
-                      <form name="explainImg" encType="multipart/form-data">
+                      <form
+                        name="explainImg"
+                        encType="multipart/form-data"
+                        accept-charset="UTF-8"
+                      >
                         <img
                           className="img"
                           src={badImage.preview_URL}

@@ -27,6 +27,7 @@ const Network = () => {
     Api.get("challenges").then((res) =>
       setChallengeData(res.data.result.reverse())
     );
+
     Api.get("challenges").then((res) =>
       setOriginalData(res.data.result.reverse())
     );
