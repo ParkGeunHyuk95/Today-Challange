@@ -23,9 +23,7 @@ const GoodImg = ({ goodImage, setGoodImage, formData }) => {
     reader.readAsDataURL(e.target.files[0]);
   };
 
-  useEffect(() => {
-    formData.append("explainImg", goodImage);
-  }, []);
+  useEffect(() => {}, []);
   return (
     <>
       <div className="checkImgInner">

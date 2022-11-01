@@ -77,6 +77,7 @@ const UserCard = () => {
           showContent == "정보수정"
             ? setShowContent("취소하기")
             : setShowContent("정보수정");
+            Api.get('currentUser').then((res)=>setName(res.data.name))
         }}
       >
         {showContent}

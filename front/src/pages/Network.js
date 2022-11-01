@@ -15,13 +15,13 @@ const Network = () => {
   const [challengeData, setChallengeData] = useState([]);
   const [originalData, setOriginalData] = useState([]);
   const navigate = useNavigate();
-  const [countPerson,setCountPerson]=useState(0)
+  const [countPerson, setCountPerson] = useState(0);
   const [visible, setVisible] = useState(4);
   const showMoreCards = () => {
     setVisible((preValue) => preValue + 4);
   };
   const click = () => {
-    document.location.href("/CreateChallengePage");
+    document.location.href("/CreateChallengePageVer2");
   };
   useEffect(() => {
     Api.get("challenges").then((res) =>
@@ -30,10 +30,9 @@ const Network = () => {
     Api.get("challenges").then((res) =>
       setOriginalData(res.data.result.reverse())
     );
-    Api.get('countJoinUser').then((res)=>setCountPerson(res.data))
-    
+    Api.get("countJoinUser").then((res) => setCountPerson(res.data));
   }, []);
-  
+
   return (
     <div className="NetworkContainer">
       <NavBar />
@@ -53,7 +52,7 @@ const Network = () => {
         <button
           className="challangePostButton"
           onClick={() => {
-            navigate("/network/pages/CreateChallengePage");
+            navigate("/network/pages/CreateChallengePageVer2");
           }}
         >
           추가
