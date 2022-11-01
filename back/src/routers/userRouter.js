@@ -152,10 +152,11 @@ userRouter.put(
       if (req.body.img === undefined) {
         return res.status(400).send("이미지가 존재하지 않습니다.");
       }
+      const PORT = process.env.SERVER_PORT || 5000;
 
       const EditImg = await userService.updateUserImg({
         userId,
-        img: `http://localhost:5001/${fileName}`,
+        img: `http://localhost:${PORT}/${fileName}`,
       });
       res.status(200).json({ EditImg });
     } catch (error) {
