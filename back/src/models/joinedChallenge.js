@@ -14,7 +14,8 @@ class joinedChallenge {
   }
   // 인증 업로드 코드
   static async create({ id, userId, countUploads, image, description }) {
-    const addedImage = `uploads/${image}`;
+    const PORT = process.env.SERVER_PORT || 5000;
+    const addedImage = `http://localhost:${PORT}/${image}`;
     const createdChallenge = await prisma.joinedChallenge.create({
       data: {
         user: {
