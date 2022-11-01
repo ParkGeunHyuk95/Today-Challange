@@ -2,7 +2,7 @@ const { PrismaClient } = require("@prisma/client");
 
 const prisma = new PrismaClient();
 
-class challenge {
+class Challenge {
   // create/ post
   static async create({ newChallenge }) {
     console.log(newChallenge.explainImg);
@@ -80,4 +80,4 @@ class challenge {
     return challenge;
   }
 }
-export { challenge };
+export { Challenge };

@@ -17,16 +17,11 @@ challengeRouter.post("/", loginRequired, multiImg, async (req, res, next) => {
 
     const { title, description, fromDate, toDate, method } = req.body;
     const image = req.files;
-    // console.log("image:", image);
     const mainImg = image.main[0];
     const explainImg = image.explain;
-    const explainImgOriginalname = explainImg.map((img) => img.originalname);
-    const explainImgPath = explainImg.map((img) => img.path);
+    const explainImgFilename = explainImg.map((img) => img.filename);
 
     const PORT = process.env.SERVER_PORT || 5000;
-    const titleImg = mainImg.originalname;
-    const goodImg = explainImgOriginalname[0];
-    const badImg = explainImgOriginalname[1];
 
     if (image === undefined) {
       return res.status(400).send("이미지가 존재하지 않습니다.");
@@ -38,8 +33,8 @@ challengeRouter.post("/", loginRequired, multiImg, async (req, res, next) => {
       description,
       fromDate,
       toDate,
-      mainImg: `http://localhost:${PORT}/${titleImg}`,
-      explainImg: `http://localhost:${PORT}/${goodImg},http://localhost:${PORT}/${badImg}`,
+      mainImg: `http://localhost:${PORT}/${mainImg.filename}`,
+      explainImg: `http://localhost:${PORT}/${explainImgFilename[0]},http://localhost:${PORT}/${explainImgFilename[1]}`,
       method,
     });
     if (newChallenge.errorMessage) {
@@ -51,7 +46,6 @@ challengeRouter.post("/", loginRequired, multiImg, async (req, res, next) => {
   }
 });
 
-// 에러남
 //2. Get (전체) 로그인 필수 X
 challengeRouter.get("/", async (req, res) => {
   const result = await challengeService.getChallenges();
@@ -90,10 +84,11 @@ challengeRouter.put("/:id", multiImg, loginRequired, async (req, res, next) => {
     const mainImg = image.main[0];
 
     const explainImg = image.explain;
-    const explainImgPath = explainImg.map((img) => img.path);
+    const explainImgFilename = explainImg.map((img) => img.filename);
 
-    const titleImg = `${mainImg.path}`;
-    const explainImgs = `${explainImgPath}`;
+    const titleImg = `${mainImg.filename}`;
+    const explainImgs = `${explainImgFilename}`;
+
     if (image === undefined) {
       return res.status(400).send("cannot find image.");
     }

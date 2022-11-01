@@ -14,7 +14,7 @@ joinedChallengeRouter.post(
   async (req, res, next) => {
     try {
       const userId = req.currentUserId;
-      const image = req.file.path;
+      const image = req.file.filename;
 
       const { description } = req.body;
 

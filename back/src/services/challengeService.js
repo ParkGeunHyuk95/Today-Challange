@@ -1,4 +1,4 @@
-import { challenge } from "../models/challenge";
+import { Challenge } from "../models/Challenge";
 
 class challengeService {
   // create/ post
@@ -22,7 +22,7 @@ class challengeService {
       explainImg,
       method,
     };
-    const createdChallenge = await challenge.create({
+    const createdChallenge = await Challenge.create({
       newChallenge,
     });
     return createdChallenge;
@@ -30,13 +30,13 @@ class challengeService {
 
   // 전체 불러오기 (get)
   static async getChallenges() {
-    const challenges = await challenge.findMany();
+    const challenges = await Challenge.findMany();
     return challenges;
   }
 
   // id 값을 게시물 1개 선택하기(params 값을 이용)
   static async findUniqueUser(id) {
-    const findId = await challenge.findUniqueId(id);
+    const findId = await Challenge.findUniqueId(id);
     if (!findId) {
       const error = new Error("invalid id");
       throw error;
@@ -45,7 +45,7 @@ class challengeService {
   }
   // id 값을 게시물 1개 선택하기(params 값을 이용)
   static async findUniqueId(id) {
-    const findId = await challenge.findUnique(id);
+    const findId = await Challenge.findUnique(id);
     if (!findId) {
       const error = new Error("invalid id");
       throw error;
@@ -55,7 +55,7 @@ class challengeService {
 
   // Delete
   static async deleteOne(id) {
-    const deleteChallenge = await challenge.delete(id);
+    const deleteChallenge = await Challenge.delete(id);
 
     return deleteChallenge;
   }
@@ -71,7 +71,7 @@ class challengeService {
     titleImg,
     explainImgs,
   }) {
-    const updated = await challenge.update({
+    const updated = await Challenge.update({
       id,
       title,
       description,
@@ -85,7 +85,7 @@ class challengeService {
   }
 
   static async addImage(id, addedImage) {
-    const createdChallenge = await challenge.create({
+    const createdChallenge = await Challenge.create({
       id,
       addedImage,
     });
