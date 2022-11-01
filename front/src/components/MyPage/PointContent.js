@@ -5,14 +5,15 @@ import arrow_drop_down from "../../images/myPage/arrow_drop_down.svg";
 
 const Border = styled.div`
   margin-left: 120px;
-  weight: 100px;
+  width: 90%;
 `;
-const Title = styled.h2`
+const ChallengeName = styled.h2`
   font-size: 25px;
   font-family: "Nanum Gothic", sans-serif;
   text-align: left;
-  margin-top: 100px;
-  margin-left: 100px;
+  padding-top: 40px;
+  display: flex;
+  flex-direction: row;
 `;
 
 const Inner = styled.div`
@@ -25,10 +26,18 @@ const Inner = styled.div`
 `;
 
 const PointTitle = styled.div`
+  font-family: "Nanum Gothic", sans-serif;
+  font-size: 28px;
   display: flex;
   flex-direction: row;
-
   align-item: center;
+  margin-top: 40px;
+`;
+
+const ArrowDropImg = styled.img`
+  width: 35px;
+  height: 35px;
+  margin-right: 10px;
 `;
 
 const ChallengeTitle = styled.h3`
@@ -39,7 +48,6 @@ const ChallengeTitle = styled.h3`
 `;
 
 const JoinedChallengePoint = styled.div`
-  weight: 100%;
   padding-right: 20%;
 `;
 
@@ -47,40 +55,37 @@ const EachJoinedChallenge = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  width: 95%;
 `;
 
-const JoinedChallengeDetail = styled.h3`
+const JoinedChallengeDate = styled.h3`
+  padding-left: 50px;
   font-size: 20px;
   font-weight: bold;
   font-family: "Nanum Gothic", sans-serif;
 `;
 
-const Description = styled.h4`
+const JoinedChallengeDetail = styled.h3`
+  padding-right: 30px;
+  margin-bottom: 10px;
   font-size: 20px;
+  font-weight: bold;
   font-family: "Nanum Gothic", sans-serif;
-  text-align: left;
-  margin-top: 5px;
-  margin-bottom: 50px;
 `;
-const ChallengeCreatePoint = styled.h5`
+
+const MinusPoint = styled.h5`
   font-size: 20px;
   font-weight: bold;
   color: red;
   font-family: "Nanum Gothic", sans-serif;
-  margin-top: 15px;
-
-  display: flex;
-  flex-direction: column;
-  align-item: center;
+  padding-top: 45px;
 `;
+
 const Point = styled.h5`
   font-size: 20px;
   font-weight: bold;
   color: #6a71e6;
   font-family: "Nanum Gothic", sans-serif;
-  // text-align: right;
-  margin-top: 15px;
-  // padding-right: 150%;
 `;
 
 const Each = styled.div`
@@ -95,7 +100,7 @@ const Each = styled.div`
   }
 `;
 
-const StyledButton = styled.button`
+const ShoeMorePointButton = styled.button`
   background-color: #6a71e6;
   color: #ffffff;
   font-size: 25px;
@@ -110,6 +115,7 @@ const StyledButton = styled.button`
 const CreateFont = styled.h2`
   padding: 0.2em 2em;
 `;
+
 const data2 = [
   {
     challengeId: 5,
@@ -167,25 +173,23 @@ const PointContent = () => {
   return (
     <>
       <Border>
-        <Title>포인트 획득 내역</Title>
+        <PointTitle>포인트 획득 내역</PointTitle>
         <Inner>
           {data2.map((x, i) => {
             return (
               <Each>
-                <PointTitle className="item">
-                  <img src={arrow_drop_down}></img>
+                <ChallengeName className="item">
+                  <ArrowDropImg src={arrow_drop_down}></ArrowDropImg>
                   <ChallengeTitle>
                     {data2[i].title}({data2[i].fromDate}~{data2[i].toDate})
                   </ChallengeTitle>
-                </PointTitle>
-                <ChallengeCreatePoint className="item">
-                  -50
-                </ChallengeCreatePoint>
+                </ChallengeName>
+                <MinusPoint className="item">-50</MinusPoint>
                 <JoinedChallengePoint className="item">
                   {[1, 2, 3].map((x) => {
                     return (
                       <EachJoinedChallenge>
-                        <JoinedChallengeDetail>22.11.01</JoinedChallengeDetail>
+                        <JoinedChallengeDate>22.11.01</JoinedChallengeDate>
                         <JoinedChallengeDetail>
                           포인트 획득
                         </JoinedChallengeDetail>
@@ -198,9 +202,9 @@ const PointContent = () => {
             );
           })}
         </Inner>
-        <StyledButton>
+        <ShoeMorePointButton>
           <CreateFont>더보기</CreateFont>
-        </StyledButton>
+        </ShoeMorePointButton>
       </Border>
     </>
   );
