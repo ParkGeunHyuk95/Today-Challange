@@ -11,6 +11,7 @@ import SignUpModal from "./components/signUpModal/SignUpModal";
 import ChallengeDetailModal from "./components/ChallengeDetailModal/ChallengeDetailModal";
 import MyPage from "./pages/MyPage";
 import CreateChallenge from "./pages/CreateChallengePage";
+import CreateChallengeVer2 from "./pages/CreateChallengePageVer2";
 import CheckChallenge from "./pages/CheckChallenge";
 export const UserStateContext = createContext(null);
 export const DispatchContext = createContext(null);
@@ -80,12 +81,16 @@ function App() {
             <Route path="/login" element={<LoginModal />} />
             <Route path="/login/signup" element={<SignUpModal />} />
             <Route path="/mypage" element={<MyPage />} />
-            <Route
+            {/* <Route
               path="/network/pages/CreateChallengePage"
               element={<CreateChallenge />}
+            /> */}
+            <Route
+              path="/network/pages/CreateChallengePageVer2"
+              element={<CreateChallengeVer2 />}
             />
             <Route path="/ChallengeDetail" element={<ChallengeDetailModal />} />
-            <Route path="/checkChallenge/:id" element={<CheckChallenge/>} />
+            <Route path="/checkChallenge/:id" element={<CheckChallenge />} />
           </Routes>
         </Router>
       </UserStateContext.Provider>
