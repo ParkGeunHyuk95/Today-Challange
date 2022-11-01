@@ -24,7 +24,7 @@ const GoodImg = ({ goodImage, setGoodImage, formData }) => {
   };
 
   useEffect(() => {
-    formData.append("explainImg", goodImage);
+    formData.append("explainImg[0]", goodImage);
   }, []);
   return (
     <>

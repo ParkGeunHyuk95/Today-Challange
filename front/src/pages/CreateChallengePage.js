@@ -104,27 +104,32 @@ const CreateChallenge = () => {
   const formData = new FormData();
   const [goodImage, setGoodImage] = useState(blankImg);
   const [badImage, setBadImage] = useState(blankImg);
-
+  const explainImg = new Array();
   const handleSubmit = (e) => {
     e.preventDefault();
-    let res = {};
-
-    for (let key of formData.entries()) {
-      console.log({ key });
+    // for (let key of formData.entries()) {
+    //   console.log({ key });
+    // }
+    for (let keyValue of formData) {
+      console.log("keyValue -> ", keyValue);
     }
-    try {
-      axios({
-        method: "post",
-        url: "http://localhost:5001/challenges/",
-        data: formData,
-        headers: {
-          "Content-Type": "multipart/form-data",
-          Authorization: `Bearer ${sessionStorage.getItem("accessToken")}`,
-        },
+    axios({
+      method: "post",
+      url: "http://localhost:5001/challenges/",
+      data: formData,
+      headers: {
+        "Content-Type": "multipart/form-data",
+        Authorization: `Bearer ${sessionStorage.getItem("accessToken")}`,
+      },
+    })
+      .then(function (res) {
+        //handle success
+        console.log("res :", res);
+      })
+      .catch(function (err) {
+        //handle fail
+        console.log("챌린지 생성 실패", err);
       });
-    } catch (err) {
-      console.log("챌린지 생성 실패", err);
-    }
     // Swal.fire({
     //   position: "top-center",
     //   icon: "success",
@@ -169,11 +174,13 @@ const CreateChallenge = () => {
                   formData={formData}
                   goodImage={goodImage}
                   setGoodImage={setGoodImage}
+                  explainImg={explainImg}
                 ></GoodImg>
                 <BadImg
                   formData={formData}
                   badImage={badImage}
                   setBadImage={setBadImage}
+                  explainImg={explainImg}
                 ></BadImg>
               </CheckImg>
             </InnerCheckImg>
