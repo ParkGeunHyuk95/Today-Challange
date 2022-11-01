@@ -76,9 +76,10 @@ const NetworkCard = ({ item, countPerson }) => {
           {challengeDetailModalOpen && (
             <ChallengeDetailModal
               setChallengeDetailModalOpen={setChallengeDetailModalOpen}
+              item={item}
             />
           )}
-          {<challengeDetailModal setChallengeItem={setChallengeItem} />}
+         
         </div>
       </Card.Body>
     </Card>

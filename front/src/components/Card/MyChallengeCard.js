@@ -60,6 +60,7 @@ const MychallengeCard = ({ item }) => {
           >
             인증하기
           </button>
+          <button className="editButton">수정하기</button>
           
         </div>
       </Card.Body>
