@@ -94,6 +94,16 @@ const NavBar = () => {
           <li className="nav-item">
             <a
               onClick={() => {
+                navigate("/chat");
+              }}
+              className="nav-link aNav"
+            >
+              Chat
+            </a>
+          </li>
+          <li className="nav-item">
+            <a
+              onClick={() => {
                 navigate("/mypage");
               }}
               href="#"

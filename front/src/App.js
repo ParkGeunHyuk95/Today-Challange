@@ -13,6 +13,7 @@ import MyPage from "./pages/MyPage";
 import CreateChallenge from "./pages/CreateChallengePage";
 import CreateChallengeVer2 from "./pages/CreateChallengePageVer2";
 import CheckChallenge from "./pages/CheckChallenge";
+import Chat from "./pages/Chat";
 export const UserStateContext = createContext(null);
 export const DispatchContext = createContext(null);
 
@@ -81,6 +82,7 @@ function App() {
             <Route path="/login" element={<LoginModal />} />
             <Route path="/login/signup" element={<SignUpModal />} />
             <Route path="/mypage" element={<MyPage />} />
+            <Route path="/chat" element={<Chat />} />
             {/* <Route
               path="/network/pages/CreateChallengePage"
               element={<CreateChallenge />}
