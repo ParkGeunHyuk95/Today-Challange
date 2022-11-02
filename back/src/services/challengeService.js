@@ -65,21 +65,21 @@ class challengeService {
     id,
     title,
     description,
-    method,
     fromDate,
     toDate,
-    titleImg,
-    explainImgs,
+    main,
+    explain,
+    method,
   }) {
     const updated = await Challenge.update({
       id,
       title,
       description,
-      method,
       fromDate,
       toDate,
-      titleImg,
-      explainImgs,
+      main,
+      explain,
+      method,
     });
     return updated;
   }

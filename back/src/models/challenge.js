@@ -37,11 +37,11 @@ class Challenge {
     id,
     title,
     description,
-    method,
     fromDate,
     toDate,
-    titleImg,
-    explainImgs,
+    main,
+    explain,
+    method,
   }) {
     const renewChallenge = await prisma.challenge.update({
       where: {
@@ -53,8 +53,8 @@ class Challenge {
         method: method,
         fromDate: fromDate,
         toDate: toDate,
-        mainImg: titleImg,
-        explainImg: explainImgs,
+        mainImg: main,
+        explainImg: explain,
       },
     });
 
