@@ -41,6 +41,7 @@ model user {
   password         String            @db.VarChar(100)
   withdrawal       Int               @default(0) @db.TinyInt
   img              String?           @db.Text
+  chat             chat[]
   joinedChallenges joinedChallenge[]
   liked            liked[]
   refreshToken     refreshToken?
@@ -65,6 +66,7 @@ model challenge {
   explainImg       String            @db.Text
   createdAt        DateTime          @default(now())
   updatedAt        DateTime          @updatedAt
+  chat             chat[]
   joinedChallenges joinedChallenge[]
   liked            liked[]
   userToChallenge  userToChallenge[]
@@ -75,6 +77,8 @@ model joinedChallenge {
   countUpload Int
   addedImage  String    @db.Text
   description String
+  createAt    DateTime  @default(now())
+  updateAt    DateTime  @updatedAt
   userId      String    @db.VarChar(50)
   chalngId    Int
   challenges  challenge @relation(fields: [chalngId], references: [challengeId])
@@ -82,4 +86,18 @@ model joinedChallenge {
 
   @@index([chalngId], map: "joinedChallenge_chalngId_fkey")
   @@index([userId], map: "joinedChallenge_userId_fkey")
+}
+
+model chat {
+  chatId      Int       @id @unique @default(autoincrement())
+  content     String    @db.VarChar(500)
+  createAt    DateTime  @default(now())
+  userId      String    @db.VarChar(50)
+  name        String    @db.VarChar(10)
+  challengeId Int
+  challenge   challenge @relation(fields: [challengeId], references: [challengeId])
+  user        user      @relation(fields: [userId], references: [userId])
+
+  @@index([userId], map: "chat_userId_fkey")
+  @@index([challengeId], map: "chat_challengeId_fkey")
 }
