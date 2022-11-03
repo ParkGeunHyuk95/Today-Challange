@@ -15,6 +15,7 @@ import { UserStateContext } from "../../App";
 import * as Api from "../../api";
 import Swal from "sweetalert2";
 import UserLike from "../UserLike";
+import { AppContext } from "../../Context/AppContext";
 
 function ChallengeDetailModal({
   setChallengeDetailModalOpen,
@@ -32,7 +33,19 @@ function ChallengeDetailModal({
     return Math.abs(diffDate/(1000*60*60*24));
   }
   let dif=getDateDiff(item.fromDate,item.toDate)
-  
+  const {socket,room,setRoom,messages,setMessages}=useContext(AppContext)
+  const handleRoomSubmit=(e)=>{
+    e.preventDefault();
+    socket.emit('enterRoom',item.title,()=>{
+      console.log('server is done!');
+      setRoom(item.title)
+    socket.on('welcome',()=>{
+      setMessages('Someone Joined!')
+      
+    })
+    })
+  }
+  console.log(messages)
   useEffect(()=>{
     Api.get('/countJoinUser', {
       'challengeId': item.challengeId
@@ -136,7 +149,7 @@ function ChallengeDetailModal({
               </div>
             </div>
 
-            <button className="challengeJoinBtn" type="submit">
+            <button className="challengeJoinBtn" type="submit" onClick={handleRoomSubmit}>
               참가하기
             </button>
           </div>

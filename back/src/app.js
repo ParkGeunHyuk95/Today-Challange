@@ -31,8 +31,8 @@ io.on("connection", (socket) => {
   console.log(socket);
   // });
   //   // // socket room name == socket id
-  //   // socket.on("room",(msg,done)=>{
-  //   //   console.log(msg)
+    // socket.on("room",(msg,done)=>{
+    //   console.log(msg)
   //   socket.on("enterRoom", (roomName, done) => {
   //     socket.join(roomName);
   //     done();
@@ -56,6 +56,11 @@ io.on("connection", (socket) => {
       // done();
       console.log(msg)
     });
+    socket.on('enterRoom',(roomName,done)=>{
+      socket.join(roomName);
+      done();
+      socket.to(roomName).emit('welcome');
+    })
   //   socket.on("nickname", (nickname) => (socket["nickname"] = nickname));
 });
 server.listen(5002, () => {
