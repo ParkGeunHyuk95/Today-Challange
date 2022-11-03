@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import * as Api from "./api";
 import { loginReducer } from "./reducer";
-
+import { AppContext, socket } from "./Context/AppContext";
 import MainPage from "./pages/MainPage";
 import Network from "./pages/Network";
 import LoginModal from "./components/LoginModal/LoginModal";
@@ -13,10 +13,16 @@ import MyPage from "./pages/MyPage";
 import CreateChallenge from "./pages/CreateChallengePage";
 import CreateChallengeVer2 from "./pages/CreateChallengePageVer2";
 import CheckChallenge from "./pages/CheckChallenge";
+import Chat from "./pages/Chat";
 export const UserStateContext = createContext(null);
 export const DispatchContext = createContext(null);
 
 function App() {
+  const [room,setRoom]=useState()
+  const [rooms, setRooms] = useState([]);
+  const [currentRoom, setCurrentRoom] = useState([]);
+  const [messages, setMessages] = useState([]);
+  const [newMessages, setNewMessages] = useState({});
   // useReducer 훅을 통해 userState 상태와 dispatch함수를 생성함.
   const [userState, dispatch] = useReducer(loginReducer, {
     user: null,
@@ -70,31 +76,49 @@ function App() {
     console.log("로딩");
     return "loading...";
   }
-
+  
   return (
-    <DispatchContext.Provider value={dispatch}>
-      <UserStateContext.Provider value={userState}>
-        <Router>
-          <Routes>
-            <Route path="/" exact element={<MainPage />} />
-            <Route path="/network" exact element={<Network />} />
-            <Route path="/login" element={<LoginModal />} />
-            <Route path="/login/signup" element={<SignUpModal />} />
-            <Route path="/mypage" element={<MyPage />} />
-            {/* <Route
+    <AppContext.Provider
+      value={{
+        socket,
+        currentRoom,
+        setCurrentRoom,
+        messages,
+        setMessages,
+        rooms,
+        setRooms,
+        newMessages,
+        setNewMessages,
+      }}
+    >
+      <DispatchContext.Provider value={dispatch}>
+        <UserStateContext.Provider value={userState}>
+          <Router>
+            <Routes>
+              <Route path="/" exact element={<MainPage />} />
+              <Route path="/network" exact element={<Network />} />
+              <Route path="/login" element={<LoginModal />} />
+              <Route path="/login/signup" element={<SignUpModal />} />
+              <Route path="/mypage" element={<MyPage />} />
+              <Route path="/chat" element={<Chat />} />
+              {/* <Route
               path="/network/pages/CreateChallengePage"
               element={<CreateChallenge />}
             /> */}
-            <Route
-              path="/network/pages/CreateChallengePageVer2"
-              element={<CreateChallengeVer2 />}
-            />
-            <Route path="/ChallengeDetail" element={<ChallengeDetailModal />} />
-            <Route path="/checkChallenge/:id" element={<CheckChallenge />} />
-          </Routes>
-        </Router>
-      </UserStateContext.Provider>
-    </DispatchContext.Provider>
+              <Route
+                path="/network/pages/CreateChallengePageVer2"
+                element={<CreateChallengeVer2 />}
+              />
+              <Route
+                path="/ChallengeDetail"
+                element={<ChallengeDetailModal />}
+              />
+              <Route path="/checkChallenge/:id" element={<CheckChallenge />} />
+            </Routes>
+          </Router>
+        </UserStateContext.Provider>
+      </DispatchContext.Provider>
+    </AppContext.Provider>
   );
 }
 
