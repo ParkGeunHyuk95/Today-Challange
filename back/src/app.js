@@ -27,6 +27,7 @@ io.on("connection", (socket) => {
   socket.on("enterRoom", (roomName, done) => {
     socket.join(roomName);
     done();
+    socket.to(roomName).emit(roomName);
     // //backend에서 func호출, frontEnd에서 실행
     // setTimeout(()=>{
     //   done()

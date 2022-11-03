@@ -10,7 +10,8 @@ class likedService {
     if (filter[0] !== undefined) {
       const likedId = filter[0].likedId;
       await Liked.removeLiked({ likedId });
-      // return;
+      const errorMessage = "liked 해제";
+      return errorMessage;
     } else {
       await Liked.createLiked({ likedId, userId, challengeId });
     }
