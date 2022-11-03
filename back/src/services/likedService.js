@@ -15,7 +15,8 @@ class likedService {
       await Liked.createLiked({ likedId, userId, challengeId });
     }
 
-    const getLiked = await Liked.getLikedCount({ challengeId });
+    const getLiked = await Liked.likedCount({ challengeId });
+    console.log(getLiked);
     return getLiked;
     // return addLiked;
   }

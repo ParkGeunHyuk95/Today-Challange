@@ -56,6 +56,15 @@ class Liked {
     // console.log("liked List model:", likedList.userId);
     return likedList;
   }
+  static async likedCount({ challengeId }) {
+    const likedList = await prisma.liked.count({
+      where: {
+        challengeId: Number(challengeId),
+      },
+    });
+    // console.log("liked List model:", likedList.userId);
+    return likedList;
+  }
 }
 
 export { Liked };

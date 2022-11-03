@@ -8,9 +8,11 @@ likedRouter.post("/liked", loginRequired, async (req, res, next) => {
   try {
     const userId = req.currentUserId;
     const challengeId = req.body.challengeId;
-    console.log(challengeId);
+    // console.log(challengeId);
     const liked = await likedService.createLiked({ userId, challengeId });
     const count = liked.toString();
+    console.log("router count----", count);
+    console.log("router liked----", liked);
     res.status(201).send(count);
   } catch (error) {
     next(error);
