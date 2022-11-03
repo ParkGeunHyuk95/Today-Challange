@@ -37,13 +37,18 @@ function UserLike({ challengeId }) {
   return (
     <div>
       <div
-        onClick={(e) => {
-         e.preventDefault()
-          Api.post("liked", {
+        onClick={async() => {
+          let res={}
+         
+          res=await Api.post("liked", {
             challengeId,
-          }).then((res)=> res=='실패'? setLikeStatus(false):  setCountLike(res.data)) 
+          })
+          {
+            res?.data==='liked 해제'? setLikeStatus(false): setLikeStatus(true)
+          }
+          setCountLike(res.data)
           // checkUserId==myId ? setLikeStatus(false): setLikeStatus(true)
-          
+         
         }}
         id="userLike"
         className="likeButton"
