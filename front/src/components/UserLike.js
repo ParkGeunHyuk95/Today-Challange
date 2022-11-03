@@ -5,10 +5,10 @@ import likeimg from "../images/userLiked/like.png";
 import likedimg from "../images/userLiked/liked.png";
 import "../styles/network/userLike.css";
 function UserLike({ challengeId }) {
-  const [likeImoticon, setLikeImoticon] = useState(false);
+  
   const [countLike, setCountLike] = useState("0");
   // const myId = 1;
-  const [myId,setMyid]=useState('')
+  const [myId,setMyid]=useState(null)
   const [likeStatus, setLikeStatus] = useState(false);
   const [checkUserId, setCheckUserId] = useState("");
 //      useEffect(()=>{
@@ -17,18 +17,22 @@ function UserLike({ challengeId }) {
 //   })
 // },[])
   useEffect(()=>{
+    
     Api.get('currentUser').then((res)=>setMyid(res.data.userId))
     Api.get(`likedCount/${challengeId}`).then((res) =>
     setCountLike(res.data.length))
-    Api.get(`likedCount/${challengeId}`).then((res)=>(res.data.forEach(x => {
-     x.userId === myId && setLikeStatus(true)
-    })))
+   
   },[])
   useEffect(()=>{
     Api.get(`likedCount/${challengeId}`).then((res) =>
     setCountLike(res.data.length))
   },[countLike])
   
+  useEffect(()=>{
+    Api.get(`likedCount/${challengeId}`).then((res)=>(res.data.forEach(x => {
+      x.userId === myId && setLikeStatus(true)
+     })))
+  },[myId])
   
   return (
     <div>
@@ -37,10 +41,9 @@ function UserLike({ challengeId }) {
          e.preventDefault()
           Api.post("liked", {
             challengeId,
-          }).then((res)=> res=='실패'? null: setCountLike(res.data))
+          }).then((res)=> res=='실패'? setLikeStatus(false):  setCountLike(res.data)) 
           // checkUserId==myId ? setLikeStatus(false): setLikeStatus(true)
-          console.log('1',checkUserId)
-          console.log('2',myId)
+          
         }}
         id="userLike"
         className="likeButton"
