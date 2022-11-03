@@ -13,25 +13,29 @@ function UserLike({ challengeId }) {
   const [checkUserId, setCheckUserId] = useState("");
   useEffect(()=>{
     Api.get('currentUser').then((res)=>setMyid(res.data.userId))
-    Api.get('liked').then((res)=>setCheckUserId(res.data))
+   
     Api.get(`likedCount/${challengeId}`).then((res) =>
     setCountLike(res.data.length))
-    Api.get(`likedCount/${challengeId}`).then((res)=>console.log('asd',res.data.map((item)=>item.userId)))
+    Api.get(`likedCount/${challengeId}`).then((res)=>setCheckUserId(res?.data.map((item)=>item.userId)))
+    !!checkUserId&&checkUserId.map((item)=>item==myId ?setLikeStatus(false):setLikeStatus(true))
   },[])
   useEffect(()=>{
     Api.get(`likedCount/${challengeId}`).then((res) =>
     setCountLike(res.data.length))
   },[countLike])
-  console.log('이건뭐임',checkUserId)
+  
+  
   return (
     <div>
       <div
         onClick={(e) => {
-          
+         
           Api.post("liked", {
             challengeId,
           }).then((res)=> res=='실패'? null: setCountLike(res.data))
-          
+          // checkUserId==myId ? setLikeStatus(false): setLikeStatus(true)
+          console.log('1',checkUserId)
+          console.log('2',myId)
         }}
         id="userLike"
         className="likeButton"
