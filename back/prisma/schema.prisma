@@ -41,7 +41,6 @@ model user {
   password         String            @db.VarChar(100)
   withdrawal       Int               @default(0) @db.TinyInt
   img              String?           @db.Text
-  chat             chat[]
   joinedChallenges joinedChallenge[]
   liked            liked[]
   refreshToken     refreshToken?
@@ -95,9 +94,9 @@ model chat {
   userId      String    @db.VarChar(50)
   name        String    @db.VarChar(10)
   challengeId Int
+  roomId      String    @db.VarChar(50)
   challenge   challenge @relation(fields: [challengeId], references: [challengeId])
-  user        user      @relation(fields: [userId], references: [userId])
 
-  @@index([userId], map: "chat_userId_fkey")
   @@index([challengeId], map: "chat_challengeId_fkey")
+  @@index([userId], map: "chat_userId_fkey")
 }
