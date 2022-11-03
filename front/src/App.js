@@ -118,7 +118,7 @@ function App() {
           </Router>
         </UserStateContext.Provider>
       </DispatchContext.Provider>
-    </AppContext.Provider>
+     </AppContext.Provider>
   );
 }
 
