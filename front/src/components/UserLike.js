@@ -11,13 +11,18 @@ function UserLike({ challengeId }) {
   const [myId,setMyid]=useState('')
   const [likeStatus, setLikeStatus] = useState(false);
   const [checkUserId, setCheckUserId] = useState("");
+//      useEffect(()=>{
+//   liked.forEach(x=>{
+//     x.userId === myId && setLike(true)
+//   })
+// },[])
   useEffect(()=>{
     Api.get('currentUser').then((res)=>setMyid(res.data.userId))
-   
     Api.get(`likedCount/${challengeId}`).then((res) =>
     setCountLike(res.data.length))
-    Api.get(`likedCount/${challengeId}`).then((res)=>setCheckUserId(res?.data.map((item)=>item.userId)))
-    !!checkUserId&&checkUserId.map((item)=>item==myId ?setLikeStatus(false):setLikeStatus(true))
+    Api.get(`likedCount/${challengeId}`).then((res)=>(res.data.forEach(x => {
+     x.userId === myId && setLikeStatus(true)
+    })))
   },[])
   useEffect(()=>{
     Api.get(`likedCount/${challengeId}`).then((res) =>
@@ -29,7 +34,7 @@ function UserLike({ challengeId }) {
     <div>
       <div
         onClick={(e) => {
-         
+         e.preventDefault()
           Api.post("liked", {
             challengeId,
           }).then((res)=> res=='실패'? null: setCountLike(res.data))
