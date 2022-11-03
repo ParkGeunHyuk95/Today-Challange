@@ -15,13 +15,13 @@ function UserLike({ challengeId }) {
     Api.get('currentUser').then((res)=>setMyid(res.data.userId))
     Api.get('liked').then((res)=>setCheckUserId(res.data))
     Api.get(`likedCount/${challengeId}`).then((res) =>
-    setCountLike(res.data))
+    setCountLike(res.data.length))
+    Api.get(`likedCount/${challengeId}`).then((res)=>console.log('asd',res.data.map((item)=>item.userId)))
   },[])
-  // useEffect(()=>{
-  //   Api.get(`likedCount/${challengeId}`).then((res) =>
-  //   setCountLike(res.data))
-  //   console.log('우쒸')
-  // },[countLike])
+  useEffect(()=>{
+    Api.get(`likedCount/${challengeId}`).then((res) =>
+    setCountLike(res.data.length))
+  },[countLike])
   console.log('이건뭐임',checkUserId)
   return (
     <div>
@@ -30,10 +30,7 @@ function UserLike({ challengeId }) {
           
           Api.post("liked", {
             challengeId,
-          }).then(Api.get(`likedCount/${challengeId}`).then((res) =>
-          setCountLike(res.data)
-        ))
-         
+          }).then((res)=> res=='실패'? null: setCountLike(res.data))
           
         }}
         id="userLike"
