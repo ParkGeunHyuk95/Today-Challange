@@ -18,7 +18,7 @@ export const UserStateContext = createContext(null);
 export const DispatchContext = createContext(null);
 
 function App() {
-  const [room,setRoom]=useState()
+  const [room,setRoom]=useState(null)
   const [rooms, setRooms] = useState([]);
   const [currentRoom, setCurrentRoom] = useState([]);
   const [messages, setMessages] = useState([]);
@@ -89,6 +89,8 @@ function App() {
         setRooms,
         newMessages,
         setNewMessages,
+        room,
+        setRoom
       }}
     >
       <DispatchContext.Provider value={dispatch}>

@@ -1,17 +1,20 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { ListGroup, ListGroupItem } from 'react-bootstrap'
+import { AppContext } from '../../Context/AppContext'
 import "../../styles/Chat.css"
 const SideBar = () => {
-    const rooms = ["플로깅", "비건", "분리수거", "쓰레기줍기","노샴푸","대중교통이용","포장하기"];
+  const {socket,room,setRoom}=useContext(AppContext)
+  
   return (
     <div>
       <h2>Avaliable rooms</h2>
       <ListGroup>
-        {rooms.map((room,idx)=>(
+        {/* {rooms.map((room,idx)=>(
             <ListGroup.Item key={idx} style={{ cursor: "pointer", display: "flex", justifyContent: "space-between" }}>{room}
 
             </ListGroup.Item>
-        ))}
+        ))} */}
+        <ListGroup.Item>{room}</ListGroup.Item>
       </ListGroup>
     </div>
   )
