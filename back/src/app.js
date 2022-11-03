@@ -50,11 +50,12 @@ io.on("connection", (socket) => {
   //   //front code
   //   // socket.on("💧welcome/ bye", ()=>{addMessage("someone joined!")})
   //   //=> 콜백함수 사용하는용!(엔포느낌)
-  //   socket.on("new_message", (msg, room, done) => {
-  //     // new message: event이름, msg:input value, done:백엔드 로직 끝나면 프론트로 이동-프론트에서 addMessage실행
-  //     socket.to(room).emit("new_message", `${socket.nickname}: ${msg}`);
-  //     done();
-  //   });
+    socket.on("new_message", (msg) => {
+      // new message: event이름, msg:input value, done:백엔드 로직 끝나면 프론트로 이동-프론트에서 addMessage실행
+      // socket.to(room).emit("new_message", `${socket.nickname}: ${msg}`);
+      // done();
+      console.log(msg)
+    });
   //   socket.on("nickname", (nickname) => (socket["nickname"] = nickname));
 });
 server.listen(5002, () => {
