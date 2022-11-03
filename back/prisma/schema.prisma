@@ -61,8 +61,8 @@ model challenge {
   method           String
   fromDate         String
   toDate           String
-  mainImg          String?           @db.Text
-  explainImg       String?           @db.Text
+  mainImg          String            @db.Text
+  explainImg       String            @db.Text
   createdAt        DateTime          @default(now())
   updatedAt        DateTime          @updatedAt
   joinedChallenges joinedChallenge[]
@@ -73,7 +73,7 @@ model challenge {
 model joinedChallenge {
   joinedId    Int       @id @unique @default(autoincrement())
   countUpload Int
-  addedImage  String?   @db.Text
+  addedImage  String    @db.Text
   description String
   userId      String    @db.VarChar(50)
   chalngId    Int

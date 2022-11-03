@@ -10,6 +10,7 @@ class Liked {
       },
     });
     console.log("filter:", filter[0]);
+    console.log("filter:", filter);
     return filter;
   }
   static async createLiked({ likedId, userId, challengeId }) {
@@ -25,6 +26,7 @@ class Liked {
       },
     });
     return Liked;
+    return;
   }
 
   static async removeLiked({ likedId }) {
@@ -46,11 +48,21 @@ class Liked {
   }
   //likedCount
   static async getLikedCount({ challengeId }) {
+    const likedList = await prisma.liked.findMany({
+      where: {
+        challengeId: Number(challengeId),
+      },
+    });
+    // console.log("liked List model:", likedList.userId);
+    return likedList;
+  }
+  static async likedCount({ challengeId }) {
     const likedList = await prisma.liked.count({
       where: {
         challengeId: Number(challengeId),
       },
     });
+    // console.log("liked List model:", likedList.userId);
     return likedList;
   }
 }

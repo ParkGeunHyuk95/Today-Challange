@@ -37,6 +37,8 @@ const MyPage = () => {
     Api.get("userToChallenge").then((res) => setMyChallengeList(res.data));
   }, []);
 
+  console.log(myChallengeList);
+
   return (
     <>
       {isLogin === true ? (

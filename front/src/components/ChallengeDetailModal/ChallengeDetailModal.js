@@ -15,122 +15,42 @@ import { UserStateContext } from "../../App";
 import * as Api from "../../api";
 import Swal from "sweetalert2";
 import UserLike from "../UserLike";
+import { AppContext } from "../../Context/AppContext";
 
 function ChallengeDetailModal({
-  challengeDetailModalOpen,
   setChallengeDetailModalOpen,
-  challengeItem,
-  setChallengeItem,
+  item
 }) {
-  const navigate = useNavigate();
-  const params = useParams();
-  // const isLogin = !!userState.user;
-  const challengeId = { challengeItem };
-
-  // 사용자가 선택한 챌린지의 상태를 생성함
-  const [selectedChallenge, setSelectedChallenge] = useState(null);
-  // fetchSelectedChallenge 함수가 완료된 이후에만 컴포넌트가 구현되게 함
-  const [isFetchCompleted, setIsFetchCompleted] = useState(false);
-  const userState = useContext(UserStateContext);
-
-  // 챌린지 main image URL 상태를 생성함
-  const [challengeImage, setChallengeImage] = useState("");
-  // 챌린지 시작까지 남은 날(D-day)
-  const [challengeDday, setChallengeDday] = useState("");
-  // 챌린지 제목
-  const [challengeTitle, setChallengeTitle] = useState("");
-  // 챌린지 세부 내용
-  const [challengeDescription, setChallengeDescription] = useState("");
-  // 해당 챌린지에 참여한 인원수
-  const [challengeJoinedNumber, setChallengeJoinedNumber] = useState("");
-  // 해당 챌린지 모두 완수시 받을 수 있는 예상 최대 point
-  const [challengePoint, setChallengePoint] = useState("");
-  // 챌린지 인증 방법 설명
-  const [challengeManual, setChallengeManual] = useState("");
-  // Good, Bad 인증사진 URL
-  const [goodImage, setGoodImage] = useState("");
-  const [badImage, setBadImage] = useState("");
-
-  const fetchSelectedChallenge = async () => {
-    let res = await Api.get(`challenges/mine/:${challengeId}`);
-    const challengeData = res.data.updateChallenge;
-    const Dday = challengeData.startRemainingDate;
-
-    setSelectedChallenge(challengeData);
-    setChallengeDday(Dday);
-    setIsFetchCompleted(true);
-
-    return challengeData, Dday;
-  };
-
-  useEffect(() => {
-    if (!userState.user) {
-      navigate("/login", { replace: true });
-      return;
-    }
-
-    if (params.challengeId) {
-      const selectedChallengeId = params.challlengeId;
-      fetchSelectedChallenge(selectedChallengeId);
-    }
-  }, [params, userState, navigate]);
-
-  
-
-  function countDday(Dday) {
-    const today = new Date();
-    const date = new Date(Dday);
-    const dayCount = Math.floor((today - date) / (1000 * 60 * 60 * 24));
-
-    return dayCount;
-  }
-
-  const challengeExpectedPoint = async () => {
-    const res = await Api.get("challenges/expectPoint/:challengeId");
-    const expectedPoint = res.data;
-    setChallengePoint(expectedPoint);
-
-    return expectedPoint;
-  };
-
-  const challengeCountedJoinUser = async () => {
-    const res = await Api.get("countJoinUser/:challengeId");
-    const countedJoinUser = res.data;
-    setChallengeJoinedNumber(countedJoinUser);
-
-    return countedJoinUser;
-  };
-
-  const favoriteChallenge = () => {};
-
-  // 모달창 끄기
   const closeChallengeDetailModal = () => {
     setChallengeDetailModalOpen(false);
   };
-
-  const handleSubmit = async (e) => {
+  const [peopleCount,setPeopleCount]=useState(0)
+  console.log('123',item.challengeId)
+  const getDateDiff=(d1,d2)=>{
+    const date1=new Date(d1);
+    const date2=new Date(d2);
+    const diffDate=date1.getTime()-date2.getTime();
+    return Math.abs(diffDate/(1000*60*60*24));
+  }
+  let dif=getDateDiff(item.fromDate,item.toDate)
+  const {socket,room,setRoom,messages,setMessages}=useContext(AppContext)
+  const handleRoomSubmit=(e)=>{
     e.preventDefault();
-    try {
-      // "currentUser" 엔드포인트로 post요청함.
-      let res = {};
-      res = await Api.post("userToChallenge", {
-        challengeId,
-      });
-      // console.log("res", res);
-      setChallengeDetailModalOpen(false);
-
-      Swal.fire({
-        position: "top-center",
-        icon: "success",
-        text: "챌린지 참가 성공",
-      }).then(function () {
-        navigate("/network", { replace: true });
-      });
-    } catch (err) {
-      console.log("챌린지 참가에 실패하였습니다.", err);
-    }
-  };
-
+    socket.emit('enterRoom',item.title,()=>{
+      console.log('server is done!');
+      setRoom(item.title)
+    socket.on('welcome',()=>{
+      setMessages('Someone Joined!')
+      
+    })
+    })
+  }
+  console.log(messages)
+  useEffect(()=>{
+    Api.get('/countJoinUser', {
+      'challengeId': item.challengeId
+    }).then((res)=>setPeopleCount(res))
+  },[])
   return (
     <>
       <div className="modalBackground">
@@ -151,12 +71,12 @@ function ChallengeDetailModal({
               <div className="challengeTopLeft">
                 <img
                   className="challengeImage"
-                  // src={selectedChallenge.mainImg}
+                  src={item.mainImg}
                   alt=""
                 ></img>
                 <p className="chanllegeDday">
                   <img src={TimeLight} alt="시계"></img> 챌린지 시작까지{" "}
-                  {challengeDday}일 전
+                  {/* {challengeDday}일 전 */} 일전
                 </p>
               </div>
               <div className="challengeTopRight">
@@ -169,17 +89,9 @@ function ChallengeDetailModal({
                   ></img>
                 </span>
 
-                <h5>플로깅</h5>
+                <h5>{item.title}</h5>
                 <div className="challengeScroll">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  Suspendisse dapibus pellentesque ipsum, id viverra nunc
-                  laoreet eu. Etiam blandit libero a dapibus ornare. Sed
-                  fermentum justo vel neque fringilla consequat. Pellentesque
-                  non maximus ligula, non gravida magna. Nam non arcu imperdiet,
-                  aliquet nunc in, lacinia mi. Sed vehicula, nisl eget dignissim
-                  ultrices, nunc nulla dapibus mi, eu interdum enim dui et sem.
-                  Vestibulum id volutpat ex, non fringilla augue. Nulla ornare
-                  lacus id neque dignissim, quis malesuada erat pharetra.
+                  {item.description}
                 </div>
               </div>
             </div>
@@ -191,14 +103,14 @@ function ChallengeDetailModal({
                   <img src={UserFill} alt="사람"></img>
                   참가인원
                 </p>
-                <span className="colorBlack"> {challengeJoinedNumber}명</span>
+                <span className="colorBlack"> {/*challengeJoinedNumber*/}명</span>
               </div>
 
               <div classNmae="challengePoint">
                 <p className="expectedPoint colorGray">
                   <img src={Gift} alt="선물상자"></img>
                   포인트
-                  <span className="colorBlack"> 총 {challengePoint}포인트</span>
+                  <span className="colorBlack"> 총 {dif*10}포인트</span>
                 </p>
               </div>
             </div>
@@ -207,7 +119,7 @@ function ChallengeDetailModal({
             <div className="challengeDetailBottom">
               <div className="challengeManual">
                 <span className="manualTitle">챌린지 인증방법</span>
-                <p>Lorem ipsum dolor sit amet</p>
+                <p>{item.method}</p>
               </div>
 
               <div className="challengeManualDescription">
@@ -217,7 +129,7 @@ function ChallengeDetailModal({
                   </a>
                   <img
                     className="explainImage"
-                    // src={selectedChallenge.explainImg[0]}
+                    src={item.explainImg.split(',')[0]}
                     alt=""
                   ></img>
                   <a className="colorOrange">문구가 잘 보이도록 찍힌 사진</a>
@@ -229,7 +141,7 @@ function ChallengeDetailModal({
                   </a>
                   <img
                     className="explainImage"
-                    // src={selectedChallenge.explainImg[1]}
+                    src={item.explainImg.split(',')[1]}
                     alt=""
                   ></img>
                   <a className="colorOrange">문구가 명확히 보이지 않는 사진</a>
@@ -237,7 +149,7 @@ function ChallengeDetailModal({
               </div>
             </div>
 
-            <button className="challengeJoinBtn" type="submit">
+            <button className="challengeJoinBtn" type="submit" onClick={handleRoomSubmit}>
               참가하기
             </button>
           </div>
