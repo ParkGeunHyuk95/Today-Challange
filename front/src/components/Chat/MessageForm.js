@@ -7,6 +7,7 @@ import * as Api from "../../api";
 const MessageForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
+    if(!messages) return;
     socket.emit("new_message", messages);
     setMessages("");
   };

@@ -8,6 +8,10 @@
     margin: none;
     
 }
+#cardBody{
+    display: flex;
+    flex-wrap: wrap;
+}
 .cardtext{
     font-size: 1.2rem;
     display: flex;

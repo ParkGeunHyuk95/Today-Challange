@@ -3,8 +3,16 @@ import { ListGroup, ListGroupItem } from 'react-bootstrap'
 import { AppContext } from '../../Context/AppContext'
 import "../../styles/Chat.css"
 const SideBar = () => {
-  const {socket,room,setRoom}=useContext(AppContext)
-  
+  const {socket,room,setRoom,currentRoom,setCurrentRoom}=useContext(AppContext)
+  console.log(room)
+  const getRooms=()=>{
+    //룸목록가져와야함
+    
+  }
+  const joinRoom=()=>{
+    socket.emit('joinRoom',room,currentRoom);
+    setCurrentRoom(room)
+  }
   return (
     <div>
       <h2>Avaliable rooms</h2>
