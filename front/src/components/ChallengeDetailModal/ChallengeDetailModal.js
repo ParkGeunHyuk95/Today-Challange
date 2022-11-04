@@ -33,24 +33,16 @@ function ChallengeDetailModal({
     return Math.abs(diffDate/(1000*60*60*24));
   }
   let dif=getDateDiff(item.fromDate,item.toDate)
-  const {socket,room,setRoom,messages,setMessages}=useContext(AppContext)
+  const {socket,currentRoom,setCurrentRoom}=useContext(AppContext)
   const handleRoomSubmit=(e)=>{
     e.preventDefault();
     socket.emit('enterRoom',item.title,()=>{
-      
-      setRoom(item.title)
-      
-    socket.on('welcome',()=>{
-      setMessages('Someone Joined!')
-      
-    })
-    })
-    socket.on('bye',()=>{
-      setMessages('someoneleft')
+      setCurrentRoom(item.title)
+      console.log(currentRoom)
     })
     
   }
-  console.log(item.title)
+  
   useEffect(()=>{
     Api.get('/countJoinUser', {
       'challengeId': item.challengeId

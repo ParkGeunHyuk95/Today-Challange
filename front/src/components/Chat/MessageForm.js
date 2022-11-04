@@ -1,31 +1,56 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import "../../styles/Chat.css";
 import { Button, Col, Form, Row } from "react-bootstrap";
 import { UserStateContext } from "../../App";
 import { AppContext } from "../../Context/AppContext";
 import * as Api from "../../api";
 const MessageForm = () => {
+  const [user,setUser]=useState(null)
+  const messageEndRef = useRef(null);
   const handleSubmit = (e) => {
     e.preventDefault();
-    if(!messages) return;
-    socket.emit("new_message", messages);
-    setMessages("");
+    if (!message) return;
+    const today = new Date();
+    const minutes =
+      today.getMinutes() < 10 ? "0" + today.getMinutes() : today.getMinutes();
+    const time = today.getHours() + ":" + minutes;
+    const roomId = currentRoom;
+    socket.emit("message-room", roomId, message, user, time, todayDate);
+    setMessage("");
   };
+  
   useEffect(() => {
     Api.get("currentUser").then((res) => setCurrentUserId(res.data.userId));
     Api.get("userImg").then((res) => setProfileImage(res.data));
     Api.get("currentUser").then((res) => setName(res.data.name));
+    Api.get("currentUser").then((res) => setUser(res.data))
   }, []);
+  const [message,setMessage]=useState('')
   const [name, setName] = useState("");
   const [profileImage, setProfileImage] = useState(null);
   const [currentUserId, setCurrentUserId] = useState("");
   const userState = useContext(UserStateContext);
   const isLogin = !!userState.user;
   const { socket, currentRoom, setMessages, messages } = useContext(AppContext);
+  const getFormattedDate=()=>{
+    const date = new Date();
+    const year = date.getFullYear();
+    let month = (1 + date.getMonth()).toString();
+
+    month = month.length > 1 ? month : "0" + month;
+    let day = date.getDate().toString();
+
+    day = day.length > 1 ? day : "0" + day;
+
+    return month + "/" + day + "/" + year;
+  }
+  const todayDate = getFormattedDate();
+
+  
   return (
     <>
       <div className="messagesOutput">
-        <div className="alert alert-info">You are in the 뭐시기뭐시기 room</div>
+        <div className="alert alert-info">You are in the {currentRoom} room</div>
         <div className="messageInner">
           <div className="d-flex align-items-center mb-3">
             <img
@@ -42,7 +67,7 @@ const MessageForm = () => {
               {/* {sender._id == currentUserId?._id ? "You" : sender.name} */}
             </p>
           </div>
-          <p className="message-content">{messages}</p>
+          <p className="message-content">{message}</p>
         </div>
       </div>
       <Form onSubmit={handleSubmit}>
@@ -53,8 +78,8 @@ const MessageForm = () => {
                 type="text"
                 placeholder="Your message"
                 disabled={!isLogin}
-                value={messages}
-                onChange={(e) => setMessages(e.target.value)}
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
               ></Form.Control>
             </Form.Group>
           </Col>
