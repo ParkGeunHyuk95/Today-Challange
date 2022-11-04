@@ -37,6 +37,7 @@ const NetworkCard = ({ item, countPerson }) => {
       id="cardBody"
       className="mb-3 ms-3 mr-5 card-body"
       style={{
+        
         width: "16rem",
         borderRadius: "3%",
         border:
@@ -56,6 +57,10 @@ const NetworkCard = ({ item, countPerson }) => {
             src={mainImg}
             alt="대표 사진"
             onClick={showChallengeDetailModalOpen}
+            style={{
+              display:'flex',
+              flexWrap:'wrap'
+            }}
           />
 
           <Card.Title onClick={showChallengeDetailModalOpen}>

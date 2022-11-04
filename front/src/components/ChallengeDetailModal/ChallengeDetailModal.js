@@ -37,15 +37,20 @@ function ChallengeDetailModal({
   const handleRoomSubmit=(e)=>{
     e.preventDefault();
     socket.emit('enterRoom',item.title,()=>{
-      console.log('server is done!');
+      
       setRoom(item.title)
+      
     socket.on('welcome',()=>{
       setMessages('Someone Joined!')
       
     })
     })
+    socket.on('bye',()=>{
+      setMessages('someoneleft')
+    })
+    
   }
-  console.log(messages)
+  console.log(item.title)
   useEffect(()=>{
     Api.get('/countJoinUser', {
       'challengeId': item.challengeId

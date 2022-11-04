@@ -7,6 +7,7 @@ const Border = styled.div`
   margin-left: 120px;
   width: 90%;
 `;
+
 const ChallengeName = styled.h2`
   font-size: 25px;
   font-family: "Nanum Gothic", sans-serif;
@@ -109,7 +110,8 @@ const ShoeMorePointButton = styled.button`
   border-radius: 5px;
   display: flex;
   border-radius: 6px;
-  margin: 20px auto;
+  // margin: 20px auto;
+  margin-left: 350px;
 `;
 
 const CreateFont = styled.h2`
