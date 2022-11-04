@@ -9,12 +9,17 @@ class likedService {
 
     if (filter[0] !== undefined) {
       const likedId = filter[0].likedId;
-      const deleteLiked = await Liked.removeLiked({ likedId });
-      return deleteLiked;
+      await Liked.removeLiked({ likedId });
+      const errorMessage = "liked 해제";
+      return errorMessage;
+    } else {
+      await Liked.createLiked({ likedId, userId, challengeId });
     }
 
-    const addLiked = await Liked.createLiked({ likedId, userId, challengeId });
-    return addLiked;
+    const getLiked = await Liked.likedCount({ challengeId });
+    console.log(getLiked);
+    return getLiked;
+    // return addLiked;
   }
 
   static async deleteLiked({ likedId }) {
@@ -28,6 +33,8 @@ class likedService {
 
   static async getLikedCount({ challengeId }) {
     const getLiked = await Liked.getLikedCount({ challengeId });
+    console.log("liked List model:", getLiked);
+
     return getLiked;
   }
 }

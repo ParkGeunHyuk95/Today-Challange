@@ -4,26 +4,7 @@ const backendPortNumber = "5001";
 const serverUrl =
   "http://" + window.location.hostname + ":" + backendPortNumber + "/";
 
-//  async function updateToken(endpoint, refreshToken) {
-//   if (localStorage.getItem("refreshToken")) {
-//     let refreshedAccessTokenResponse = await axios.post(serverUrl + endpoint, {
-//       headers: {
-//         "Content-Type": "application/json",
-//       },
-//       body: JSON.stringify({
-//         refreshToken: localStorage.getItem("refreshToken"),
-//       }),
-//     });
-//     let refreshAccessToken = await refreshedAccessTokenResponse.json();
-//     if (refreshedAccessTokenResponse.Logout) {
-//       localStorage.removeItem("refreshToken");
-//       localStorage.removeItem("accessToken");
-//       window.location.reload();
-//     } else {
-//       sessionStorage.setItem("accessToken", refreshAccessToken.accessToken);
-//     }
-//   }
-// }
+
 
 async function updateToken() {
   if (localStorage.getItem("refreshToken")) {

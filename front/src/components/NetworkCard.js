@@ -14,8 +14,7 @@ const NetworkCard = ({ item, countPerson }) => {
   const [challengeDetailModalOpen, setChallengeDetailModalOpen] =
     useState(false);
   const [challengeItem, setChallengeItem] = useState(null);
-  console.log(item);
-  console.log(item.mainImg);
+  
   const showChallengeDetailModalOpen = () => {
     setChallengeDetailModalOpen(true);
     setChallengeItem(item.challengeId);
@@ -27,7 +26,7 @@ const NetworkCard = ({ item, countPerson }) => {
   const dateString = year + "-" + month + "-" + day;
   const Id = item.challengeId;
   const mainImg = item.mainImg;
-  console.log(Id);
+  
   const [person, setPerson] = useState();
   useEffect(() => {
     Api.get("countJoinUser", item.challengeId).then((res) => setPerson(res));
@@ -76,9 +75,10 @@ const NetworkCard = ({ item, countPerson }) => {
           {challengeDetailModalOpen && (
             <ChallengeDetailModal
               setChallengeDetailModalOpen={setChallengeDetailModalOpen}
+              item={item}
             />
           )}
-          {<challengeDetailModal setChallengeItem={setChallengeItem} />}
+         
         </div>
       </Card.Body>
     </Card>

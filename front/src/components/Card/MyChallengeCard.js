@@ -11,7 +11,9 @@ const MychallengeCard = ({ item }) => {
   var day = ("0" + today.getDate()).slice(-2);
   var dateString = year + "-" + month + "-" + day;
   let navigate=useNavigate()
+  const mainImg = item.challenge.mainImg;
   console.log(item.challenge.title)
+  console.log('ㅁㄴㅇ',item)
   return (
     <Card
       id="cardBody"
@@ -33,7 +35,7 @@ const MychallengeCard = ({ item }) => {
         <div className="imageWrap">
           <Card.Img
             className="mb-3"
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRM79qhm5WWiW46jcsrREwPVX87kZygj9CQDw&usqp=CAU"
+            src={mainImg}
             alt="대표 사진"
           />
 
@@ -58,6 +60,7 @@ const MychallengeCard = ({ item }) => {
           >
             인증하기
           </button>
+          <button className="editButton">수정하기</button>
           
         </div>
       </Card.Body>

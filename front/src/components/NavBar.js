@@ -22,7 +22,10 @@ const NavBar = () => {
   const dispatch = useContext(DispatchContext);
   const [currentUserId, setCurrentUserId] = useState("");
   const isLogin = !!userState.user;
-
+  const [name,setName]=useState('')
+  const [profileImage, setProfileImage] = useState(
+    null
+  );
   const handleDelete = async (e) => {
     e.preventDefault();
     await Api.get("currentUser").then((res) =>
@@ -41,7 +44,10 @@ const NavBar = () => {
   };
   useEffect(() => {
     Api.get("currentUser").then((res) => setCurrentUserId(res.data.userId));
+    Api.get("userImg").then((res) => setProfileImage(res.data));
+    Api.get("currentUser").then((res) => setName(res.data.name));
   }, []);
+  
   const navToggle = () => {
     active === "nav-menu"
       ? setActive("nav-menu nav-active")
@@ -94,6 +100,16 @@ const NavBar = () => {
           <li className="nav-item">
             <a
               onClick={() => {
+                navigate("/chat");
+              }}
+              className="nav-link aNav"
+            >
+              Chat
+            </a>
+          </li>
+          <li className="nav-item">
+            <a
+              onClick={() => {
                 navigate("/mypage");
               }}
               href="#"
@@ -117,7 +133,12 @@ const NavBar = () => {
             <>
               <NavDropdown
                 className="navdropdown"
-                title={<FontAwesomeIcon icon={faUser} />}
+                title={
+                  <>
+                  <img src={profileImage} style={{width: 40, height: 40, marginRight: 10, objectFit: 'cover', borderRadius: '50%'}}/>
+                  {name}
+                  </>
+                }
                 id="basicNavDropdown"
               >
                 <NavDropdown.Item className="dditem" href="#action/3.4">

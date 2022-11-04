@@ -44,7 +44,7 @@
     border-radius: 6px;
     /* height: ; */
     color: #fff;
-    padding: 10px;
+    padding: 7px;
     margin-top: 20px;
     font-size: large;
     font-weight: 500;
@@ -53,4 +53,17 @@
 
 .networkButton:disabled{
     background-color: grey;
+}
+.editButton{
+    border: 0 ;
+    outline: none;
+    background-color:#6A71E6;
+    border-radius: 6px;
+    /* height: ; */
+    color: #fff;
+    padding: 7px;
+    margin-top: 20px;
+    font-size: large;
+    font-weight: 500;
+    margin-left: 5%;
 }
