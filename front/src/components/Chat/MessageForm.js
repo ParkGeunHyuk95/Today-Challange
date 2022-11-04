@@ -5,8 +5,11 @@ import { UserStateContext } from "../../App";
 import { AppContext } from "../../Context/AppContext";
 import * as Api from "../../api";
 const MessageForm = () => {
-  const [user,setUser]=useState(null)
+  const [user, setUser] = useState(null);
   const messageEndRef = useRef(null);
+  const scrollToBottom = () => {
+    messageEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!message) return;
@@ -15,24 +18,24 @@ const MessageForm = () => {
       today.getMinutes() < 10 ? "0" + today.getMinutes() : today.getMinutes();
     const time = today.getHours() + ":" + minutes;
     const roomId = currentRoom;
-    socket.emit("message-room", roomId, message, user, time, todayDate);
+    socket.emit("messageRoom", roomId, message, user, time, todayDate);
     setMessage("");
   };
-  
+
   useEffect(() => {
     Api.get("currentUser").then((res) => setCurrentUserId(res.data.userId));
     Api.get("userImg").then((res) => setProfileImage(res.data));
     Api.get("currentUser").then((res) => setName(res.data.name));
-    Api.get("currentUser").then((res) => setUser(res.data))
+    Api.get("currentUser").then((res) => setUser(res.data));
   }, []);
-  const [message,setMessage]=useState('')
+  const [message, setMessage] = useState("");
   const [name, setName] = useState("");
   const [profileImage, setProfileImage] = useState(null);
   const [currentUserId, setCurrentUserId] = useState("");
   const userState = useContext(UserStateContext);
   const isLogin = !!userState.user;
   const { socket, currentRoom, setMessages, messages } = useContext(AppContext);
-  const getFormattedDate=()=>{
+  const getFormattedDate = () => {
     const date = new Date();
     const year = date.getFullYear();
     let month = (1 + date.getMonth()).toString();
@@ -43,14 +46,24 @@ const MessageForm = () => {
     day = day.length > 1 ? day : "0" + day;
 
     return month + "/" + day + "/" + year;
-  }
+  };
   const todayDate = getFormattedDate();
 
-  
+  socket.off("roomMessages").on("roomMessages", (roomMessages) => {
+    setMessages(roomMessages);
+    console.log("room message", roomMessages);
+  });
+
   return (
     <>
       <div className="messagesOutput">
-        <div className="alert alert-info">You are in the {currentRoom} room</div>
+        {user ? (
+          <div className="alert alert-info">
+            You are in the {currentRoom} room
+          </div>
+        ) : (
+          <div className="alert alert-danger">Please login</div>
+        )}
         <div className="messageInner">
           <div className="d-flex align-items-center mb-3">
             <img

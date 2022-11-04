@@ -45,14 +45,9 @@ function sortRoomMessagesByDate(messages) {
 
 //소켓연결
 io.on("connection", (socket) => {
-  socket.on("new-user", (socket) => {
-    // const members = await User.find();
-    // io.emit("new-user", members);
-    // console.log(members);
-    console.log(socket)
-  });
+  console.log('소켓연결완료')
   socket.on("enterRoom", async (room,done) => {
-    socket.join(room);룸
+    socket.join(room);
     done()
     // let roomMessages = await getLastMessagesFromRoom(room);
     // roomMessages = sortRoomMessagesByDate(roomMessages);
