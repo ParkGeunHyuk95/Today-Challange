@@ -21,7 +21,9 @@ const io = socket(server, {
     methods: ["GET", "POST"],
   },
 });
-
+// app.get("/rooms", (req, res) => {
+//   res.json(rooms);
+// });
 async function getLastMessagesFromRoom(room) {
   // let roomMessages = await Message.aggregate([
   //   { $match: { to: room } },
@@ -50,7 +52,7 @@ io.on("connection", (socket) => {
     console.log(socket)
   });
   socket.on("enterRoom", async (room,done) => {
-    socket.join(room);
+    socket.join(room);룸
     done()
     // let roomMessages = await getLastMessagesFromRoom(room);
     // roomMessages = sortRoomMessagesByDate(roomMessages);
