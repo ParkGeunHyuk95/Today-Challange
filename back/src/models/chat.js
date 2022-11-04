@@ -17,9 +17,22 @@ class chat {
     });
   }
 
-  static async createRoom() {
-    await prisma.chat.create();
+  static async getJoinChallengeList({ userId }) {
+    const JoinChallengeList = await prisma.userToChallenge.findMany({
+      where: {
+        userId: userId,
+      },
+      select: {
+        userToChallengeId: true,
+        challenge: true,
+      },
+    });
+    return JoinChallengeList;
   }
+
+  // static async createRoom() {
+  //   await prisma.chat.create();
+  // }
 }
 
 export { chat };
