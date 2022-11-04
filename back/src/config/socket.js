@@ -55,6 +55,10 @@ const socketConfig = (server) => {
       done();
       socket.to(roomName).emit("welcome");
     });
+
+    socket.on("disconnecting", () => {
+      socket.rooms.forEach((room) => socket.to(room).emit("bye"));
+    });
     //   socket.on("nickname", (nickname) => (socket["nickname"] = nickname));
     return server;
   });
