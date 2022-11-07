@@ -49,36 +49,34 @@ const NetworkCard = ({ item, countPerson }) => {
             : "none",
       }}
     >
-      <Card.Body>
-        <div className="imageWrap">
-          <Card.Img
-            className="mb-3 imgSize"
-            src={mainImg}
-            alt="대표 사진"
-            onClick={showChallengeDetailModalOpen}
-          />
+      <Card.Body className="networkCard">
+        <Card.Img
+          className="mb-3 imgSize"
+          src={mainImg}
+          alt="대표 사진"
+          onClick={showChallengeDetailModalOpen}
+        />
 
-          <Card.Title onClick={showChallengeDetailModalOpen}>
-            {item?.title}
-          </Card.Title>
+        <Card.Title onClick={showChallengeDetailModalOpen}>
+          {item?.title}
+        </Card.Title>
 
-          <div className="cardtext">
-            👨‍👧‍👧 {countPerson}
-            <UserLike challengeId={item.challengeId} />
-          </div>
-          <div className="duration">
-            <a className="cardSubText">
-              {item?.fromDate}-{item?.toDate}
-            </a>{" "}
-          </div>
-
-          {challengeDetailModalOpen && (
-            <ChallengeDetailModal
-              setChallengeDetailModalOpen={setChallengeDetailModalOpen}
-              item={item}
-            />
-          )}
+        <div className="cardtext">
+          👨‍👧‍👧 {countPerson}
+          <UserLike challengeId={item.challengeId} />
         </div>
+        <div className="duration">
+          <a className="cardSubText">
+            {item?.fromDate}-{item?.toDate}
+          </a>{" "}
+        </div>
+
+        {challengeDetailModalOpen && (
+          <ChallengeDetailModal
+            setChallengeDetailModalOpen={setChallengeDetailModalOpen}
+            item={item}
+          />
+        )}
       </Card.Body>
     </Card>
   );
