@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import * as Api from "../../api";
+import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import arrow_drop_down from "../../images/myPage/arrow_drop_down.svg";
 import expand_more from "../../images/myPage/expand_more.svg";
@@ -40,6 +41,7 @@ const ArrowDropImg = styled.img`
   width: 35px;
   height: 35px;
   margin-right: 10px;
+  margin-bottom: 10px;
 `;
 
 const ChallengeTitle = styled.h3`
@@ -173,6 +175,14 @@ const data2 = [
 
 const PointContent = () => {
   // const [point, setPoint] = useState("");
+  const { id } = useParams();
+  const challengeId = parseInt(id);
+  console.log("Params:", id);
+  useEffect(() => {
+    Api.get(`userToChallenge`).then((res) => {
+      console.log("PointData:", res);
+    });
+  });
   return (
     <>
       <Border>
