@@ -2,11 +2,15 @@
     text-align: center;
 
 }
-
-
 .card-body{
     margin: none;
-    
+
+}
+.imgSize {
+    width: 200px;
+    height: 150px;
+    object-fit: cover;
+    padding-right: 5px;
 }
 .cardtext{
     font-size: 1.2rem;

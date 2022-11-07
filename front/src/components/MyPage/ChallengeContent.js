@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
 import NetworkCard from "../NetworkCard";
-import * as Api from '../../api'
+import * as Api from "../../api";
 import { Col, Container, Row } from "react-bootstrap";
 import StyledButton from "../../styles/commonstyles/Button";
 import MychallengeCard from "../Card/MyChallengeCard";
 
-const ChallengeContent = ({myChallengeList}) => {
-  
+const ChallengeContent = ({ myChallengeList }) => {
   const [visible, setVisible] = useState(4);
   const showMoreCards = () => {
     setVisible((preValue) => preValue + 4);
@@ -15,8 +14,7 @@ const ChallengeContent = ({myChallengeList}) => {
     <Container>
       <Row>
         {myChallengeList.slice(0, visible).map((menu) => (
-          <Col lg={3}
-          key={menu.challangeId}>
+          <Col lg={3} key={menu.challangeId}>
             <MychallengeCard item={menu} />
           </Col>
         ))}
