@@ -41,6 +41,7 @@ const socketConfig = (server) => {
       socket.emit("room-messages", roomMessages);
     });
     socket.on("messageRoom", async (room, content, sender, time, date) => {
+      console.log("sender", sender);
       const userId = sender.userId;
       const name = sender.name;
       const challengeId = await chat.findChallenge({ room });
