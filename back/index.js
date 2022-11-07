@@ -1,7 +1,7 @@
 import "dotenv/config";
 import { app } from "./src/app";
 import { socketConfig } from "./src/config/socket";
-console.log("app.js!!!!제발", socketConfig());
+// console.log("app.js!!!!제발", socketConfig());
 // socketConfig.server.listen(5002, () => {
 //   console.log("socket.io 서버 시작");
 // });

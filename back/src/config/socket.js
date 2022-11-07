@@ -10,18 +10,23 @@ const socketConfig = (server) => {
     },
   });
 
-  // app.get("/rooms", (req, res) => {
+  // 🌈 app.get("/rooms", (req, res) => {
   // room title 가져오기
   //   res.json(rooms);
+  //endpoint있는거는 router 따로 팠음
   // });
-  async function getLastMessagesFromRoom(room) {
+  const getLastMessagesFromRoom = async (room) => {
     // 룸 타이틀에 해당하는 메세지 모두 가져오기
+    console.log(room);
+    const data = await chat.getMessage(room);
+    console.log(data);
+
     // let roomMessages = await Message.aggregate([
     //   { $match: { to: room } },
     //   { $group: { _id: "$date", messagesByDate: { $push: "$$ROOT" } } },
     // ]);
     // return roomMessages;
-  }
+  };
   function sortRoomMessagesByDate(messages) {
     // return messages.sort(function (a, b) {
     //   let date1 = a._id.split("/");
@@ -42,7 +47,7 @@ const socketConfig = (server) => {
     });
     socket.on("enterRoom", async (room, done) => {
       socket.join(room);
-      룸;
+      // 룸;
       done();
       // 룸 타이틀에 해당하는 모든 메세지 가져온 후에 데이터 정렬하고 그거 프론트에 보내기
       // let roomMessages = await getLastMessagesFromRoom(room);
@@ -50,6 +55,21 @@ const socketConfig = (server) => {
       // socket.emit("room-messages", roomMessages);
     });
     socket.on("messageRoom", async (room, content, sender, time, date) => {
+      console.log("🌈🌈content!!!!!!!!!!!!!", sender.name);
+      const userId = sender.userId;
+      const name = sender.name;
+      const chatData = {
+        room,
+        content,
+        userId,
+        name,
+        time,
+        date,
+      };
+      console.log("content- front에서 room 값으로 챌린지id 줘야함!:", chatData);
+
+      const data = await chat.storeChat({ chatData });
+      /*
       const newMessages = await Message.create({
         content,
         from: sender,
@@ -62,6 +82,7 @@ const socketConfig = (server) => {
       // sending message to room
       io.to(room).emit("room-messages", roomMessages);
       socket.broadcast.emit("notifications", room);
+      */
     });
   });
   // io.on("connection", (socket) => {

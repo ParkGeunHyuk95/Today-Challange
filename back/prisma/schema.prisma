@@ -90,11 +90,12 @@ model joinedChallenge {
 model chat {
   chatId      Int       @id @unique @default(autoincrement())
   content     String    @db.VarChar(500)
-  createAt    DateTime  @default(now())
+  date        String
+  time        String
   userId      String    @db.VarChar(50)
   name        String    @db.VarChar(10)
   challengeId Int
-  roomId      String    @db.VarChar(50)
+  // roomId      String    @db.VarChar(50)
   challenge   challenge @relation(fields: [challengeId], references: [challengeId])
 
   @@index([challengeId], map: "chat_challengeId_fkey")
