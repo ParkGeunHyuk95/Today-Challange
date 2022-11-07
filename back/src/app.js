@@ -28,11 +28,11 @@ io.on("connection", (socket) => {
   // socket["nickname"] = "익명의 블롭피쉬";
   // socket.onAny((event) => {
   // console.log(`Socket Event: ${event}`);
-  console.log(socket);
+  // console.log(socket);
   // });
   //   // // socket room name == socket id
-    // socket.on("room",(msg,done)=>{
-    //   console.log(msg)
+  // socket.on("room",(msg,done)=>{
+  //   console.log(msg)
   //   socket.on("enterRoom", (roomName, done) => {
   //     socket.join(roomName);
   //     done();
@@ -50,17 +50,17 @@ io.on("connection", (socket) => {
   //   //front code
   //   // socket.on("💧welcome/ bye", ()=>{addMessage("someone joined!")})
   //   //=> 콜백함수 사용하는용!(엔포느낌)
-    socket.on("new_message", (msg) => {
-      // new message: event이름, msg:input value, done:백엔드 로직 끝나면 프론트로 이동-프론트에서 addMessage실행
-      // socket.to(room).emit("new_message", `${socket.nickname}: ${msg}`);
-      // done();
-      console.log(msg)
-    });
-    socket.on('enterRoom',(roomName,done)=>{
-      socket.join(roomName);
-      done();
-      socket.to(roomName).emit('welcome');
-    })
+  socket.on("new_message", (msg) => {
+    // new message: event이름, msg:input value, done:백엔드 로직 끝나면 프론트로 이동-프론트에서 addMessage실행
+    // socket.to(room).emit("new_message", `${socket.nickname}: ${msg}`);
+    // done();
+    // console.log(msg)
+  });
+  socket.on("enterRoom", (roomName, done) => {
+    socket.join(roomName);
+    done();
+    socket.to(roomName).emit("welcome");
+  });
   //   socket.on("nickname", (nickname) => (socket["nickname"] = nickname));
 });
 server.listen(5002, () => {
@@ -73,7 +73,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 app.get("/", (req, res) => {
-  console.log(req.body);
+  // console.log(req.body);
   res.send("data project root api");
 });
 app.use(userRouter);

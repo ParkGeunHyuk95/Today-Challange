@@ -88,7 +88,7 @@ challengeRouter.put("/:id", multiImg, loginRequired, async (req, res, next) => {
     const explainImg = image.explain;
     const explainImgFilename = explainImg.map((img) => img.filename);
 
-    console.log("이미지야 드러와:", image);
+    // console.log("이미지야 드러와:", image);
     const PORT = process.env.SERVER_PORT || 5000;
 
     const main = `http://localhost:${PORT}/${mainImg.filename}`;

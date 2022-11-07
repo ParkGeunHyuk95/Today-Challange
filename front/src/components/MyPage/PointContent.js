@@ -2,6 +2,7 @@ import React from "react";
 import * as Api from "../../api";
 import styled from "styled-components";
 import arrow_drop_down from "../../images/myPage/arrow_drop_down.svg";
+import expand_more from "../../images/myPage/expand_more.svg";
 
 const Border = styled.div`
   margin-left: 120px;
@@ -12,9 +13,9 @@ const ChallengeName = styled.h2`
   font-size: 25px;
   font-family: "Nanum Gothic", sans-serif;
   text-align: left;
-  padding-top: 40px;
   display: flex;
   flex-direction: row;
+  align-items: center;
 `;
 
 const Inner = styled.div`
@@ -68,7 +69,7 @@ const JoinedChallengeDate = styled.h3`
 
 const JoinedChallengeDetail = styled.h3`
   padding-right: 30px;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
   font-size: 20px;
   font-weight: bold;
   font-family: "Nanum Gothic", sans-serif;
@@ -79,7 +80,7 @@ const MinusPoint = styled.h5`
   font-weight: bold;
   color: red;
   font-family: "Nanum Gothic", sans-serif;
-  padding-top: 45px;
+  padding-top: 6%;
 `;
 
 const Point = styled.h5`
@@ -93,7 +94,7 @@ const Each = styled.div`
   weight: 100px;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr 1fr;
+  grid-template-rows: 0.7fr 1fr;
 
   .item:nth-child(3) {
     grid-column: 1 / 3;
@@ -181,7 +182,7 @@ const PointContent = () => {
             return (
               <Each>
                 <ChallengeName className="item">
-                  <ArrowDropImg src={arrow_drop_down}></ArrowDropImg>
+                  <ArrowDropImg src={expand_more}></ArrowDropImg>
                   <ChallengeTitle>
                     {data2[i].title}({data2[i].fromDate}~{data2[i].toDate})
                   </ChallengeTitle>
