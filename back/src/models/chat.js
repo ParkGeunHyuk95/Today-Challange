@@ -2,8 +2,21 @@ const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
 class chat {
+  static async findChallenge({ room }) {
+    console.log(typeof room);
+    const challengeId = await prisma.challenge.findFirst({
+      where: {
+        title: room,
+      },
+      select: {
+        challengeId: true,
+      },
+    });
+    return challengeId;
+  }
   static async storeChat({ chatData }) {
-    console.log("chat model::", chatData);
+    const challengeId = chatData.challengeId;
+
     const data = await prisma.chat.create({
       data: {
         content: chatData.content,
@@ -12,22 +25,22 @@ class chat {
         date: chatData.date,
         time: chatData.time,
         challenge: {
-          // connect: { challengeId: Number(chatData.challengeId) },
-          connect: { challengeId: 92 },
+          connect: { challengeId: challengeId.challengeId },
+          // connect: { challengeId: 92 },
         },
       },
     });
+    console.log("model data", data);
   }
 
-  static async getMessage(room) {
-    console.log("model))-getMessage: challenge title ", room);
-    const getMessages = await prisma.challenge.findUnique({
+  static async getMessage({ challengeId }) {
+    const getMessages = await prisma.chat.findMany({
       where: {
-        title: room,
+        challengeId: challengeId.challengeId,
       },
     });
     console.log(
-      "model))-getMessage:채널에 있는 모든 메세지!!!!!1",
+      "🦄🦄🦄model))-getMessage:채널에 있는 모든 메세지!!!!!1",
       getMessages
     );
     return getMessages;

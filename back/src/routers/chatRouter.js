@@ -4,7 +4,7 @@ import { chatService } from "../services/chatService";
 const chatRouter = Router();
 
 //user별 참가한 챌린지 조회(마이페이지)
-chatRouter.get("/userToChat", async function (req, res, next) {
+chatRouter.get("/userToChat", loginRequired, async function (req, res, next) {
   try {
     const userId = req.currentUserId;
     const userJoinChallengeList = await chatService.getUserChallengeInfo({
