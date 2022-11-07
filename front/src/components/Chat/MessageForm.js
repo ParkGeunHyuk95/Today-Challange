@@ -15,10 +15,10 @@ const MessageForm = () => {
       today.getMinutes() < 10 ? "0" + today.getMinutes() : today.getMinutes();
     const time = today.getHours() + ":" + minutes;
     const roomId = currentRoom;
+    console.log(user);
     socket.emit("messageRoom", roomId, message, user, time, todayDate);
     setMessage("");
   };
-
   useEffect(() => {
     Api.get("currentUser").then((res) => setCurrentUserId(res.data.userId));
     Api.get("userImg").then((res) => setProfileImage(res.data));

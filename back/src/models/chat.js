@@ -3,6 +3,7 @@ const prisma = new PrismaClient();
 
 class chat {
   static async findChallenge({ room }) {
+    console.log(room);
     console.log(typeof room);
     const challengeId = await prisma.challenge.findFirst({
       where: {

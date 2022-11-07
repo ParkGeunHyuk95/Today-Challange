@@ -10,6 +10,11 @@ const socketConfig = (server) => {
     },
   });
 
+  // 🌈 app.get("/rooms", (req, res) => {
+  // room title 가져오기
+  //   res.json(rooms);
+  //endpoint있는거는 router 따로 팠음
+  // });
   const getLastMessagesFromRoom = async ({ challengeId }) => {
     // 룸 타이틀에 해당하는 메세지 모두 가져오기
     const data = await chat.getMessage({ challengeId });
@@ -33,15 +38,16 @@ const socketConfig = (server) => {
       // console.log(members);
       console.log(socket);
     });
-    socket.on("enterRoom", async (room) => {
+    socket.on("enterRoom", async (room, done) => {
       socket.join(room);
+      // 룸;
+      done();
       // 룸 타이틀에 해당하는 모든 메세지 가져온 후에 데이터 정렬하고 그거 프론트에 보내기
       let roomMessages = await getLastMessagesFromRoom(room);
       roomMessages = sortRoomMessagesByDate(roomMessages);
       socket.emit("room-messages", roomMessages);
     });
     socket.on("messageRoom", async (room, content, sender, time, date) => {
-      console.log("sender", sender);
       const userId = sender.userId;
       const name = sender.name;
       const challengeId = await chat.findChallenge({ room });
