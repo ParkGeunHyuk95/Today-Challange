@@ -15,6 +15,7 @@ import happy from "../images/createChallengePage/happy.png";
 import { addDays } from "date-fns";
 import sad from "../images/createChallengePage/sad.png";
 import Swal from "sweetalert2";
+import { useParams } from "react-router-dom";
 import * as Api from "../api";
 const CreateChallenge = () => {
   const navigate = useNavigate("/");
@@ -22,6 +23,29 @@ const CreateChallenge = () => {
   const [user, setUsers] = useState([]);
   const dispatch = useContext(DispatchContext);
   const isLogin = !!userState.user;
+  let { id } = useParams();
+  let realId = parseInt(id);
+  const [challengeData, setChallengeData] = useState([]);
+  useEffect(() => {
+    Api.get(`challenges/mine/${realId}`).then((res) => {
+      setChallengeData(res.data.updateChallenge);
+      setTitle(res.data.updateChallenge.title);
+      setMethod(res.data.updateChallenge.method);
+      setDescription(res.data.updateChallenge.description);
+      // setStartDate(new Date(res.data.updateChallenge.fromData));
+      // setEndDate(new Date(res.data.updateChallenge.toDate));
+      setChallengeImage(res.data.updateChallenge.mainImg);
+      setGoodImage({
+        image_file: res.data.updateChallenge.explainImg.split(",")[0],
+        preview_URL: res.data.updateChallenge.explainImg.split(",")[0],
+      });
+      setBadImage({
+        image_file: res.data.updateChallenge.explainImg.split(",")[1],
+        preview_URL: res.data.updateChallenge.explainImg.split(",")[1],
+      });
+    });
+  }, []);
+
   const formData = new FormData();
   //mainImg
   const [challengeImage, setChallengeImage] = useState({
@@ -141,23 +165,23 @@ const CreateChallenge = () => {
       console.log("keyValue -> ", keyValue);
     }
     let res = {};
-    // let url = "http://localhost:5001/challenges/";
-    // axios
-    //   .post(url, formData, {
-    //     headers: {
-    //       "Content-Type": "multipart/form-data",
-    //       Authorization: `Bearer ${sessionStorage.getItem("accessToken")}`,
-    //     },
-    //   })
-    //   .then((res) => {
-    //     console.log(`Success` + res.data);
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   });
+    let url = "http://localhost:5001/challenges/";
+    axios
+      .post(url, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${sessionStorage.getItem("accessToken")}`,
+        },
+      })
+      .then((res) => {
+        console.log(`Success` + res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
     try {
       res = await axios({
-        method: "post",
+        method: "put",
         url: "http://localhost:5001/challenges",
         data: formData,
         headers: {
@@ -176,14 +200,14 @@ const CreateChallenge = () => {
         Swal.fire({
           position: "top-center",
           icon: "success",
-          text: "챌린지 생성 성공",
+          text: "챌린지 수정 성공",
         }).then(function () {
           navigate("/network", { replace: true });
         });
       }
     } catch (err) {
       //handle fail
-      console.log("챌린지 생성 실패", err);
+      console.log("챌린지 수정 실패", err);
     }
   };
 
@@ -193,7 +217,7 @@ const CreateChallenge = () => {
         <form onSubmit={handleSubmit}>
           <div className="createChallenge">
             <NavBar />
-            <Title>챌린지 개설하기</Title>
+            <Title>챌린지 수정하기</Title>
             <Line></Line>
             <Inner>
               {/**useRef()변수를 생성해서 사진을 클릭하면 파일 업로더를 띄울 수 있도록 onClick함수의 이벤트에 넣어줌 */}
@@ -205,7 +229,7 @@ const CreateChallenge = () => {
                 >
                   <img
                     className="main"
-                    src={challengeImage.preview_URL}
+                    src={challengeImage}
                     onClick={() => {
                       console.log(
                         "mainImgOnClick",
@@ -230,24 +254,24 @@ const CreateChallenge = () => {
                 <input
                   className="infoInput"
                   onChange={(e) => setTitle(e.target.value)}
-                  placeholder=" ex) 주 1회 플로깅"
+                  value={title}
                 ></input>
                 <span className="infoSpan">인증방법</span>
                 <input
                   className="infoInput"
                   onChange={(e) => setMethod(e.target.value)}
-                  placeholder=" ex) 쓰레기 봉투 인증"
+                  value={method}
                 ></input>
                 <span className="infoSpan">설명</span>
 
                 <textarea
                   className="description"
                   ref={descriptionRef}
-                  value={description}
                   onChange={handleSetValue}
-                  placeholder=" 조깅을 하면서 쓰레기를 줍는 활동 "
                   maxLength={450}
-                ></textarea>
+                >
+                  {description}
+                </textarea>
 
                 <span className="infoSpan">기간(시작일 ~ 종료일)</span>
                 <div className="date">

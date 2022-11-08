@@ -13,12 +13,13 @@ import MyPage from "./pages/MyPage";
 import CreateChallenge from "./pages/CreateChallengePage";
 import CreateChallengeVer2 from "./pages/CreateChallengePageVer2";
 import CheckChallenge from "./pages/CheckChallenge";
+import EditChallenge from "./pages/EditChallengePage";
 import Chat from "./pages/Chat";
 export const UserStateContext = createContext(null);
 export const DispatchContext = createContext(null);
 
 function App() {
-  const [room,setRoom]=useState(null)
+  const [room, setRoom] = useState(null);
   const [rooms, setRooms] = useState([]);
   const [currentRoom, setCurrentRoom] = useState([]);
   const [messages, setMessages] = useState([]);
@@ -76,7 +77,7 @@ function App() {
     console.log("로딩");
     return "loading...";
   }
-  
+
   return (
     <AppContext.Provider
       value={{
@@ -90,7 +91,7 @@ function App() {
         newMessages,
         setNewMessages,
         room,
-        setRoom
+        setRoom,
       }}
     >
       <DispatchContext.Provider value={dispatch}>
@@ -103,14 +104,15 @@ function App() {
               <Route path="/login/signup" element={<SignUpModal />} />
               <Route path="/mypage" element={<MyPage />} />
               <Route path="/chat" element={<Chat />} />
-              {/* <Route
-              path="/network/pages/CreateChallengePage"
-              element={<CreateChallenge />}
-            /> */}
+
               <Route
                 path="/network/pages/CreateChallengePageVer2"
                 element={<CreateChallengeVer2 />}
               />
+              <Route
+                path="/editChallenge/:id"
+                element={<EditChallenge />}
+              ></Route>
               <Route
                 path="/ChallengeDetail"
                 element={<ChallengeDetailModal />}
@@ -120,7 +122,7 @@ function App() {
           </Router>
         </UserStateContext.Provider>
       </DispatchContext.Provider>
-     </AppContext.Provider>
+    </AppContext.Provider>
   );
 }
 

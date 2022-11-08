@@ -10,10 +10,10 @@ const MychallengeCard = ({ item }) => {
   var month = ("0" + (today.getMonth() + 1)).slice(-2);
   var day = ("0" + today.getDate()).slice(-2);
   var dateString = year + "-" + month + "-" + day;
-  let navigate=useNavigate()
+  let navigate = useNavigate();
   const mainImg = item.challenge.mainImg;
-  console.log(item.challenge.title)
-  console.log('ㅁㄴㅇ',item)
+  console.log(item.challenge.title);
+  console.log("ㅁㄴㅇ", item);
   return (
     <Card
       id="cardBody"
@@ -33,14 +33,10 @@ const MychallengeCard = ({ item }) => {
     >
       <Card.Body>
         <div className="imageWrap">
-          <Card.Img
-            className="mb-3"
-            src={mainImg}
-            alt="대표 사진"
-          />
+          <Card.Img className="mb-3" src={mainImg} alt="대표 사진" />
 
           <Card.Title>{item?.challenge.title}</Card.Title>
-        
+
           <div className="cardtext">
             👨‍👧‍👧 100
             <UserLike challengeId={item.challenge.challengeId} />
@@ -51,17 +47,21 @@ const MychallengeCard = ({ item }) => {
             </a>{" "}
           </div>
           <button
-           
             className="networkButton"
-            onClick={()=>{
-                navigate(`/checkChallenge/${item.challenge.challengeId}`)
+            onClick={() => {
+              navigate(`/checkChallenge/${item.challenge.challengeId}`);
             }}
-            
           >
             인증하기
           </button>
-          <button className="editButton">수정하기</button>
-          
+          <button
+            className="editButton"
+            onClick={() => {
+              navigate(`/editChallenge/${item.challenge.challengeId}`);
+            }}
+          >
+            수정하기
+          </button>
         </div>
       </Card.Body>
     </Card>
