@@ -141,20 +141,6 @@ const CreateChallenge = () => {
       console.log("keyValue -> ", keyValue);
     }
     let res = {};
-    // let url = "http://localhost:5001/challenges/";
-    // axios
-    //   .post(url, formData, {
-    //     headers: {
-    //       "Content-Type": "multipart/form-data",
-    //       Authorization: `Bearer ${sessionStorage.getItem("accessToken")}`,
-    //     },
-    //   })
-    //   .then((res) => {
-    //     console.log(`Success` + res.data);
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   });
     try {
       res = await axios({
         method: "post",

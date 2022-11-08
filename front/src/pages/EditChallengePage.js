@@ -34,7 +34,10 @@ const CreateChallenge = () => {
       setDescription(res.data.updateChallenge.description);
       // setStartDate(new Date(res.data.updateChallenge.fromData));
       // setEndDate(new Date(res.data.updateChallenge.toDate));
-      setChallengeImage(res.data.updateChallenge.mainImg);
+      setChallengeImage({
+        image_file: res.data.updateChallenge.mainImg,
+        preview_URL: res.data.updateChallenge.mainImg,
+      });
       setGoodImage({
         image_file: res.data.updateChallenge.explainImg.split(",")[0],
         preview_URL: res.data.updateChallenge.explainImg.split(",")[0],
@@ -165,36 +168,22 @@ const CreateChallenge = () => {
       console.log("keyValue -> ", keyValue);
     }
     let res = {};
-    let url = "http://localhost:5001/challenges/";
-    axios
-      .post(url, formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-          Authorization: `Bearer ${sessionStorage.getItem("accessToken")}`,
-        },
-      })
-      .then((res) => {
-        console.log(`Success` + res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
     try {
       res = await axios({
         method: "put",
-        url: "http://localhost:5001/challenges",
+        url: `http://localhost:5001/challenges/${realId}`,
         data: formData,
         headers: {
           "Content-Type": "multipart/form-data",
           Authorization: `Bearer ${sessionStorage.getItem("accessToken")}`,
         },
       });
-      const postChallengeId = res.data.newChallenge.challengeId;
-      console.log("res : ", res);
+      // const postChallengeId = res.data.newChallenge.challengeId;
+      console.log("putRes : ", res.data);
 
-      await Api.post("userToChallenge", {
-        challengeId: postChallengeId,
-      });
+      // await Api.post("userToChallenge", {
+      //   challengeId: postChallengeId,
+      // });
 
       if (res.status === 200 || res.status === 201) {
         Swal.fire({
@@ -202,7 +191,7 @@ const CreateChallenge = () => {
           icon: "success",
           text: "챌린지 수정 성공",
         }).then(function () {
-          navigate("/network", { replace: true });
+          navigate("/mypage", { replace: true });
         });
       }
     } catch (err) {
@@ -229,7 +218,7 @@ const CreateChallenge = () => {
                 >
                   <img
                     className="main"
-                    src={challengeImage}
+                    src={challengeImage.preview_URL}
                     onClick={() => {
                       console.log(
                         "mainImgOnClick",
@@ -270,7 +259,7 @@ const CreateChallenge = () => {
                   onChange={handleSetValue}
                   maxLength={450}
                 >
-                  {description}
+                  {/* {description} */}
                 </textarea>
 
                 <span className="infoSpan">기간(시작일 ~ 종료일)</span>
@@ -383,7 +372,7 @@ const CreateChallenge = () => {
               </CheckImg>
             </InnerCheckImg>
             <StyledButton>
-              <CreateFont>챌린지 생성하기</CreateFont>
+              <CreateFont>챌린지 수정하기</CreateFont>
             </StyledButton>
           </div>
         </form>
