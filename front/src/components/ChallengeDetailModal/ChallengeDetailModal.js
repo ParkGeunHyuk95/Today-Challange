@@ -37,7 +37,6 @@ function ChallengeDetailModal({
   const handleRoomSubmit=(e)=>{
     e.preventDefault();
     socket.emit('enterRoom',item.title,()=>{
-      setCurrentRoom(item.title)
       console.log(currentRoom)
     })
     

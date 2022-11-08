@@ -39,21 +39,21 @@ const socketConfig = (server) => {
       // console.log(members);
       console.log(socket);
     });
-    socket.on("enterRoom", async (room, done) => {
+    socket.on("enterRoom", async (room) => {
       socket.join(room);
       console.log("room", room);
       console.log("room", socket.rooms);
       // 룸;
-      done();
+      
       // 룸 타이틀에 해당하는 모든 메세지 가져온 후에 데이터 정렬하고 그거 프론트에 보내기
       const challengeId = await chat.findChallenge({ room });
 
       let roomMessages = await getLastMessagesFromRoom({ challengeId });
       console.log("room m", roomMessages);
       // // console.log("여기 위에 주석 해제 하기", roomMessages);
-      // roomMessages = sortRoomMessagesByDate(roomMessages);
-      // socket.emit("room-messages", roomMessages);
-      // console.log("일단 여기까지 무사히 오면 너무 행복할듯????");
+      roomMessages = sortRoomMessagesByDate(roomMessages);
+      socket.emit("room-messages", roomMessages);
+      console.log("일단 여기까지 무사히 오면 너무 행복할듯????");
     });
     socket.on("messageRoom", async (room, content, sender, time, date) => {
       console.log("또 안돼?", sender);

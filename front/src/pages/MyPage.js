@@ -38,7 +38,7 @@ const MyPage = () => {
     Api.get('currentUser').then((res)=>setMyId(res.data.userId))
   }, []);
 
-  console.log(myChallengeList);
+  console.log('내챌린지',myChallengeList);
 
   return (
     <>

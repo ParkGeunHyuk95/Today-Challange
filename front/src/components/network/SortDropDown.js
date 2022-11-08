@@ -16,16 +16,16 @@ const SortDropDown = ({originalData, data, setData}) => {
 
       <Dropdown.Menu>
         <Dropdown.Item onClick={()=>{
-          setInitialState('최신순')
+          setInitialState('오래된순')
           const results=originalData.sort((item)=>
           item.createdAt).reverse()
-        
           setData(results)
-        }}>최신순</Dropdown.Item>
+        }}>오래된순</Dropdown.Item>
         <Dropdown.Item onClick={()=>{
-          setInitialState('참여인원순')
-          
-        }}>참여인원순</Dropdown.Item> 
+          setInitialState('최신순')
+          const results=originalData.sort((item)=>item.createdAt)
+          setData(results)
+        }}>최신순</Dropdown.Item> 
         <Dropdown.Item onClick={()=>{
           setInitialState('진행중인챌린지')
           const results= originalData.filter((item)=>
