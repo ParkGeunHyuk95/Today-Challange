@@ -26,9 +26,6 @@ const SideBar = () => {
     }
    
   }, []);
-  
-  
-  console.log(currentRoom)
   return (
     <div>
       <h2>Avaliable rooms</h2>

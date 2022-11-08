@@ -29,3 +29,28 @@
     border-radius: 10px;
     background-color: #d1e7dd;
 }
+.incomingMessage .messageInner {
+    background-color: #ffdab9;
+}
+
+.incomingMessage {
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 20px;
+}
+
+.messageTimestampLeft {
+    font-size: 0.85em;
+    font-weight: 300;
+    margin-top: 10px;
+}
+
+.messageSender {
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.messageDateIndicator {
+    width: 150px;
+    margin: 0 auto;
+}

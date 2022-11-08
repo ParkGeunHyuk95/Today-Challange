@@ -49,11 +49,10 @@ const MessageForm = () => {
   const todayDate = getFormattedDate();
 
 
-  socket.off("roomMessages").on("roomMessages", (roomMessages) => {
+  socket.off("room-messages").on("room-messages", (roomMessages) => {
     setMessages(roomMessages);
     console.log("room message", roomMessages);
   });
-
   return (
     <>
       <div className="messagesOutput">
