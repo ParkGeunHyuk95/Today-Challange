@@ -54,7 +54,14 @@ const MychallengeCard = ({ item }) => {
         >
           인증하기
         </button>
-        <button className="editButton">수정하기</button>
+        <button
+          className="editButton"
+          onClick={() => {
+            navigate(`/editChallenge/${item.challenge.challengeId}`);
+          }}
+        >
+          수정하기
+        </button>
         {/* </div> */}
       </Card.Body>
     </Card>
