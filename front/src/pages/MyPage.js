@@ -28,13 +28,14 @@ const MyPage = () => {
   const [challengeData, setChallengeData] = useState([]);
   const [originalData, setOriginalData] = useState([]);
   const [myChallengeList, setMyChallengeList] = useState([]);
-
+  const [myId,setMyId]=useState('')
   useEffect(() => {
     Api.get("challenges").then((res) => setChallengeData(res.data.result));
     Api.get("challenges").then((res) => setOriginalData(res.data.result));
     Api.get(`point`).then((res) => setMyPoint(res.data.toString()));
     Api.get("liked").then((res) => setLikedList(res.data));
     Api.get("userToChallenge").then((res) => setMyChallengeList(res.data));
+    Api.get('currentUser').then((res)=>setMyId(res.data.userId))
   }, []);
 
   console.log(myChallengeList);
@@ -119,6 +120,12 @@ const MyPage = () => {
                     <Dropdown.Item
                       onClick={() => {
                         setInitialState("내가 만든");
+                        let results=originalData.filter(
+                          (item)=>
+                          item.holdUserId=myId
+                        )
+
+                        setChallengeData(results)
                       }}
                     >
                       내가 만든
