@@ -27,9 +27,7 @@ const MessageForm = () => {
     Api.get("currentUser").then((res) => setName(res.data.name));
     Api.get("currentUser").then((res) => setUser(res.data));
   }, []);
-  // useEffect(()=>{
-  //   scrollToBottom();
-  // },[messages])
+  
   const [message, setMessage] = useState("");
   const [name, setName] = useState("");
   const [profileImage, setProfileImage] = useState(null);
@@ -57,8 +55,10 @@ const MessageForm = () => {
     });
   }, [currentRoom]);
   
-  
-  
+  useEffect(()=>{
+    scrollToBottom();
+  },[messages])
+  console.log(messages)
   return (
     <>
       <div className="messagesOutput">
@@ -71,36 +71,26 @@ const MessageForm = () => {
         ) : (
           <div className="alert alert-danger">Please login</div>
         )}
-        {/* {user &&
+        {user &&
           messages.map(({ _id:date, messagesByDate }, idx) => (
             <div key={idx}>
               <p className="alert alert-info text-center messageDateIndicator">
                 {date}
               </p>
               {messagesByDate?.map(
-                ({ content, time, name: sender }, msgIdx) => (
+                ({ content, time, userId: sender,name:name }, msgIdx) => (
                   <div
                     className={
-                      sender?.email == user?.email
-                        ? "message"
-                        : "incomingMessage"
+                      sender == currentUserId
+                        ? "incomingMessage"
+                        : "message"
                     }
                     key={msgIdx}
                   >
                     <div className="messageInner">
                       <div className="d-flex align-items-center mb-3">
-                        <img
-                          src={sender.picture}
-                          style={{
-                            width: 35,
-                            height: 35,
-                            objectFit: "cover",
-                            borderRadius: "50%",
-                            marginRight: 10,
-                          }}
-                        />
                         <p className="messageSender">
-                          {sender._id == user?._id ? "You" : sender.name}
+                          {sender == currentUserId ? "You" : name}
                         </p>
                       </div>
                       <p className="messageContent">{content}</p>
@@ -110,7 +100,7 @@ const MessageForm = () => {
                 )
               )}
             </div>
-          ))} */}
+          ))}
            <div ref={messageEndRef} />
       </div>
       <Form onSubmit={handleSubmit}>
