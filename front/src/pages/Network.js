@@ -15,7 +15,6 @@ const Network = () => {
   const [challengeData, setChallengeData] = useState([]);
   const [originalData, setOriginalData] = useState([]);
   const navigate = useNavigate();
-  const [countPerson, setCountPerson] = useState(0);
   const [visible, setVisible] = useState(4);
   const showMoreCards = () => {
     setVisible((preValue) => preValue + 4);
@@ -32,7 +31,7 @@ const Network = () => {
       setOriginalData(res.data.result.reverse())
     );
   }, []);
-
+  
   return (
     <div className="NetworkContainer">
       <NavBar />

@@ -7,6 +7,7 @@ import * as Api from '../api'
 import Dropdown from "../components/Dropdown";
 import CheckDropdown from "../components/Dropdown";
 import StyledButton from "../styles/commonstyles/Button";
+import CheckChallengeCard from "../components/CheckChallengeCard";
 
 const CheckChallenge = () => {
     let {id}=useParams();
@@ -15,11 +16,11 @@ const CheckChallenge = () => {
     const [challengeData,setChallengeData]=useState([]);
     useEffect(()=>{
       Api.get(`challenges/mine/${realId}`).then((res)=>setChallengeData(res.data.updateChallenge))
-      Api.get('countJoinUser').then((res)=>setCountPerson(res.data))
+      Api.get(`countJoinUser/${id}`).then((res)=>setCountPerson(res.data))
+      
     },[])
     // Api.get(`challenges/mine/:${realId}}`).then((res)=>console.log(res))
-    console.log(challengeData.fromDate)
-    console.log(challengeData.toDate -challengeData.fromDate)
+    
     const [checkImg,setCheckImg]=useState([]);
     const addImg=(e)=>{
       const nowSelectImageList=e.target.files;
@@ -38,7 +39,10 @@ const CheckChallenge = () => {
       return Math.abs(diffDate/(1000*60*60*24));
     }
     let dif=getDateDiff(challengeData.fromDate,challengeData.toDate)
-    
+    const countImage=(dif+1)
+    const countWeek=countImage/7
+    console.log('이미지갯수',countImage)
+    console.log('몇주차?',countWeek)
   return (
     <div className="checkChallenge">
       <NavBar />
@@ -49,7 +53,7 @@ const CheckChallenge = () => {
       <div className="checkContents">
         <div className="mainimg">
             <div className="imgsize">
-              <NetworkCard item={challengeData} countPerson={countPerson}/>
+              <CheckChallengeCard item={challengeData} person={countPerson}/>
             </div>
         </div>
         <div className="mainContent">
@@ -75,7 +79,7 @@ const CheckChallenge = () => {
               참가 포인트 -50
             </div>
             <div>
-              획득 최대 포인트 {dif*10}
+              획득 최대 포인트 {dif*10+10}
             </div>
           </div>
           <div className="buttonContents">

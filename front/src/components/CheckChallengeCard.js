@@ -4,7 +4,7 @@ import "../styles/network/networkcard.css";
 import ChallengeDetailModal from "./ChallengeDetailModal/ChallengeDetailModal";
 import UserLike from "./UserLike";
 import * as Api from "../api";
-const NetworkCard = ({ item }) => {
+const CheckChallengeCard = ({ item,person }) => {
   const getDateDiff = (d1, d2) => {
     const date1 = new Date(d1);
     const date2 = new Date(d2);
@@ -27,11 +27,7 @@ const NetworkCard = ({ item }) => {
   const Id = item.challengeId;
   const mainImg = item.mainImg;
   
-  const [person, setPerson] = useState();
-  useEffect(() => {
-    Api.get(`countJoinUser/${item.challengeId}`).then((res) => setPerson(res.data));
-  }, []);
-  console.log('으음?',person?.data);
+
   return (
     <Card
       id="cardBody"
@@ -90,4 +86,4 @@ const NetworkCard = ({ item }) => {
   );
 };
 
-export default NetworkCard;
+export default CheckChallengeCard;
