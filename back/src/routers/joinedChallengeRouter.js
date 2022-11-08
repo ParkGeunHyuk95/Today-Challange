@@ -35,7 +35,7 @@ joinedChallengeRouter.post(
         description,
       });
 
-      res.status(200).json({ addImage });
+      res.status(200).send({ addImage });
     } catch (error) {
       next(error);
     }
