@@ -50,6 +50,7 @@ const NetworkCard = ({ item, countPerson }) => {
       }}
     >
       <Card.Body className="networkCard">
+        {/* <div className="imageWrap"> */}
         <Card.Img
           className="mb-3 imgSize"
           src={mainImg}
@@ -77,6 +78,7 @@ const NetworkCard = ({ item, countPerson }) => {
             item={item}
           />
         )}
+        {/* </div> */}
       </Card.Body>
     </Card>
   );

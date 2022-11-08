@@ -62,6 +62,29 @@ const MychallengeCard = ({ item }) => {
           >
             수정하기
           </button>
+          {/* <div className="imageWrap"> */}
+          <Card.Img className="mb-3" src={mainImg} alt="대표 사진" />
+
+          <Card.Title>{item?.challenge.title}</Card.Title>
+
+          <div className="cardtext">
+            👨‍👧‍👧 100
+            <UserLike challengeId={item.challenge.challengeId} />
+          </div>
+          <div className="duration">
+            <a className="cardSubText">
+              {item?.challenge.fromDate}-{item?.challenge.toDate}
+            </a>{" "}
+          </div>
+          <button
+            className="networkButton"
+            onClick={() => {
+              navigate(`/checkChallenge/${item.challenge.challengeId}`);
+            }}
+          >
+            인증하기
+          </button>
+          <button className="editButton">수정하기</button>
         </div>
       </Card.Body>
     </Card>
