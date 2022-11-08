@@ -52,9 +52,10 @@ const MessageForm = () => {
     socket.off("room-messages").on("room-messages", (roomMessages) => {
       setMessages(roomMessages);
     });
-  }, [currentRoom[1]]);
+  }, [currentRoom]);
 
-  messages.map((item) => item.map((x) => console.log(x.content)));
+  messages[0].map((x)=>console.log(x))
+  
   return (
     <>
       <div className="messagesOutput">
@@ -68,7 +69,7 @@ const MessageForm = () => {
           <div className="alert alert-danger">Please login</div>
         )}
         {/* {user &&
-          messages.map(({ _id: date, messagesByDate }, idx) => (
+          messages.map(({ _id, messagesByDate }, idx) => (
             <div key={idx}>
               <p className="alert alert-info text-center messageDateIndicator">
                 {date}
