@@ -59,7 +59,9 @@ const MessageForm = () => {
       <div className="messagesOutput">
         {user ? (
           <div className="alert alert-info">
-            You are in the {currentRoom} room
+            {
+              currentRoom? `You are in the ${currentRoom} room`: '참여할 채팅방을 클릭해주세요'
+            }
           </div>
         ) : (
           <div className="alert alert-danger">Please login</div>

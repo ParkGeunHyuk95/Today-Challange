@@ -19,8 +19,8 @@ export const DispatchContext = createContext(null);
 
 function App() {
   
-  const [rooms, setRooms] = useState([]);
-  const [currentRoom, setCurrentRoom] = useState([]);
+  const [rooms, setRooms] = useState(null);
+  const [currentRoom, setCurrentRoom] = useState(null);
   
   const [messages, setMessages] = useState([]);
   const [newMessages, setNewMessages] = useState({});
