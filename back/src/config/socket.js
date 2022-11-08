@@ -33,20 +33,19 @@ const socketConfig = (server) => {
     let count = 1;
 
     for (let i = 0; i < roomMessages.length; i++) {
-      console.log("result구조??", result);
       if (i === 0) {
-        result.push(roomMessages[i].date);
+        result.push({ _id: roomMessages[i].date });
         result.push([roomMessages[0]]);
         continue;
       } else if (roomMessages[i - 1].date == roomMessages[i].date) {
         result[count].push(roomMessages[i]);
       } else {
-        result.push(roomMessages[i].date);
+        result.push({ _id: roomMessages[i].date });
         result.push([roomMessages[i]]);
         count += 2;
       }
     }
-    console.log(result);
+    console.log("result", result);
     return result;
   }
 
