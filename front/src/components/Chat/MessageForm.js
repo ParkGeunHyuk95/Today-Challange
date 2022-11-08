@@ -48,42 +48,65 @@ const MessageForm = () => {
   };
   const todayDate = getFormattedDate();
 
+  useEffect(() => {
+    socket.off("room-messages").on("room-messages", (roomMessages) => {
+      setMessages(roomMessages);
+    });
+  }, [currentRoom[1]]);
 
-  socket.off("room-messages").on("room-messages", (roomMessages) => {
-    setMessages(roomMessages);
-    console.log("room message", roomMessages);
-  });
+  messages.map((item) => item.map((x) => console.log(x.content)));
   return (
     <>
       <div className="messagesOutput">
         {user ? (
           <div className="alert alert-info">
-            {
-              currentRoom? `You are in the ${currentRoom} room`: '참여할 채팅방을 클릭해주세요'
-            }
+            {currentRoom
+              ? `You are in the ${currentRoom} room`
+              : "참여할 채팅방을 클릭해주세요"}
           </div>
         ) : (
           <div className="alert alert-danger">Please login</div>
         )}
-
-        <div className="messageInner">
-          <div className="d-flex align-items-center mb-3">
-            <img
-              // src={sender.picture}
-              style={{
-                width: 35,
-                height: 35,
-                objectFit: "cover",
-                borderRadius: "50%",
-                marginRight: 10,
-              }}
-            />
-            <p className="message-sender">
-              {/* {sender._id == currentUserId?._id ? "You" : sender.name} */}
-            </p>
-          </div>
-          <p className="message-content">{message}</p>
-        </div>
+        {/* {user &&
+          messages.map(({ _id: date, messagesByDate }, idx) => (
+            <div key={idx}>
+              <p className="alert alert-info text-center messageDateIndicator">
+                {date}
+              </p>
+              {messagesByDate?.map(
+                ({ content, time, from: sender }, msgIdx) => (
+                  <div
+                    className={
+                      sender?.email == user?.email
+                        ? "message"
+                        : "incomingMessage"
+                    }
+                    key={msgIdx}
+                  >
+                    <div className="messageInner">
+                      <div className="d-flex align-items-center mb-3">
+                        <img
+                          src={sender.picture}
+                          style={{
+                            width: 35,
+                            height: 35,
+                            objectFit: "cover",
+                            borderRadius: "50%",
+                            marginRight: 10,
+                          }}
+                        />
+                        <p className="messageSender">
+                          {sender._id == user?._id ? "You" : sender.name}
+                        </p>
+                      </div>
+                      <p className="messageContent">{content}</p>
+                      <p className="messageTimestampLeft">{time}</p>
+                    </div>
+                  </div>
+                )
+              )}
+            </div>
+          ))} */}
       </div>
       <Form onSubmit={handleSubmit}>
         <Row>
