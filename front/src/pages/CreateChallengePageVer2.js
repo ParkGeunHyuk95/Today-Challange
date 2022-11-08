@@ -171,7 +171,7 @@ const CreateChallenge = () => {
       
       await Api.post('userToChallenge',{
         "challengeId":postChallengeId
-      })
+      }).then((res)=>console.log('우히히',res))
       
       if (res.status === 200 || res.status === 201) {
         Swal.fire({

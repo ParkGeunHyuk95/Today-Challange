@@ -31,7 +31,6 @@ const Network = () => {
     Api.get("challenges").then((res) =>
       setOriginalData(res.data.result.reverse())
     );
-    Api.get("countJoinUser").then((res) => setCountPerson(res.data));
   }, []);
 
   return (
@@ -63,7 +62,7 @@ const Network = () => {
         <Row>
           {challengeData.slice(0, visible).map((menu) => (
             <Col lg={3}>
-              <NetworkCard item={menu} countPerson={countPerson} />
+              <NetworkCard item={menu}/>
             </Col>
           ))}
         </Row>
