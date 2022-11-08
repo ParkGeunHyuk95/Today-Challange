@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Card from "react-bootstrap/Card";
 import { useNavigate } from "react-router-dom";
 import "../../styles/network/networkcard.css";
-
+import * as Api from '../../api'
 import UserLike from "../UserLike";
 const MychallengeCard = ({ item }) => {
   var today = new Date();
@@ -12,8 +12,10 @@ const MychallengeCard = ({ item }) => {
   var dateString = year + "-" + month + "-" + day;
   let navigate=useNavigate()
   const mainImg = item.challenge.mainImg;
-  console.log(item.challenge.title)
-  console.log('ㅁㄴㅇ',item)
+  const [person, setPerson] = useState();
+  useEffect(() => {
+    Api.get(`countJoinUser/${item.challenge.challengeId}`).then((res) => setPerson(res));
+  }, []);
   return (
     <Card
       id="cardBody"
@@ -42,7 +44,7 @@ const MychallengeCard = ({ item }) => {
           <Card.Title>{item?.challenge.title}</Card.Title>
         
           <div className="cardtext">
-            👨‍👧‍👧 100
+            👨‍👧‍👧 {person?.data}
             <UserLike challengeId={item.challenge.challengeId} />
           </div>
           <div className="duration">
