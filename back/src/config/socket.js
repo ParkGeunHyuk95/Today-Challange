@@ -86,7 +86,8 @@ const socketConfig = (server) => {
       console.log("room m", roomMessages);
       // // console.log("여기 위에 주석 해제 하기", roomMessages);
       roomMessages = sortRoomMessagesByDate(roomMessages);
-      socket.emit("room-messages", roomMessages);
+      let allMessages = aggregateM(roomMessages);
+      socket.emit("room-messages", allMessages);
       // console.log("일단 여기까지 무사히 오면 너무 행복할듯????");
     });
     socket.on("messageRoom", async (room, content, sender, time, date) => {
@@ -107,7 +108,7 @@ const socketConfig = (server) => {
 
       let roomMessages = await getLastMessagesFromRoom({ challengeId });
       roomMessages = sortRoomMessagesByDate(roomMessages);
-      let allMessages = await aggregateM(roomMessages);
+      let allMessages = aggregateM(roomMessages);
       // sending message to room
       console.log("data", allMessages);
       io.to(room).emit("room-messages", allMessages);
