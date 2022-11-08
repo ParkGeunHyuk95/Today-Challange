@@ -37,7 +37,7 @@ const MyPage = () => {
     Api.get("userToChallenge").then((res) => setMyChallengeList(res.data));
   }, []);
 
-  console.log(myChallengeList);
+  console.log(myChallengeList.title);
 
   return (
     <>

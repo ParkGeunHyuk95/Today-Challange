@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import * as Api from "../../api";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
@@ -173,16 +173,8 @@ const data2 = [
 ];
 // 참가버튼 누르면 포인트 10 획득, 챌린지 개설하기 버튼 누르면 포인트 -50
 
-const PointContent = () => {
-  // const [point, setPoint] = useState("");
-  const { id } = useParams();
-  const challengeId = parseInt(id);
-  console.log("Params:", id);
-  useEffect(() => {
-    Api.get(`userToChallenge`).then((res) => {
-      console.log("PointData:", res);
-    });
-  });
+const PointContent = ({ myChallengeList }) => {
+  console.log(myChallengeList);
   return (
     <>
       <Border>
