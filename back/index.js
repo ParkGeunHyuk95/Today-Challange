@@ -1,11 +1,19 @@
 import "dotenv/config";
 import { app } from "./src/app";
+import { socketConfig } from "./src/config/socket";
+// console.log("app.js!!!!제발", socketConfig());
+// socketConfig.server.listen(5002, () => {
+//   console.log("socket.io 서버 시작");
+// });
 
 const PORT = process.env.SERVER_PORT || 5000;
 
-app.listen(PORT, () => {
-  console.log(`정상적으로 서버를 시작하였습니다.  http://localhost:${PORT}`);
-});
+socketConfig(
+  app.listen(PORT, () => {
+    console.log(`정상적으로 서버를 시작하였습니다.  http://localhost:${PORT}`);
+  }),
+  app
+);
 
 // import { Socket } from "socket.io-client";
 // import socket from "socket.io";

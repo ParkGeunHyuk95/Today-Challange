@@ -21,7 +21,6 @@ const MessageForm = () => {
     socket.emit("messageRoom", roomId, message, user, time, todayDate);
     setMessage("");
   };
-
   useEffect(() => {
     Api.get("currentUser").then((res) => setCurrentUserId(res.data.userId));
     Api.get("userImg").then((res) => setProfileImage(res.data));
@@ -49,6 +48,7 @@ const MessageForm = () => {
   };
   const todayDate = getFormattedDate();
 
+
   socket.off("roomMessages").on("roomMessages", (roomMessages) => {
     setMessages(roomMessages);
     console.log("room message", roomMessages);
@@ -64,6 +64,7 @@ const MessageForm = () => {
         ) : (
           <div className="alert alert-danger">Please login</div>
         )}
+
         <div className="messageInner">
           <div className="d-flex align-items-center mb-3">
             <img
