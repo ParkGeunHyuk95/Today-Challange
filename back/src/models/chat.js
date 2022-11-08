@@ -17,6 +17,7 @@ class chat {
   }
   static async storeChat({ chatData }) {
     const challengeId = chatData.challengeId;
+    console.log("model!!!!!!", chatData);
 
     const data = await prisma.chat.create({
       data: {
@@ -40,14 +41,17 @@ class chat {
         challengeId: challengeId.challengeId,
       },
     });
-    console.log(
-      "🦄🦄🦄model))-getMessage:채널에 있는 모든 메세지!!!!!1",
-      getMessages
-    );
+    // console.log(
+    //   "🦄🦄🦄model))-getMessage:채널에 있는 모든 메세지!!!!!1",
+    //   getMessages
+    // );
+    console.log("모델 여기도 서버 크랙나서 challengeId 안나옴", challengeId);
+
     return getMessages;
   }
 
-  static async getJoinChallengeList({ userId }) {
+  static async getChallengeList({ userId }) {
+    console.log("왜 여기로 오지?", userId);
     const JoinChallengeList = await prisma.userToChallenge.findMany({
       where: {
         userId: userId,
