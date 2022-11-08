@@ -36,8 +36,11 @@ function ChallengeDetailModal({
   const {socket,currentRoom,setCurrentRoom}=useContext(AppContext)
   const handleRoomSubmit=(e)=>{
     e.preventDefault();
-    socket.emit('enterRoom',item.title,()=>{
-      console.log(currentRoom)
+    // socket.emit('enterRoom',item.title,()=>{
+    //   console.log(currentRoom)
+    // })
+    Api.post('userToChallenge',{
+      "challengeId":item.challengeId
     })
     
   }

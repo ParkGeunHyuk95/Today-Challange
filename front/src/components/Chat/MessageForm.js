@@ -27,6 +27,9 @@ const MessageForm = () => {
     Api.get("currentUser").then((res) => setName(res.data.name));
     Api.get("currentUser").then((res) => setUser(res.data));
   }, []);
+  // useEffect(()=>{
+  //   scrollToBottom();
+  // },[messages])
   const [message, setMessage] = useState("");
   const [name, setName] = useState("");
   const [profileImage, setProfileImage] = useState(null);
@@ -53,8 +56,8 @@ const MessageForm = () => {
       setMessages(roomMessages);
     });
   }, [currentRoom]);
-
-  messages[0].map((x)=>console.log(x))
+  
+  
   
   return (
     <>
@@ -69,13 +72,13 @@ const MessageForm = () => {
           <div className="alert alert-danger">Please login</div>
         )}
         {/* {user &&
-          messages.map(({ _id, messagesByDate }, idx) => (
+          messages.map(({ _id:date, messagesByDate }, idx) => (
             <div key={idx}>
               <p className="alert alert-info text-center messageDateIndicator">
                 {date}
               </p>
               {messagesByDate?.map(
-                ({ content, time, from: sender }, msgIdx) => (
+                ({ content, time, name: sender }, msgIdx) => (
                   <div
                     className={
                       sender?.email == user?.email
@@ -108,6 +111,7 @@ const MessageForm = () => {
               )}
             </div>
           ))} */}
+           <div ref={messageEndRef} />
       </div>
       <Form onSubmit={handleSubmit}>
         <Row>
