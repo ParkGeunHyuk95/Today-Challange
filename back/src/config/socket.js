@@ -1,4 +1,3 @@
-// import { Socket } from "socket.io-client";
 import socket from "socket.io";
 import { chat } from "../models/chat";
 
@@ -17,7 +16,6 @@ const socketConfig = (server) => {
   // });
   const getLastMessagesFromRoom = async ({ challengeId }) => {
     // 룸 타이틀에 해당하는 메세지 모두 가져오기
-    // console.log("config-socket  challengeId 안나옴", challengeId);
     const data = await chat.getMessage({ challengeId });
     return data;
   };
@@ -31,37 +29,24 @@ const socketConfig = (server) => {
     });
   }
   function aggregateM(roomMessages) {
-    // console.log("이게 될까?", roomMessages[0]);
-    const emptyList = [];
     const result = [];
-    let count = 0;
+    let count = 1;
 
     for (let i = 0; i < roomMessages.length; i++) {
+      console.log("result구조??", result);
       if (i === 0) {
+        result.push(roomMessages[i].date);
         result.push([roomMessages[0]]);
         continue;
-        // console.log("1- result>>>", result);
-        // console.log("1.1- date>>>", roomMessages[i].date);
       } else if (roomMessages[i - 1].date == roomMessages[i].date) {
-        // result.push();
-        // console.log(
-        //   "2- date>>>",
-        //   roomMessages[i - 1].date == roomMessages[i].date
-        // );
         result[count].push(roomMessages[i]);
-        // console.log("2>>>>>>>>", result);
-        // console.log("2>>>>>>>> 날짜가 동일한 뒤에꺼", result[count][0].date);
       } else {
+        result.push(roomMessages[i].date);
         result.push([roomMessages[i]]);
-        // ㅁㅇㄴ
-        // console.log("count type", typeof count);
-        // console.log("count type", count + 1);
-        count++;
-        // console.log("3-count>>>:", count);
+        count += 2;
       }
     }
-    // console.log("result🥹!!!!", result);
-
+    console.log(result);
     return result;
   }
 
@@ -83,12 +68,9 @@ const socketConfig = (server) => {
       const challengeId = await chat.findChallenge({ room });
 
       let roomMessages = await getLastMessagesFromRoom({ challengeId });
-      console.log("room m", roomMessages);
-      // // console.log("여기 위에 주석 해제 하기", roomMessages);
       roomMessages = sortRoomMessagesByDate(roomMessages);
       let allMessages = aggregateM(roomMessages);
       socket.emit("room-messages", allMessages);
-      // console.log("일단 여기까지 무사히 오면 너무 행복할듯????");
     });
     socket.on("messageRoom", async (room, content, sender, time, date) => {
       const userId = sender.userId;
@@ -104,13 +86,11 @@ const socketConfig = (server) => {
       };
 
       const data = await chat.storeChat({ chatData });
-      // console.log("이상한데", challengeId);
 
       let roomMessages = await getLastMessagesFromRoom({ challengeId });
       roomMessages = sortRoomMessagesByDate(roomMessages);
       let allMessages = aggregateM(roomMessages);
       // sending message to room
-      console.log("data", allMessages);
       io.to(room).emit("room-messages", allMessages);
       socket.broadcast.emit("notifications", room);
     });
