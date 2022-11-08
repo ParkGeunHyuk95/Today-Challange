@@ -30,22 +30,26 @@ const socketConfig = (server) => {
   }
   function aggregateM(roomMessages) {
     const result = [];
-    let count = 1;
+    let count = 0;
 
     for (let i = 0; i < roomMessages.length; i++) {
       if (i === 0) {
-        result.push({ _id: roomMessages[i].date });
-        result.push([roomMessages[0]]);
+        result.push({
+          _id: roomMessages[i].date,
+          messagesByDate: [roomMessages[0]],
+        });
         continue;
       } else if (roomMessages[i - 1].date == roomMessages[i].date) {
-        result[count].push(roomMessages[i]);
+        result[count].messagesByDate.push(roomMessages[i]);
       } else {
-        result.push({ _id: roomMessages[i].date });
-        result.push([roomMessages[i]]);
-        count += 2;
+        result.push({
+          _id: roomMessages[i].date,
+          messagesByDate: [roomMessages[i]],
+        });
+        count += 1;
       }
     }
-    console.log("result", result);
+    console.log("result구조파악용!", result);
     return result;
   }
 
