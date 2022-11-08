@@ -28,6 +28,7 @@ const MyPage = () => {
   const [challengeData, setChallengeData] = useState([]);
   const [originalData, setOriginalData] = useState([]);
   const [myChallengeList, setMyChallengeList] = useState([]);
+  const [pointContentData, setPointContentData] = useState([]);
 
   useEffect(() => {
     Api.get("challenges").then((res) => setChallengeData(res.data.result));
@@ -35,10 +36,13 @@ const MyPage = () => {
     Api.get(`point`).then((res) => setMyPoint(res.data.toString()));
     Api.get("liked").then((res) => setLikedList(res.data));
     Api.get("userToChallenge").then((res) => setMyChallengeList(res.data));
+    Api.get("joinedChallenge/mypage/userToChallengePoint").then((res) =>
+      setPointContentData(res.data)
+    );
   }, []);
 
-  console.log(myChallengeList.title);
-
+  // console.log(myChallengeList.title);
+  console.log("여기선 되나?", pointContentData);
   return (
     <>
       {isLogin === true ? (
@@ -128,7 +132,9 @@ const MyPage = () => {
               ) : null}
 
               <div className="contents">
-                {contents === 1 && <PointContent />}
+                {contents === 1 && (
+                  <PointContent myChallengeList={myChallengeList} />
+                )}
                 {contents === 2 && (
                   <ChallengeContent myChallengeList={myChallengeList} />
                 )}
