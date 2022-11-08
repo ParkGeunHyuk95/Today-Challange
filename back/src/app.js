@@ -48,6 +48,7 @@ io.on("connection", (socket) => {
   console.log('소켓연결완료')
   socket.on("enterRoom", async (room,done) => {
     socket.join(room);
+    console.log(room)
     done()
     // let roomMessages = await getLastMessagesFromRoom(room);
     // roomMessages = sortRoomMessagesByDate(roomMessages);
