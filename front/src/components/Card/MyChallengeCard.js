@@ -27,7 +27,7 @@ const MychallengeCard = ({ item }) => {
       id="cardBody12"
       className="mb-3 ms-3 mr-5 card-body"
       style={{
-        width: "16rem",
+        width: "16.5rem",
         borderRadius: "3%",
         border:
           new Date(item.challenge.fromDate) <= new Date(dateString)
@@ -52,7 +52,7 @@ const MychallengeCard = ({ item }) => {
           <div className="duration">
             <a className="cardSubText">
               {item?.challenge.fromDate}-{item?.challenge.toDate}
-            </a>{" "}
+            </a>
           </div>
           <button
             className="networkButton"

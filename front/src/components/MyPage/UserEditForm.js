@@ -16,18 +16,17 @@ const UserEditForm = ({name, setName, password, setPassword, setShowForm, setSho
   },[])
 const handleSubmit=async(e)=>{
   e.preventDefault();
-  if(!isPwdValid){
-    alert('비밀번호는 영어,숫자,특수문자를 합쳐 8글자 이상으로 작성해주세요')
-    return;
-  }
+  
   try{
     await Api.put('userUpdate', {
       name: name
     });
-   
+   if(isPwdValid){
     await Api.put('passwordUpdate',{
       password: password
     })
+   }
+    
     setShowForm(false)
     setShowContent('정보수정')
   } catch(e){
