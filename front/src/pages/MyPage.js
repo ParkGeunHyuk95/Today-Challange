@@ -29,18 +29,18 @@ const MyPage = () => {
   const [originalData, setOriginalData] = useState([]);
   const [myChallengeList, setMyChallengeList] = useState([]);
   const [myId,setMyId]=useState('')
+  const [myOriginalchallengeList,setMyOriginalChallengeList]=useState(null)
   useEffect(() => {
     Api.get("challenges").then((res) => setChallengeData(res.data.result));
     Api.get("challenges").then((res) => setOriginalData(res.data.result));
     Api.get(`point`).then((res) => setMyPoint(res.data.toString()));
     Api.get("liked").then((res) => setLikedList(res.data));
     Api.get("userToChallenge").then((res) => setMyChallengeList(res.data));
+    Api.get("userToChallenge").then((res) => setMyOriginalChallengeList(res.data));
     Api.get('currentUser').then((res)=>setMyId(res.data.userId))
   }, []);
-
   
   
-
   return (
     <>
       {isLogin === true ? (
@@ -95,12 +95,12 @@ const MyPage = () => {
                     <Dropdown.Item
                       onClick={() => {
                         setInitialState("진행중");
-                        let results = originalData.filter(
+                        let results = myOriginalchallengeList.filter(
                           (item) =>
-                            new Date(item.toDate) >= new Date(dateString)
+                            new Date(item.challenge.toDate) >= new Date(dateString)
                         );
-                        console.log(results);
-                        setChallengeData(results);
+                        console.log('이건잘되냐',results);
+                        setMyChallengeList(results);
                       }}
                     >
                       진행중
@@ -108,12 +108,12 @@ const MyPage = () => {
                     <Dropdown.Item
                       onClick={() => {
                         setInitialState("완료");
-                        let results = originalData.filter(
+                        let results = myOriginalchallengeList.filter(
                           (item) =>
-                            new Date(item.toDate) <= new Date(dateString)
+                            new Date(item.challenge.toDate) <= new Date(dateString)
                         );
 
-                        setChallengeData(results);
+                        setMyChallengeList(results);
                       }}
                     >
                       완료
@@ -121,13 +121,12 @@ const MyPage = () => {
                     <Dropdown.Item
                       onClick={() => {
                         setInitialState("내가 만든");
-                        let results=originalData.filter(
+                        let results=myOriginalchallengeList.filter(
                           (item)=>
-                          item.holdUserId=myId
-                          
+                          item.challenge.holdUserId==myId
                         )
 
-                        setChallengeData(results)
+                        setMyChallengeList(results)
                       }}
                     >
                       내가 만든
