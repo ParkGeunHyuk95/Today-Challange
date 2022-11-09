@@ -46,8 +46,7 @@ const CheckChallenge = () => {
     let dif=getDateDiff(challengeData.fromDate,challengeData.toDate)
     const countImage=(dif+1)
     const countWeek=countImage/7
-    console.log('이미지갯수',countImage)
-    console.log('몇주차?',countWeek)
+    
   return (
     <div className="checkChallenge">
       <NavBar />

@@ -81,6 +81,7 @@ const CheckImg1 = ({ id }) => {
           name="img1"
           onChange={onImgChange}
           ref={firstFileInput}
+
         />
       </form>
       <form
