@@ -30,6 +30,7 @@ const CheckImg1 = ({ id }) => {
     // for (let keyValue of formData) {
     //   console.log("keyValue -> ", keyValue);
     // }
+    formData.append("image", e.target.files[0]);
     let res = {};
     try {
       res = await axios({
