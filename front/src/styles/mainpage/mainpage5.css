@@ -26,11 +26,10 @@
 
 .disasterText{
     padding-top: 3%;
-    color: #000000;
+    color: #2A1A8F;
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: 2.5rem;
     font-weight: 600;
 }
-

@@ -28,7 +28,12 @@
 #cardBody12{
     display: flex;
     flex-wrap: wrap;
-    height: 40vh;
+    height: 50vh;
+}
+#cardBody123{
+    display: flex;
+    flex-wrap: wrap;
+    
 }
 .cardtext{
     font-size: 1.2rem;
@@ -68,7 +73,7 @@
     color: #fff;
     padding: 7px;
     margin-top: 20px;
-    font-size: large;
+    font-size: 15px;
     font-weight: 500;
     margin-left: 5%;
 }
@@ -85,7 +90,7 @@
     color: #fff;
     padding: 7px;
     margin-top: 20px;
-    font-size: large;
+    font-size: 15px;
     font-weight: 500;
-    margin-left: 5%;
+    margin-left: 3%;
 }

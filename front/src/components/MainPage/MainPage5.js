@@ -13,9 +13,7 @@ const MainPage5 = () => {
   return (
     <div className="mainpage5">
       <NavBar />
-      <span className="disasterText">
-        지구를 괴롭혔던 나의 습관 커다란 재난으로
-      </span>
+      <span className="disasterText">자연재해 피해상황</span>
       <div className="graphContainer">
         <div className="graphDescription">
           {/* <span className="disasterText">

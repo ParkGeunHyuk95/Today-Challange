@@ -3,7 +3,7 @@ import StyledButton from "../../styles/commonstyles/Button";
 import "../../styles/mypage/userEditForm.css";
 import * as Api from '../../api'
 import { Form } from "react-bootstrap";
-const UserEditForm = ({name, setName, password, setPassword, setShowForm, setShowContent}) => {
+const UserEditForm = ({name, setName, password, setPassword, setShowForm, setShowContent,showForm,showContent}) => {
   const validatePwd = (password) => {
     // 비밀번호 : 숫자+영문자+특수문자 조합으로 8자리 이상 입력
     return password
@@ -16,18 +16,17 @@ const UserEditForm = ({name, setName, password, setPassword, setShowForm, setSho
   },[])
 const handleSubmit=async(e)=>{
   e.preventDefault();
-  if(!isPwdValid){
-    alert('비밀번호는 영어,숫자,특수문자를 합쳐 8글자 이상으로 작성해주세요')
-    return;
-  }
+  
   try{
     await Api.put('userUpdate', {
       name: name
     });
-   
+   if(isPwdValid){
     await Api.put('passwordUpdate',{
       password: password
     })
+   }
+    
     setShowForm(false)
     setShowContent('정보수정')
   } catch(e){
@@ -61,7 +60,18 @@ const handleSubmit=async(e)=>{
       </div>
      
       <div className="btnContainer">
-        <StyledButton onClick={handleSubmit}>수정하기</StyledButton>
+        <button onClick={handleSubmit}>수정하기</button>
+        <button
+            onClick={() => {
+              showForm == true ? setShowForm(false) : setShowForm(true);
+              showContent == "정보수정"
+                ? setShowContent("취소하기")
+                : setShowContent("정보수정");
+              Api.get("currentUser").then((res) => setName(res.data.name));
+            }}
+          >
+            {showContent}
+          </button>
       </div>
     </div>
     </form>

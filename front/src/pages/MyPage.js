@@ -19,7 +19,7 @@ const MyPage = () => {
   var month = ("0" + (today.getMonth() + 1)).slice(-2);
   var day = ("0" + today.getDate()).slice(-2);
   var dateString = year + "-" + month + "-" + day;
-  const [loading,setLoading]=useState(false)
+  const [loading, setLoading] = useState(false);
   const [myPoint, setMyPoint] = useState(0);
   const navigate = useNavigate();
   const [initialState, setInitialState] = useState("골라서 보기");
@@ -31,31 +31,30 @@ const MyPage = () => {
   const [originalData, setOriginalData] = useState([]);
   const [myChallengeList, setMyChallengeList] = useState([]);
 
-  const [myId,setMyId]=useState('')
-  const [myOriginalchallengeList,setMyOriginalChallengeList]=useState(null)
+  const [myId, setMyId] = useState("");
+  const [myOriginalchallengeList, setMyOriginalChallengeList] = useState(null);
 
   const [pointContentData, setPointContentData] = useState([]);
   // const [joinedChallengeList, setJoinedChallengeList] = useState([]);
 
   let { challengeId } = useParams();
 
-
   useEffect(() => {
-    setLoading(true)
+    setLoading(true);
     Api.get("challenges").then((res) => setChallengeData(res.data.result));
     Api.get("challenges").then((res) => setOriginalData(res.data.result));
     Api.get(`point`).then((res) => setMyPoint(res.data.toString()));
     Api.get("liked").then((res) => setLikedList(res.data));
     Api.get("userToChallenge").then((res) => setMyChallengeList(res.data));
-    Api.get("userToChallenge").then((res) => setMyOriginalChallengeList(res.data));
-    Api.get('currentUser').then((res)=>setMyId(res.data.userId))
-    setLoading(false)
+    Api.get("userToChallenge").then((res) =>
+      setMyOriginalChallengeList(res.data)
+    );
+    Api.get("currentUser").then((res) => setMyId(res.data.userId));
+    setLoading(false);
   }, []);
-  
-  if(loading===true){
-    return(
-      <LoadingSpinner/>
-    )
+
+  if (loading === true) {
+    return <LoadingSpinner />;
   }
   return (
     <>
@@ -102,7 +101,7 @@ const MyPage = () => {
                 <Dropdown className="dropdownbtn">
                   <Dropdown.Toggle
                     className="dropdownToggle"
-                    variant="success"
+                    style={{border:'none'}}
                     id="dropdown-basic"
                   >
                     {initialState}
@@ -113,9 +112,10 @@ const MyPage = () => {
                         setInitialState("진행중");
                         let results = myOriginalchallengeList.filter(
                           (item) =>
-                            new Date(item.challenge.toDate) >= new Date(dateString)
+                            new Date(item.challenge.toDate) >=
+                            new Date(dateString)
                         );
-                        console.log('이건잘되냐',results);
+                        console.log("이건잘되냐", results);
                         setMyChallengeList(results);
                       }}
                     >
@@ -126,7 +126,8 @@ const MyPage = () => {
                         setInitialState("완료");
                         let results = myOriginalchallengeList.filter(
                           (item) =>
-                            new Date(item.challenge.toDate) <= new Date(dateString)
+                            new Date(item.challenge.toDate) <=
+                            new Date(dateString)
                         );
 
                         setMyChallengeList(results);
@@ -137,12 +138,11 @@ const MyPage = () => {
                     <Dropdown.Item
                       onClick={() => {
                         setInitialState("내가 만든");
-                        let results=myOriginalchallengeList.filter(
-                          (item)=>
-                          item.challenge.holdUserId==myId
-                        )
+                        let results = myOriginalchallengeList.filter(
+                          (item) => item.challenge.holdUserId == myId
+                        );
 
-                        setMyChallengeList(results)
+                        setMyChallengeList(results);
                       }}
                     >
                       내가 만든

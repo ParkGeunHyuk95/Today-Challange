@@ -71,27 +71,36 @@ const UserCard = () => {
         ></input>
       </form>
       <h2>{name}</h2>
-      <StyledButton
-        onClick={() => {
-          showForm == true ? setShowForm(false) : setShowForm(true);
-          showContent == "정보수정"
-            ? setShowContent("취소하기")
-            : setShowContent("정보수정");
-          Api.get("currentUser").then((res) => setName(res.data.name));
-        }}
-      >
-        {showContent}
-      </StyledButton>
+
       {showForm == true ? (
-        <UserEditForm
-          name={name}
-          setName={setName}
-          password={password}
-          setPassword={setPassword}
-          setShowForm={setShowForm}
-          setShowContent={setShowContent}
-        />
-      ) : null}
+        <>
+          <UserEditForm
+            name={name}
+            setName={setName}
+            password={password}
+            setPassword={setPassword}
+            showForm={showForm}
+            setShowForm={setShowForm}
+            setShowContent={setShowContent}
+            showContent={showContent}
+          />
+          
+        </>
+      ) : (
+        <>
+          <StyledButton
+            onClick={() => {
+              showForm == true ? setShowForm(false) : setShowForm(true);
+              showContent == "정보수정"
+                ? setShowContent("취소하기")
+                : setShowContent("정보수정");
+              Api.get("currentUser").then((res) => setName(res.data.name));
+            }}
+          >
+            {showContent}
+          </StyledButton>
+        </>
+      )}
     </div>
   );
 };

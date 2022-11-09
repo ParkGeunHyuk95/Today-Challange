@@ -200,6 +200,20 @@
     font-size: large;
     font-weight: 500;
 }
+.pointlessButton{
+    border: 2px solid rgb(255, 0, 0);
+    outline: none;
+    background-color:rgb(255, 255, 255);
+    border-radius: 6px;
+    /* height: ; */
+    color: rgb(255, 0, 0);
+    padding: 10px;
+    margin-top: 7px;
+    /* margin-left: 0px; */
+    width: 500px;
+    font-size: large;
+    font-weight: 600;
+}
 
 
 

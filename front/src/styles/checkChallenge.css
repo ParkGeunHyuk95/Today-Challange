@@ -30,8 +30,8 @@
     flex-direction: row;
 }
 .mainimg{
-    width: 20%;
-    
+    width: 10%;
+    margin-left: 5%;
     height: 80vh;
     display: flex;
     
@@ -53,6 +53,7 @@
     height: 100vh;
     display: flex;
     flex-direction: column;
+    margin-left: 5%;
 }
 
 .countweek{

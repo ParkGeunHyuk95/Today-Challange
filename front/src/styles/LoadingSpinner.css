@@ -2,13 +2,13 @@
     border: 10px solid #f3f3f3;
     border-top: 10px solid #6A71E6;
     border-radius: 50%;
-    width: 800px;
-    height: 800px;
+    width: 400px;
+    height: 400px;
     animation: spin 1s linear infinite;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-left: 500px;
+    margin-left: 400px;
     
   }
 @keyframes spin {
