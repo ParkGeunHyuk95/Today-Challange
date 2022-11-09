@@ -14,6 +14,7 @@ import CreateChallenge from "./pages/CreateChallengePage";
 import CreateChallengeVer2 from "./pages/CreateChallengePageVer2";
 import CheckChallenge from "./pages/CheckChallenge";
 import Chat from "./pages/Chat";
+import LoadingSpinner from "./components/LoadingSpinner";
 export const UserStateContext = createContext(null);
 export const DispatchContext = createContext(null);
 
@@ -75,7 +76,11 @@ function App() {
   if (!isFetchCompleted) {
     handleStorageChange();
     console.log("로딩");
-    return "loading...";
+    return (
+      <>
+      <LoadingSpinner/>
+      </>
+    )
   }
   
   return (

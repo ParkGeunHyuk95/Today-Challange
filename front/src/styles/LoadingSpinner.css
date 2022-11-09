@@ -2,8 +2,8 @@
     border: 10px solid #f3f3f3;
     border-top: 10px solid #6A71E6;
     border-radius: 50%;
-    width: 80px;
-    height: 80px;
+    width: 50%;
+    height: 50%;
     animation: spin 1s linear infinite;
     display: flex;
     justify-content: center;
