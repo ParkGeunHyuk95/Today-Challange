@@ -173,15 +173,18 @@ const data2 = [
 ];
 // 참가버튼 누르면 포인트 10 획득, 챌린지 개설하기 버튼 누르면 포인트 -50
 
-const PointContent = ({ myChallengeList }) => {
+const PointContent = ({ myChallengeList, pointContentData }) => {
   const [visible, setVisible] = useState(4);
   // console.log("여기선 되나?", myChallengeList[0]);
+  // console.log("여기선 되나?", pointContentData);
   return (
     <>
       <Border>
         <PointTitle>포인트 획득 내역</PointTitle>
         <Inner>
-          {/* {myChallengeList.slice(0, visible).map((x, i) => console.log(item))} */}
+          {/* {pointContentData
+            .slice(0, visible)
+            .map((data) => console.log("그럼이건되냐:", data))} */}
           {myChallengeList.slice(0, visible).map((x, i) => {
             return (
               <Each>
@@ -195,7 +198,7 @@ const PointContent = ({ myChallengeList }) => {
                 </ChallengeName>
                 <MinusPoint className="item">-50</MinusPoint>
                 <JoinedChallengePoint className="item">
-                  {[1, 2, 3].map((x) => {
+                  {pointContentData.slice(0, visible).map((x) => {
                     return (
                       <EachJoinedChallenge>
                         <JoinedChallengeDate>22.11.01</JoinedChallengeDate>

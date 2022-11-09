@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
+import { useParams } from "react-router-dom";
 import { Dropdown } from "react-bootstrap";
 import ChallengeContent from "../components/MyPage/ChallengeContent";
 import LikedContent from "../components/MyPage/LikedContent";
@@ -29,6 +30,9 @@ const MyPage = () => {
   const [originalData, setOriginalData] = useState([]);
   const [myChallengeList, setMyChallengeList] = useState([]);
   const [pointContentData, setPointContentData] = useState([]);
+  // const [joinedChallengeList, setJoinedChallengeList] = useState([]);
+
+  let { challengeId } = useParams();
 
   useEffect(() => {
     Api.get("challenges").then((res) => setChallengeData(res.data.result));
@@ -36,13 +40,16 @@ const MyPage = () => {
     Api.get(`point`).then((res) => setMyPoint(res.data.toString()));
     Api.get("liked").then((res) => setLikedList(res.data));
     Api.get("userToChallenge").then((res) => setMyChallengeList(res.data));
-    Api.get("joinedChallenge/mypage/userToChallengePoint").then((res) =>
-      setPointContentData(res.data)
-    );
+    // Api.get("joinedChallenge/mypage/userToChallengePoint").then((res) =>
+    //   setPointContentData(res.data)
+    // );
+    // Api.get(`joinedChallenge/${challengeId}`).then((res) => {
+    //   console.log(" 되어라", res.data);
+    // });
   }, []);
 
   // console.log(myChallengeList.title);
-  console.log("여기선 되나?", pointContentData);
+  // console.log("여기선 되나?", pointContentData);
   return (
     <>
       {isLogin === true ? (
@@ -133,7 +140,10 @@ const MyPage = () => {
 
               <div className="contents">
                 {contents === 1 && (
-                  <PointContent myChallengeList={myChallengeList} />
+                  <PointContent
+                    myChallengeList={myChallengeList}
+                    pointContentData={pointContentData}
+                  />
                 )}
                 {contents === 2 && (
                   <ChallengeContent myChallengeList={myChallengeList} />

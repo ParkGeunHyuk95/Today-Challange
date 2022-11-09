@@ -114,15 +114,4 @@ challengeRouter.put("/:id", multiImg, loginRequired, async (req, res, next) => {
   }
 });
 
-// 6. get(1개 불러오기/ login 한 유저꺼 불러오기)
-challengeRouter.get("/mine/:id", loginRequired, async (req, res) => {
-  const userId = req.currentUserId;
-
-  const { id } = req.params;
-
-  const result = await challengeService.findUniqueId(id);
-
-  res.status(200).json({ result });
-});
-
 export { challengeRouter };
