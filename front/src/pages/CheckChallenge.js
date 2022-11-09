@@ -14,40 +14,40 @@ import CheckImg3 from "../components/checkImg/CheckImg3";
 import CheckImg4 from "../components/checkImg/CheckImg4";
 
 const CheckChallenge = () => {
-    let {id}=useParams();
-    let realId=parseInt(id);
-    const [countPerson,setCountPerson]=useState(0)
-    const [challengeData,setChallengeData]=useState([]);
-    const [checkPerWeek,setCheckPerWeek]=useState(1)
-    useEffect(()=>{
-      Api.get(`challenges/mine/${realId}`).then((res)=>setChallengeData(res.data.updateChallenge))
-      Api.get(`countJoinUser/${id}`).then((res)=>setCountPerson(res.data))
-      
-    },[])
-    // Api.get(`challenges/mine/:${realId}}`).then((res)=>console.log(res))
-    
-    const [checkImg,setCheckImg]=useState([]);
-    const addImg=(e)=>{
-      const nowSelectImageList=e.target.files;
-      const nowImageURLList=[...checkImg];
-      for(let i=0; i<nowSelectImageList.length; i+=1){
-        const nowImageUrl=URL.createObjectURL(nowSelectImageList[i]);
-        nowImageURLList.push(nowImageUrl);
+  let { id } = useParams();
+  let realId = parseInt(id);
+  const [countPerson, setCountPerson] = useState(0);
+  const [challengeData, setChallengeData] = useState([]);
+  const [checkPerWeek, setCheckPerWeek] = useState(1);
+  useEffect(() => {
+    Api.get(`challenges/mine/${realId}`).then((res) =>
+      setChallengeData(res.data.updateChallenge)
+    );
+    Api.get(`countJoinUser/${id}`).then((res) => setCountPerson(res.data));
+  }, []);
+  // Api.get(`challenges/mine/:${realId}}`).then((res)=>console.log(res))
 
-      }
-      setCheckImg(nowImageURLList)
-    };
-    const getDateDiff=(d1,d2)=>{
-      const date1=new Date(d1);
-      const date2=new Date(d2);
-      const diffDate=date1.getTime()-date2.getTime();
-      return Math.abs(diffDate/(1000*60*60*24));
+  const [checkImg, setCheckImg] = useState([]);
+  const addImg = (e) => {
+    const nowSelectImageList = e.target.files;
+    const nowImageURLList = [...checkImg];
+    for (let i = 0; i < nowSelectImageList.length; i += 1) {
+      const nowImageUrl = URL.createObjectURL(nowSelectImageList[i]);
+      nowImageURLList.push(nowImageUrl);
     }
-    let dif=getDateDiff(challengeData.fromDate,challengeData.toDate)
-    const countImage=(dif+1)
-    const countWeek=countImage/7
-    console.log('이미지갯수',countImage)
-    console.log('몇주차?',countWeek)
+    setCheckImg(nowImageURLList);
+  };
+  const getDateDiff = (d1, d2) => {
+    const date1 = new Date(d1);
+    const date2 = new Date(d2);
+    const diffDate = date1.getTime() - date2.getTime();
+    return Math.abs(diffDate / (1000 * 60 * 60 * 24));
+  };
+  let dif = getDateDiff(challengeData.fromDate, challengeData.toDate);
+  const countImage = dif + 1;
+  const countWeek = countImage / 7;
+  console.log("이미지갯수", countImage);
+  console.log("몇주차?", countWeek);
   return (
     <div className="checkChallenge">
       <NavBar />
@@ -57,47 +57,53 @@ const CheckChallenge = () => {
       </div>
       <div className="checkContents">
         <div className="mainimg">
-            <div className="imgsize">
-              <CheckChallengeCard item={challengeData} person={countPerson}/>
-            </div>
+          <div className="imgsize">
+            <CheckChallengeCard item={challengeData} person={countPerson} />
+          </div>
         </div>
         <div className="mainContent">
           <div className="countweek">
-            
-            <button className="checkBtn" onClick={()=>{
-              setCheckPerWeek(1)
-            }}>1주차</button>
-            <button className="checkBtn" disabled={countWeek<2} onClick={()=>{
-              setCheckPerWeek(2)
-            }}>2주차</button>
-            <button className="checkBtn" disabled={countWeek<3} onClick={()=>{
-              setCheckPerWeek(3)
-            }}>3주차</button>
-            <button className="checkBtn" disabled={countWeek<4} onClick={()=>{
-              setCheckPerWeek(4)
-            }}>4주차</button>
+            <button
+              className="checkBtn"
+              onClick={() => {
+                setCheckPerWeek(1);
+              }}
+            >
+              1주차
+            </button>
+            <button
+              className="checkBtn"
+              disabled={countWeek < 2}
+              onClick={() => {
+                setCheckPerWeek(2);
+              }}
+            >
+              2주차
+            </button>
+            <button
+              className="checkBtn"
+              disabled={countWeek < 3}
+              onClick={() => {
+                setCheckPerWeek(3);
+              }}
+            >
+              3주차
+            </button>
+            <button
+              className="checkBtn"
+              disabled={countWeek < 4}
+              onClick={() => {
+                setCheckPerWeek(4);
+              }}
+            >
+              4주차
+            </button>
           </div>
           <div className="imgContents">
-            {
-              checkPerWeek===1?
-              <CheckImg1 id={id}/>:
-              null
-            }
-            {
-              checkPerWeek===2?
-              <CheckImg2/>:
-              null
-            }
-            {
-              checkPerWeek===3?
-              <CheckImg3/>:
-              null
-            }
-            {
-              checkPerWeek===4?
-              <CheckImg4/>:
-              null
-            }
+            {checkPerWeek === 1 ? <CheckImg1 id={id} /> : null}
+            {checkPerWeek === 2 ? <CheckImg2 id={id} /> : null}
+            {checkPerWeek === 3 ? <CheckImg3 id={id} /> : null}
+            {checkPerWeek === 4 ? <CheckImg4 id={id} /> : null}
           </div>
           <div>
             <label
@@ -115,12 +121,8 @@ const CheckChallenge = () => {
             </label>
           </div>
           <div className="pointContents">
-            <div>
-              참가 포인트 -50
-            </div>
-            <div>
-              획득 최대 포인트 {dif*10+10}
-            </div>
+            <div>참가 포인트 -50</div>
+            <div>획득 최대 포인트 {dif * 10 + 10}</div>
           </div>
         </div>
       </div>
