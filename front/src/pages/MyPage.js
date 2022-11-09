@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
-import { useParams } from "react-router-dom";
 import { Dropdown } from "react-bootstrap";
 import ChallengeContent from "../components/MyPage/ChallengeContent";
 import LikedContent from "../components/MyPage/LikedContent";
@@ -11,9 +10,11 @@ import { DispatchContext, UserStateContext } from "../App";
 import * as Api from "../api";
 import { useNavigate } from "react-router-dom";
 import LoadingSpinner from "../components/LoadingSpinner";
+
 const MyPage = () => {
   const userState = useContext(UserStateContext);
   const dispatch = useContext(DispatchContext);
+
   var today = new Date();
   var year = today.getFullYear();
   var month = ("0" + (today.getMonth() + 1)).slice(-2);
@@ -34,10 +35,8 @@ const MyPage = () => {
   const [myId, setMyId] = useState("");
   const [myOriginalchallengeList, setMyOriginalChallengeList] = useState(null);
 
-  const [pointContentData, setPointContentData] = useState([]);
-  // const [joinedChallengeList, setJoinedChallengeList] = useState([]);
-
-  let { challengeId } = useParams();
+  const [joinedChallengeList, setJoinedChallengeList] = useState([]);
+  const [challengeId, setChallengeId] = useState();
 
   useEffect(() => {
     setLoading(true);
@@ -51,6 +50,9 @@ const MyPage = () => {
     );
     Api.get("currentUser").then((res) => setMyId(res.data.userId));
     setLoading(false);
+    Api.get(`joinedChallenge/mypage/104`).then((res) =>
+      setJoinedChallengeList(res.data)
+    );
   }, []);
 
   if (loading === true) {
@@ -101,7 +103,7 @@ const MyPage = () => {
                 <Dropdown className="dropdownbtn">
                   <Dropdown.Toggle
                     className="dropdownToggle"
-                    style={{border:'none'}}
+                    style={{ border: "none" }}
                     id="dropdown-basic"
                   >
                     {initialState}
@@ -155,7 +157,7 @@ const MyPage = () => {
                 {contents === 1 && (
                   <PointContent
                     myChallengeList={myChallengeList}
-                    pointContentData={pointContentData}
+                    joinedChallengeList={joinedChallengeList}
                   />
                 )}
                 {contents === 2 && (
