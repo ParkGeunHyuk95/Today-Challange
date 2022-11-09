@@ -8,6 +8,10 @@ import Dropdown from "../components/Dropdown";
 import CheckDropdown from "../components/Dropdown";
 import StyledButton from "../styles/commonstyles/Button";
 import CheckChallengeCard from "../components/CheckChallengeCard";
+import CheckImg1 from "../components/checkImg/CheckImg1";
+import CheckImg2 from "../components/checkImg/CheckImg2";
+import CheckImg3 from "../components/checkImg/CheckImg3";
+import CheckImg4 from "../components/checkImg/CheckImg4";
 
 const CheckChallenge = () => {
     let {id}=useParams();
@@ -59,20 +63,42 @@ const CheckChallenge = () => {
         </div>
         <div className="mainContent">
           <div className="countweek">
-            <button onClick={()=>{
+            
+            <button className="checkBtn" onClick={()=>{
               setCheckPerWeek(1)
             }}>1주차</button>
-            <button disabled={countWeek<2} onClick={()=>{
+            <button className="checkBtn" disabled={countWeek<2} onClick={()=>{
               setCheckPerWeek(2)
             }}>2주차</button>
-            <button disabled={countWeek<3} onClick={()=>{
+            <button className="checkBtn" disabled={countWeek<3} onClick={()=>{
               setCheckPerWeek(3)
             }}>3주차</button>
-            <button disabled={countWeek<4} onClick={()=>{
+            <button className="checkBtn" disabled={countWeek<4} onClick={()=>{
               setCheckPerWeek(4)
             }}>4주차</button>
           </div>
-          <div className="imgContents">이미지들</div>
+          <div className="imgContents">
+            {
+              checkPerWeek===1?
+              <CheckImg1 id={id}/>:
+              null
+            }
+            {
+              checkPerWeek===2?
+              <CheckImg2/>:
+              null
+            }
+            {
+              checkPerWeek===3?
+              <CheckImg3/>:
+              null
+            }
+            {
+              checkPerWeek===4?
+              <CheckImg4/>:
+              null
+            }
+          </div>
           <div>
             <label
             htmlFor="input-file"
@@ -95,9 +121,6 @@ const CheckChallenge = () => {
             <div>
               획득 최대 포인트 {dif*10+10}
             </div>
-          </div>
-          <div className="buttonContents">
-            <StyledButton>인증샷 업로드</StyledButton>
           </div>
         </div>
       </div>

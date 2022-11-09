@@ -39,7 +39,15 @@
     align-items: center;
 
 }
-
+.checkBtn{
+    background-color: #9399FF;
+    color: rgb(255, 255, 255);
+    border: 1px solid #9399FF;
+    border-radius: 8px;
+}
+.checkBtn:disabled{
+    background-color: #7E7E84;
+}
 .mainContent{
     width: 80%;
     height: 100vh;
@@ -54,18 +62,16 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    
-    font-size: 1.5rem;
+    font-size: 25px;
 }
 .countweek button{
-    padding: 1%;
+    padding: 0.5%;
     margin: 3%;
     width: 15%;
 }
 .imgContents{
     width: 100%;
-    height: 20vh;
-   
+    height: 30vh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -74,6 +80,7 @@
 
 .pointContents{
     width: 100%;
+    margin-top: 5vh;
     height: 10vh;
     font-size: 1.5rem;
     font-weight: 600;
@@ -81,10 +88,4 @@
     justify-content: space-around;
     align-items: center;
 }
-.buttonContents{
-    width: 100%;
-    height: 15vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
+

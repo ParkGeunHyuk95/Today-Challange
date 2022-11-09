@@ -1,0 +1,47 @@
+#checkImgContainer{
+    display: flex;
+}
+#checkImgContainer form{
+    width: 180px;
+    height: 180px;
+}
+.firstImg{
+    width: 200px;
+    height: 200px;
+}
+.img1{
+    width: 150px;
+    height: 150px;
+    margin: none;
+    padding: none;
+}
+.img2{
+    width: 150px;
+    height: 150px;
+    margin: none;
+}
+.img3{
+    width: 150px;
+    height: 150px;
+    margin: none;
+}
+.img4{
+    width: 150px;
+    height: 150px;
+    margin: none;
+}
+.img5{
+    width: 150px;
+    height: 150px;
+    margin: none;
+}
+.img6{
+    width: 150px;
+    height: 150px;
+    margin: none;
+}
+.img7{
+    width: 150px;
+    height: 150px;
+    margin: none;
+}
