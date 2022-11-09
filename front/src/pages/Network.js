@@ -10,10 +10,12 @@ import StyledButton from "../styles/commonstyles/Button";
 import CreateChallengePage from "./CreateChallengePage";
 import { useNavigate } from "react-router-dom";
 import * as Api from "../api";
+import LoadingSpinner from "../components/LoadingSpinner";
 
 const Network = () => {
   const [challengeData, setChallengeData] = useState([]);
   const [originalData, setOriginalData] = useState([]);
+  const [loading,setLoading]=useState(false)
   const navigate = useNavigate();
   const [visible, setVisible] = useState(4);
   const showMoreCards = () => {
@@ -23,15 +25,22 @@ const Network = () => {
     document.location.href("/CreateChallengePageVer2");
   };
   useEffect(() => {
+    setLoading(true)
     Api.get("challenges").then((res) =>
-      setChallengeData(res.data.result.reverse())
+      setChallengeData(res.data.result.reverse()),
+      
     );
 
     Api.get("challenges").then((res) =>
       setOriginalData(res.data.result.reverse())
     );
+    setLoading(false)
   }, []);
-  
+  if(loading===true){
+    return(
+      <LoadingSpinner/>
+    )
+  }
   return (
     <div className="NetworkContainer">
       <NavBar />

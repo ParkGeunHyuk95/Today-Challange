@@ -9,6 +9,7 @@ import "../styles/mypage/mypage.css";
 import { DispatchContext, UserStateContext } from "../App";
 import * as Api from "../api";
 import { useNavigate } from "react-router-dom";
+import LoadingSpinner from "../components/LoadingSpinner";
 const MyPage = () => {
   const userState = useContext(UserStateContext);
   const dispatch = useContext(DispatchContext);
@@ -17,7 +18,7 @@ const MyPage = () => {
   var month = ("0" + (today.getMonth() + 1)).slice(-2);
   var day = ("0" + today.getDate()).slice(-2);
   var dateString = year + "-" + month + "-" + day;
-
+  const [loading,setLoading]=useState(false)
   const [myPoint, setMyPoint] = useState(0);
   const navigate = useNavigate();
   const [initialState, setInitialState] = useState("골라서 보기");
@@ -31,6 +32,7 @@ const MyPage = () => {
   const [myId,setMyId]=useState('')
   const [myOriginalchallengeList,setMyOriginalChallengeList]=useState(null)
   useEffect(() => {
+    setLoading(true)
     Api.get("challenges").then((res) => setChallengeData(res.data.result));
     Api.get("challenges").then((res) => setOriginalData(res.data.result));
     Api.get(`point`).then((res) => setMyPoint(res.data.toString()));
@@ -38,9 +40,14 @@ const MyPage = () => {
     Api.get("userToChallenge").then((res) => setMyChallengeList(res.data));
     Api.get("userToChallenge").then((res) => setMyOriginalChallengeList(res.data));
     Api.get('currentUser').then((res)=>setMyId(res.data.userId))
+    setLoading(false)
   }, []);
   
-  
+  if(loading===true){
+    return(
+      <LoadingSpinner/>
+    )
+  }
   return (
     <>
       {isLogin === true ? (
