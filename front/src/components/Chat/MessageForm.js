@@ -90,7 +90,7 @@ const MessageForm = () => {
                     <div className="messageInner">
                       <div className="d-flex align-items-center mb-3">
                         <p className="messageSender">
-                          {sender == currentUserId ? "나자신" : name}
+                          {sender == currentUserId ? "나" : name}
                         </p>
                       </div>
                       <p className="messageContent">{content}</p>
