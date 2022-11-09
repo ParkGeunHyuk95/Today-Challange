@@ -43,6 +43,16 @@ class challengeService {
     }
     return findId;
   }
+
+  static async findUniqueId(id) {
+    const findId = await Challenge.findUnique(id);
+    if (!findId) {
+      const error = new Error("invalid id");
+      throw error;
+    }
+    return findId;
+  }
+
   // id 값을 게시물 1개 선택하기(params 값을 이용)
   static async findUniqueId(id) {
     const findId = await Challenge.findUnique(id);
@@ -83,7 +93,6 @@ class challengeService {
     });
     return updated;
   }
-
   static async addImage(id, addedImage) {
     const createdChallenge = await Challenge.create({
       id,

@@ -82,13 +82,7 @@ challengeRouter.put("/:id", multiImg, loginRequired, async (req, res, next) => {
     const { id } = req.params;
     const foundChallenge = await challengeService.findUniqueId(id);
 
-    const title = req.body.title ?? null;
-    const description = req.body.description ?? null;
-    const fromDate = req.body.fromDate ?? null;
-    const toDate = req.body.toDate ?? null;
-    const Method = req.body.Method ?? null;
-
-    // const { title, description, fromDate, toDate, method } = req.body;
+    const { title, description, fromDate, toDate, method } = req.body;
     const image = req.files;
     const mainImg = image.main[0];
     const explainImg = image.explain;

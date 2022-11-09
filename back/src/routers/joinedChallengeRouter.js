@@ -77,20 +77,20 @@ joinedChallengeRouter.get("/:challengeId", loginRequired, async (req, res) => {
   }
 });
 
-//user별 참가한 챌린지별 포인트 조회(마이페이지)
-joinedChallengeRouter.get(
-  "/mypage/userToChallengePoint",
-  loginRequired,
-  async function (req, res, next) {
-    try {
-      const userId = req.currentUserId;
-      const userJoinChallengeList =
-        await joinedChallengeService.getUserChallengePoint({ userId });
-      res.status(200).send(userJoinChallengeList);
-    } catch (error) {
-      next(error);
-    }
-  }
-);
+// //user별 참가한 챌린지별 포인트 조회(마이페이지)
+// joinedChallengeRouter.get(
+//   "/mypage/userToChallengePoint",
+//   loginRequired,
+//   async function (req, res, next) {
+//     try {
+//       const userId = req.currentUserId;
+//       const userJoinChallengeList =
+//         await joinedChallengeService.getUserChallengePoint({ userId });
+//       res.status(200).send(userJoinChallengeList);
+//     } catch (error) {
+//       next(error);
+//     }
+//   }
+// );
 
 export { joinedChallengeRouter };
