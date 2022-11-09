@@ -11,8 +11,8 @@ const CheckImg2 = ({ id }) => {
   console.log("id", id);
   const navigate = useNavigate();
   const [image, setImage] = useState({
-    image_file: "",
-    preview_URL: "img/default_image.png",
+    image_file: blankImg,
+    preview_URL: blankImg,
   });
   let inputRef = useRef(null);
   useEffect(() => {
@@ -140,6 +140,9 @@ const CheckImg2 = ({ id }) => {
       <div className="upload-btn">
         <button type="button" onClick={() => inputRef.click()}>
           미리보기
+        </button>
+        <button type="button" onClick={deleteImage}>
+          삭제하기
         </button>
         <button type="button" onClick={sendImageToServer}>
           업로드하기
