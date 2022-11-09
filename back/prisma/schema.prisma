@@ -82,8 +82,6 @@ model joinedChallenge {
   chalngId    Int
   challenges  challenge @relation(fields: [chalngId], references: [challengeId])
   user        user      @relation(fields: [userId], references: [userId])
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
 
   @@index([chalngId], map: "joinedChallenge_chalngId_fkey")
   @@index([userId], map: "joinedChallenge_userId_fkey")
