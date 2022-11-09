@@ -30,7 +30,7 @@ const CheckChallengeCard = ({ item,person }) => {
 
   return (
     <Card
-      id="cardBody"
+      id="cardBody123"
       className="mb-3 ms-3 mr-5 card-body"
       style={{
         
@@ -49,7 +49,7 @@ const CheckChallengeCard = ({ item,person }) => {
       <Card.Body>
         <div className="imageWrap">
           <Card.Img
-            className="mb-3"
+            className="mb-3 imgSize"
             src={mainImg}
             alt="대표 사진"
             onClick={showChallengeDetailModalOpen}
