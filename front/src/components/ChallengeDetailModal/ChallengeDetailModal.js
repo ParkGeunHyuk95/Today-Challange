@@ -53,9 +53,10 @@ function ChallengeDetailModal({ setChallengeDetailModalOpen, item }) {
     Api.get("/countJoinUser", {
       challengeId: item.challengeId,
     }).then((res) => setPeopleCount(res));
-    Api.get("/point").then((res)=>setMyPoint(res))
+    Api.get("point").then((res)=>setMyPoint(res.data))
   }, []);
   
+  console.log(myPoint)
   return (
     <>
       <div className="modalBackground">
