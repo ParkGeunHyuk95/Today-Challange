@@ -79,18 +79,7 @@ const NetworkCard = ({ item }) => {
               item={item}
             />
           )}
-        <div className="duration">
-          <a className="cardSubText">
-            {item?.fromDate}-{item?.toDate}
-          </a>{" "}
-        </div>
-
-        {challengeDetailModalOpen && (
-          <ChallengeDetailModal
-            setChallengeDetailModalOpen={setChallengeDetailModalOpen}
-            item={item}
-          />
-        )}
+       
         {/* </div> */}
       </Card.Body>
     </Card>
