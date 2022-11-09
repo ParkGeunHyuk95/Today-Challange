@@ -7,6 +7,7 @@ import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 
 const CheckImg1 = ({ id }) => {
+  console.log("id", id);
   const navigate = useNavigate();
   const [firstImage, setFirstImage] = useState(blankImg);
   const [secondImage, setSecondImage] = useState(blankImg);

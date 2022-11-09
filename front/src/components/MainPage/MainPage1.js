@@ -64,6 +64,7 @@ const MainPage1 = () => {
           </div>
           <div className="buttonContainer">
             <StyledButton
+              style={{ fontSize: "2rem" }}
               onClick={() => {
                 navigate("/network");
               }}
@@ -71,9 +72,15 @@ const MainPage1 = () => {
               챌린지
             </StyledButton>
             {isLogin === false ? (
-              <StyledButton onClick={showLoginModal}>로그인</StyledButton>
+              <StyledButton
+                style={{ fontSize: "2rem" }}
+                onClick={showLoginModal}
+              >
+                로그인
+              </StyledButton>
             ) : (
               <StyledButton
+                style={{ fontSize: "2rem" }}
                 onClick={() => {
                   navigate("/mypage");
                 }}
