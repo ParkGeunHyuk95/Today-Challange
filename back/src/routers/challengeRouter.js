@@ -4,6 +4,7 @@ import { addImage } from "../middlewares/addImage";
 import { loginRequired } from "../middlewares/loginRequired";
 
 const challengeRouter = Router();
+
 const upload = addImage("uploads");
 
 const multiImg = upload.fields([
@@ -76,19 +77,22 @@ challengeRouter.delete("/:id", loginRequired, async (req, res) => {
 // 5. 챌린지 수정
 challengeRouter.put("/:id", multiImg, loginRequired, async (req, res, next) => {
   try {
-    const userId = req.currentUserId;
-    const { id } = req.params;
-    const { title, description, fromDate, toDate, method } = req.body;
+    const holdUserId = req.currentUserId;
 
+    const { id } = req.params;
+    const foundChallenge = await challengeService.findUniqueId(id);
+
+    const { title, description, fromDate, toDate, method } = req.body;
     const image = req.files;
     const mainImg = image.main[0];
-
     const explainImg = image.explain;
     const explainImgFilename = explainImg.map((img) => img.filename);
 
-    const titleImg = `${mainImg.filename}`;
-    const explainImgs = `${explainImgFilename}`;
+    // console.log("이미지야 드러와:", image);
+    const PORT = process.env.SERVER_PORT || 5000;
 
+    const main = `http://localhost:${PORT}/${mainImg.filename}`;
+    const explain = `http://localhost:${PORT}/${explainImgFilename[0]},http://localhost:${PORT}/${explainImgFilename[1]}`;
     if (image === undefined) {
       return res.status(400).send("cannot find image.");
     }
@@ -97,28 +101,17 @@ challengeRouter.put("/:id", multiImg, loginRequired, async (req, res, next) => {
       id,
       title,
       description,
-      method,
       fromDate,
       toDate,
-      titleImg,
-      explainImgs,
+      main,
+      explain,
+      method,
     });
 
-    res.status(200).json({ updatedChallenge });
+    res.status(201).json({ updatedChallenge });
   } catch (error) {
     res.json({ message: error.message });
   }
-});
-
-// 6. get(1개 불러오기/ login 한 유저꺼 불러오기)
-challengeRouter.get("/mine/:id", loginRequired, async (req, res) => {
-  const userId = req.currentUserId;
-
-  const { id } = req.params;
-
-  const result = await challengeService.findUniqueId(id);
-
-  res.status(200).json({ result });
 });
 
 export { challengeRouter };

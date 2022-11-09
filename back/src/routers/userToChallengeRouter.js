@@ -37,6 +37,17 @@ userToChallengeRouter.get(
     }
   }
 );
+userToChallengeRouter.get("/countJoinUser", async (req, res, next) => {
+  try {
+    const challengeId = req.body.challengeId;
+    const countJoinUser = await userToChallengeService.countJoinUser({
+      challengeId,
+    });
+    res.status(201).send(countJoinUser.toString());
+  } catch (error) {
+    next(error);
+  }
+});
 
 //user별 참가한 챌린지 조회(마이페이지)
 userToChallengeRouter.get(
@@ -53,6 +64,22 @@ userToChallengeRouter.get(
     }
   }
 );
+
+//user별 참가한 챌린지 조회(포인트조회 페이지)
+// userToChallengeRouter.get(
+//   "/userToChallenge/point",
+//   loginRequired,
+//   async function (req, res, next) {
+//     try {
+//       const userId = req.currentUserId;
+//       const userJoinChallengeList =
+//         await userToChallengeService.getUserPointInfo({ userId });
+//       res.status(200).send(userJoinChallengeList);
+//     } catch (error) {
+//       next(error);
+//     }
+//   }
+// );
 
 //참가취소
 userToChallengeRouter.put(

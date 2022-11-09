@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import * as Api from "../../api";
+import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import arrow_drop_down from "../../images/myPage/arrow_drop_down.svg";
+import expand_more from "../../images/myPage/expand_more.svg";
 
 const Border = styled.div`
   margin-left: 120px;
@@ -12,9 +14,9 @@ const ChallengeName = styled.h2`
   font-size: 25px;
   font-family: "Nanum Gothic", sans-serif;
   text-align: left;
-  padding-top: 40px;
   display: flex;
   flex-direction: row;
+  align-items: center;
 `;
 
 const Inner = styled.div`
@@ -39,6 +41,7 @@ const ArrowDropImg = styled.img`
   width: 35px;
   height: 35px;
   margin-right: 10px;
+  margin-bottom: 10px;
 `;
 
 const ChallengeTitle = styled.h3`
@@ -68,7 +71,7 @@ const JoinedChallengeDate = styled.h3`
 
 const JoinedChallengeDetail = styled.h3`
   padding-right: 30px;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
   font-size: 20px;
   font-weight: bold;
   font-family: "Nanum Gothic", sans-serif;
@@ -79,7 +82,7 @@ const MinusPoint = styled.h5`
   font-weight: bold;
   color: red;
   font-family: "Nanum Gothic", sans-serif;
-  padding-top: 45px;
+  padding-top: 6%;
 `;
 
 const Point = styled.h5`
@@ -93,7 +96,7 @@ const Each = styled.div`
   weight: 100px;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr 1fr;
+  grid-template-rows: 0.7fr 1fr;
 
   .item:nth-child(3) {
     grid-column: 1 / 3;
@@ -170,25 +173,32 @@ const data2 = [
 ];
 // 참가버튼 누르면 포인트 10 획득, 챌린지 개설하기 버튼 누르면 포인트 -50
 
-const PointContent = () => {
-  // const [point, setPoint] = useState("");
+const PointContent = ({ myChallengeList, pointContentData }) => {
+  const [visible, setVisible] = useState(4);
+  // console.log("여기선 되나?", myChallengeList[0]);
+  // console.log("여기선 되나?", pointContentData);
   return (
     <>
       <Border>
         <PointTitle>포인트 획득 내역</PointTitle>
         <Inner>
-          {data2.map((x, i) => {
+          {/* {pointContentData
+            .slice(0, visible)
+            .map((data) => console.log("그럼이건되냐:", data))} */}
+          {myChallengeList.slice(0, visible).map((x, i) => {
             return (
               <Each>
                 <ChallengeName className="item">
-                  <ArrowDropImg src={arrow_drop_down}></ArrowDropImg>
+                  <ArrowDropImg src={expand_more}></ArrowDropImg>
                   <ChallengeTitle>
-                    {data2[i].title}({data2[i].fromDate}~{data2[i].toDate})
+                    {myChallengeList[i].challenge["title"]}(
+                    {myChallengeList[i].challenge["fromDate"]}~
+                    {myChallengeList[i].challenge["toDate"]})
                   </ChallengeTitle>
                 </ChallengeName>
                 <MinusPoint className="item">-50</MinusPoint>
                 <JoinedChallengePoint className="item">
-                  {[1, 2, 3].map((x) => {
+                  {pointContentData.slice(0, visible).map((x) => {
                     return (
                       <EachJoinedChallenge>
                         <JoinedChallengeDate>22.11.01</JoinedChallengeDate>

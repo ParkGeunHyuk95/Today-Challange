@@ -15,9 +15,8 @@ import happy from "../images/createChallengePage/happy.png";
 import { addDays } from "date-fns";
 import sad from "../images/createChallengePage/sad.png";
 import Swal from "sweetalert2";
-import * as Api from '../api'
+import * as Api from "../api";
 const CreateChallenge = () => {
-  
   const navigate = useNavigate("/");
   const userState = useContext(UserStateContext);
   const [user, setUsers] = useState([]);
@@ -127,11 +126,11 @@ const CreateChallenge = () => {
 
   // useEffect(() => {
   formData.append("main", challengeImage.image_file);
-  formData.append("title", JSON.stringify(title));
-  formData.append("method", JSON.stringify(method));
-  formData.append("description", JSON.stringify(description));
-  formData.append("fromDate", JSON.stringify(fromDate));
-  formData.append("toDate", JSON.stringify(toDate));
+  formData.append("title", title);
+  formData.append("method", method);
+  formData.append("description", description);
+  formData.append("fromDate", fromDate);
+  formData.append("toDate", toDate);
   formData.append("explain", goodImage.image_file);
   formData.append("explain", badImage.image_file);
   // }, []);
@@ -142,20 +141,6 @@ const CreateChallenge = () => {
       console.log("keyValue -> ", keyValue);
     }
     let res = {};
-    // let url = "http://localhost:5001/challenges/";
-    // axios
-    //   .post(url, formData, {
-    //     headers: {
-    //       "Content-Type": "multipart/form-data",
-    //       Authorization: `Bearer ${sessionStorage.getItem("accessToken")}`,
-    //     },
-    //   })
-    //   .then((res) => {
-    //     console.log(`Success` + res.data);
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   });
     try {
       res = await axios({
         method: "post",
@@ -166,13 +151,13 @@ const CreateChallenge = () => {
           Authorization: `Bearer ${sessionStorage.getItem("accessToken")}`,
         },
       });
-      const postChallengeId=res.data.newChallenge.challengeId
+      const postChallengeId = res.data.newChallenge.challengeId;
       console.log("res : ", res);
-      
-      await Api.post('userToChallenge',{
-        "challengeId":postChallengeId
-      }).then((res)=>console.log('우히히',res))
-      
+
+      await Api.post("userToChallenge", {
+        challengeId: postChallengeId,
+      });
+
       if (res.status === 200 || res.status === 201) {
         Swal.fire({
           position: "top-center",

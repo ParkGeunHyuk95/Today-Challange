@@ -3,7 +3,7 @@ import NavBar from "../components/NavBar";
 import NetworkCard from "../components/NetworkCard";
 import { useParams } from "react-router-dom";
 import "../styles/checkChallenge.css";
-import * as Api from '../api'
+import * as Api from "../api";
 import Dropdown from "../components/Dropdown";
 import CheckDropdown from "../components/Dropdown";
 import StyledButton from "../styles/commonstyles/Button";
@@ -101,16 +101,16 @@ const CheckChallenge = () => {
           </div>
           <div>
             <label
-            htmlFor="input-file"
-            className="OOTDWrite-input-file"
-            onChange={addImg}
+              htmlFor="input-file"
+              className="OOTDWrite-input-file"
+              onChange={addImg}
             >
               <input
-              type='file'
-              multiple='multiple'
-              id="input-file"
-              style={{display:'none'}}
-              accept=".jpg,.jpeg,.png"
+                type="file"
+                multiple="multiple"
+                id="input-file"
+                style={{ display: "none" }}
+                accept=".jpg,.jpeg,.png"
               />
             </label>
           </div>

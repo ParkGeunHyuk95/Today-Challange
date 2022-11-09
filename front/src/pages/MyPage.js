@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
+import { useParams } from "react-router-dom";
 import { Dropdown } from "react-bootstrap";
 import ChallengeContent from "../components/MyPage/ChallengeContent";
 import LikedContent from "../components/MyPage/LikedContent";
@@ -29,8 +30,16 @@ const MyPage = () => {
   const [challengeData, setChallengeData] = useState([]);
   const [originalData, setOriginalData] = useState([]);
   const [myChallengeList, setMyChallengeList] = useState([]);
+
   const [myId,setMyId]=useState('')
   const [myOriginalchallengeList,setMyOriginalChallengeList]=useState(null)
+
+  const [pointContentData, setPointContentData] = useState([]);
+  // const [joinedChallengeList, setJoinedChallengeList] = useState([]);
+
+  let { challengeId } = useParams();
+
+
   useEffect(() => {
     setLoading(true)
     Api.get("challenges").then((res) => setChallengeData(res.data.result));
@@ -143,7 +152,12 @@ const MyPage = () => {
               ) : null}
 
               <div className="contents">
-                {contents === 1 && <PointContent />}
+                {contents === 1 && (
+                  <PointContent
+                    myChallengeList={myChallengeList}
+                    pointContentData={pointContentData}
+                  />
+                )}
                 {contents === 2 && (
                   <ChallengeContent myChallengeList={myChallengeList} />
                 )}

@@ -14,7 +14,7 @@ const NetworkCard = ({ item }) => {
   const [challengeDetailModalOpen, setChallengeDetailModalOpen] =
     useState(false);
   const [challengeItem, setChallengeItem] = useState(null);
-  
+
   const showChallengeDetailModalOpen = () => {
     setChallengeDetailModalOpen(true);
     setChallengeItem(item.challengeId);
@@ -26,7 +26,7 @@ const NetworkCard = ({ item }) => {
   const dateString = year + "-" + month + "-" + day;
   const Id = item.challengeId;
   const mainImg = item.mainImg;
-  
+
   const [person, setPerson] = useState();
   useEffect(() => {
     Api.get(`countJoinUser/${item.challengeId}`).then((res) => setPerson(res.data));
@@ -50,22 +50,18 @@ const NetworkCard = ({ item }) => {
             : "none",
       }}
     >
-      <Card.Body>
-        <div className="imageWrap">
-          <Card.Img
-            className="mb-3"
-            src={mainImg}
-            alt="대표 사진"
-            onClick={showChallengeDetailModalOpen}
-            style={{
-              display:'flex',
-              flexWrap:'wrap'
-            }}
-          />
+      <Card.Body className="networkCard">
+        {/* <div className="imageWrap"> */}
+        <Card.Img
+          className="mb-3 imgSize"
+          src={mainImg}
+          alt="대표 사진"
+          onClick={showChallengeDetailModalOpen}
+        />
 
-          <Card.Title onClick={showChallengeDetailModalOpen}>
-            {item?.title}
-          </Card.Title>
+        <Card.Title onClick={showChallengeDetailModalOpen}>
+          {item?.title}
+        </Card.Title>
 
           <div className="cardtext">
             👨‍👧‍👧 {person}
@@ -83,8 +79,19 @@ const NetworkCard = ({ item }) => {
               item={item}
             />
           )}
-         
+        <div className="duration">
+          <a className="cardSubText">
+            {item?.fromDate}-{item?.toDate}
+          </a>{" "}
         </div>
+
+        {challengeDetailModalOpen && (
+          <ChallengeDetailModal
+            setChallengeDetailModalOpen={setChallengeDetailModalOpen}
+            item={item}
+          />
+        )}
+        {/* </div> */}
       </Card.Body>
     </Card>
   );

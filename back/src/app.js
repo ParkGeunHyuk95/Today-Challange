@@ -18,7 +18,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 app.get("/", (req, res) => {
-  console.log(req.body);
+  // console.log(req.body);
   res.send("data project root api");
 });
 app.use(userRouter);

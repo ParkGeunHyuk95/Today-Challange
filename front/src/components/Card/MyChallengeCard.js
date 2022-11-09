@@ -10,7 +10,7 @@ const MychallengeCard = ({ item }) => {
   var month = ("0" + (today.getMonth() + 1)).slice(-2);
   var day = ("0" + today.getDate()).slice(-2);
   var dateString = year + "-" + month + "-" + day;
-  let navigate=useNavigate()
+  let navigate = useNavigate();
   const mainImg = item.challenge.mainImg;
   const [person, setPerson] = useState();
   const [user,setUser]=useState('')
@@ -39,11 +39,7 @@ const MychallengeCard = ({ item }) => {
     >
       <Card.Body>
         <div className="imageWrap">
-          <Card.Img
-            className="mb-3"
-            src={mainImg}
-            alt="대표 사진"
-          />
+        <Card.Img className="mb-3" src={mainImg} alt="대표 사진" />
 
           <Card.Title>{item?.challenge.title}</Card.Title>
         
@@ -74,6 +70,28 @@ const MychallengeCard = ({ item }) => {
           
           
         </div>
+        <div className="duration">
+          <a className="cardSubText">
+            {item?.challenge.fromDate}-{item?.challenge.toDate}
+          </a>{" "}
+        </div>
+        <button
+          className="networkButton"
+          onClick={() => {
+            navigate(`/checkChallenge/${item.challenge.challengeId}`);
+          }}
+        >
+          인증하기
+        </button>
+        <button
+          className="editButton"
+          onClick={() => {
+            navigate(`/editChallenge/${item.challenge.challengeId}`);
+          }}
+        >
+          수정하기
+        </button>
+        {/* </div> */}
       </Card.Body>
     </Card>
   );

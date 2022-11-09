@@ -47,7 +47,15 @@ class JoinedChallenge {
     const challengeInfo = await prisma.joinedChallenge.findMany({
       where: { chalngId: Number(challengeId) },
     });
+
     return challengeInfo;
+  }
+
+  static async getChallengePointInfoList({ userId }) {
+    const ChallengePointInfoList = await prisma.joinedChallenge.findMany({
+      where: { userId: userId },
+    });
+    return ChallengePointInfoList;
   }
 }
 

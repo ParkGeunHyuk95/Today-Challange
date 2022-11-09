@@ -1,4 +1,22 @@
-
+@font-face {
+  font-family: 'TmonMonsori';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/TmonMonsori.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'KOTRA_BOLD-Bold';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-10-21@1.1/KOTRA_BOLD-Bold.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+/*따뜻한 느낌 폰트*/
+@font-face {
+  font-family: 'GangwonEdu_OTFBoldA';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2201-2@1.0/GangwonEdu_OTFBoldA.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
 .mainPage4{
     background-image: url('../../images/mainpage/MainPage4.png');
     width: 100%;
@@ -9,36 +27,82 @@
     flex-direction: column;
     color: azure;
   }
-  .mainPage4TextContainer{
+.mainPage4TextContainer{
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin-top: 10vh;
-  }
-  .buttonContainer{
+    padding-left: 46px;
+    margin-top: 30vh;
+}
+.mainPage4Title{
+    font-family: 'KOTRA_BOLD-Bold';
+    font-weight: 400px;
+    font-size: 55px;
+}
+.buttonContainer{
     display: flex;
     justify-content: center;
     align-items: center;
-  }
-  .mainPage4 .main4Btn{
+}
+.mainPage4 .main4Btn{
     margin-top: 5%;
-  }
-  .footer{
+    
+}
+.mainPage4 .main4Btn:hover{
+  transition:0.3s;
+  transform:scale(1.1);
+}
+.footer{
     margin-top: 15%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-  }
-  .textBox{
+    font-family: 'Nanum Gothic', sans-serif;
+}
+.footerText{
+  font-weight: 100px;
+}
+.textBox{
     display: flex;
-  }
-  .missioncheck{
+}
+.missioncheck{
     color: #2A1A8F;
-  }
-  
-  
-  
-  
-  
+}
+
+#flip {
+  height:60px;
+  overflow:hidden;
+}
+#flip > div > h1 {
+  padding:4px 12px;
+  height:45px;
+  margin-bottom:45px;
+  display:inline-block;
+}
+#flip div:first-child {
+  animation: show 6s linear infinite;
+} 
+#flip div div {
+  color:#2A1A8F;
+
+}
+#flip div:first-child div {
+  color:#2A1A8F;
+
+}
+#flip div:last-child div {
+  color:#2A1A8F;
+
+}  
+@keyframes show {
+  0% {margin-top:-270px;}
+  5% {margin-top:-180px;}
+  33% {margin-top:-180px;}
+  38% {margin-top:-90px;}
+  66% {margin-top:-90px;}
+  71% {margin-top:0px;}
+  99.99% {margin-top:0px;}
+  100% {margin-top:-270px;}
+}

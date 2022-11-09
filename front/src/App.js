@@ -13,6 +13,7 @@ import MyPage from "./pages/MyPage";
 import CreateChallenge from "./pages/CreateChallengePage";
 import CreateChallengeVer2 from "./pages/CreateChallengePageVer2";
 import CheckChallenge from "./pages/CheckChallenge";
+import EditChallenge from "./pages/EditChallengePage";
 import Chat from "./pages/Chat";
 import LoadingSpinner from "./components/LoadingSpinner";
 export const UserStateContext = createContext(null);
@@ -77,12 +78,12 @@ function App() {
     handleStorageChange();
     console.log("로딩");
     return (
-      <div className="align-items-center justify-content-center">
+      
       <LoadingSpinner/>
-      </div>
+      
     )
   }
-  
+
   return (
     <AppContext.Provider
       value={{
@@ -108,14 +109,15 @@ function App() {
               <Route path="/login/signup" element={<SignUpModal />} />
               <Route path="/mypage" element={<MyPage />} />
               <Route path="/chat" element={<Chat />} />
-              {/* <Route
-              path="/network/pages/CreateChallengePage"
-              element={<CreateChallenge />}
-            /> */}
+
               <Route
                 path="/network/pages/CreateChallengePageVer2"
                 element={<CreateChallengeVer2 />}
               />
+              <Route
+                path="/editChallenge/:id"
+                element={<EditChallenge />}
+              ></Route>
               <Route
                 path="/ChallengeDetail"
                 element={<ChallengeDetailModal />}
@@ -125,7 +127,7 @@ function App() {
           </Router>
         </UserStateContext.Provider>
       </DispatchContext.Provider>
-     </AppContext.Provider>
+    </AppContext.Provider>
   );
 }
 

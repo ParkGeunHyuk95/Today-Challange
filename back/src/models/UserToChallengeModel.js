@@ -47,5 +47,18 @@ class UserToChallenge {
     });
     return JoinChallengeList;
   }
+
+  //   static async getJoinPointList({ userId }) {
+  //     const JoinChallengeList = await prisma.userToChallenge.findMany({
+  //       where: {
+  //         userId: userId,
+  //       },
+  //       select: {
+  //         userToChallengeId: true,
+  //         challenge: true,
+  //       },
+  //     });
+  //     return JoinChallengeList;
+  //   }
 }
 export { UserToChallenge };
