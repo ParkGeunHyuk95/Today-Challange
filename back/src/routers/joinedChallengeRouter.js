@@ -97,8 +97,7 @@ joinedChallengeRouter.get(
   loginRequired,
   async function (req, res, next) {
     try {
-      // const userId = req.currentUserId;
-      const userId = "cffb431d-0cd3-4613-9b90-b70db66a11ba";
+      const userId = req.currentUserId;
       const challengeId = req.params;
       const userJoinChallengeList =
         await joinedChallengeService.getUserChallengePoint({
