@@ -33,28 +33,20 @@ class Challenge {
   }
 
   // 수정
-  static async update({
-    id,
-    title,
-    description,
-    fromDate,
-    toDate,
-    main,
-    explain,
-    method,
-  }) {
+  static async update({ id, toUpdate }) {
+    console.log("수정 되나? 모델:", toUpdate.title, toUpdate.mainImg);
     const renewChallenge = await prisma.challenge.update({
       where: {
         challengeId: Number(id),
       },
       data: {
-        title: title,
-        description: description,
-        method: method,
-        fromDate: fromDate,
-        toDate: toDate,
-        mainImg: main,
-        explainImg: explain,
+        title: toUpdate.title,
+        description: toUpdate.description,
+        fromDate: toUpdate.fromDate,
+        toDate: toUpdate.toDate,
+        method: toUpdate.method,
+        mainImg: toUpdate.mainImg,
+        explainImg: toUpdate.explainImg,
       },
     });
 

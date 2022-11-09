@@ -80,38 +80,45 @@ challengeRouter.put("/:id", multiImg, loginRequired, async (req, res, next) => {
     const holdUserId = req.currentUserId;
 
     const { id } = req.params;
-    const foundChallenge = await challengeService.findUniqueId(id);
+    const foundChallenge = await challengeService.findUpdateJoinedChallengeId(
+      id
+    );
+
+    // const { title, description, fromDate, toDate, method } = req.body;
+    const image = req.files;
+    const main = image.main[0] ?? null;
+    const explain = image.explain;
+    const explainImgFilename = explain.map((img) => img.filename ?? null);
+
+    // console.log("이미지야 드러와:", image);
+    const PORT = process.env.SERVER_PORT || 5000;
+
+    const mainImg = `http://localhost:${PORT}/${main.filename}`;
+    const explainImg = `http://localhost:${PORT}/${explainImgFilename[0]},http://localhost:${PORT}/${explainImgFilename[1]}`;
+    if (image === undefined) {
+      return res.status(400).send("cannot find image.");
+    }
 
     const title = req.body.title ?? null;
     const description = req.body.description ?? null;
     const fromDate = req.body.fromDate ?? null;
     const toDate = req.body.toDate ?? null;
-    const Method = req.body.Method ?? null;
+    const method = req.body.Method ?? null;
+    console.log("수정 되나? 라우터:", title, mainImg);
 
-    // const { title, description, fromDate, toDate, method } = req.body;
-    const image = req.files;
-    const mainImg = image.main[0];
-    const explainImg = image.explain;
-    const explainImgFilename = explainImg.map((img) => img.filename);
-
-    // console.log("이미지야 드러와:", image);
-    const PORT = process.env.SERVER_PORT || 5000;
-
-    const main = `http://localhost:${PORT}/${mainImg.filename}`;
-    const explain = `http://localhost:${PORT}/${explainImgFilename[0]},http://localhost:${PORT}/${explainImgFilename[1]}`;
-    if (image === undefined) {
-      return res.status(400).send("cannot find image.");
-    }
-
-    const updatedChallenge = await challengeService.updateChallenge({
-      id,
+    const toUpdate = {
       title,
       description,
       fromDate,
       toDate,
-      main,
-      explain,
       method,
+      mainImg,
+      explainImg,
+    };
+
+    const updatedChallenge = await challengeService.updateChallenge({
+      id,
+      toUpdate,
     });
 
     res.status(201).json({ updatedChallenge });

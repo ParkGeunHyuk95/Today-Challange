@@ -51,12 +51,12 @@ class JoinedChallenge {
     return challengeInfo;
   }
 
-  static async getChallengePointInfoList({ userId }) {
-    const ChallengePointInfoList = await prisma.joinedChallenge.findMany({
-      where: { userId: userId },
-    });
-    return ChallengePointInfoList;
-  }
+  // static async getChallengePointInfoList({ userId }) {
+  //   const ChallengePointInfoList = await prisma.joinedChallenge.findMany({
+  //     where: { userId },
+  //   });
+  //   return ChallengePointInfoList;
+  // }
 }
 
 export { JoinedChallenge };
