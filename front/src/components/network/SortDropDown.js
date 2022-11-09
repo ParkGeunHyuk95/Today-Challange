@@ -10,7 +10,7 @@ const SortDropDown = ({originalData, data, setData}) => {
   
   return (
     <Dropdown>
-      <Dropdown.Toggle variant="success" id="dropdown-basic">
+      <Dropdown.Toggle style={{backgroundColor:'#9399FF', border:'none'}} id="dropdown-basic">
         {initialState}
       </Dropdown.Toggle>
 
