@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import blankImg from "../../images/createChallengePage/blankImg.png";
 import "../../styles/checkChallenge/checkImg.css";
 import axios from "axios";
@@ -8,7 +8,6 @@ import { useNavigate } from "react-router-dom";
 
 const CheckImg1 = ({ id }) => {
   const navigate = useNavigate();
-
   const [firstImage, setFirstImage] = useState(blankImg);
   const [secondImage, setSecondImage] = useState(blankImg);
   const [thirdImage, setThirdImage] = useState(blankImg);
@@ -24,6 +23,11 @@ const CheckImg1 = ({ id }) => {
   const sixthFileInput = useRef(null);
   const seventhFileInput = useRef(null);
 
+  useEffect(() => {
+    Api.get(`joinedChallenge/mypage/${id}`).then((res) => {
+      console.log("res", res.data[0].addedImage);
+    });
+  });
   const onImgChange = async (e) => {
     e.preventDefault();
     const formData = new FormData();
