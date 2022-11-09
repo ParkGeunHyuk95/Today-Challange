@@ -1,47 +1,45 @@
 #checkImgContainer{
     display: flex;
+    justify-content: center;
 }
 #checkImgContainer form{
-    width: 180px;
-    height: 180px;
+    width: 5.7%;
+    height: 132px;
 }
-.firstImg{
-    width: 200px;
-    height: 200px;
-}
+
 .img1{
-    width: 150px;
-    height: 150px;
+    width: 110px;
+    height: 110px;
     margin: none;
     padding: none;
 }
 .img2{
-    width: 150px;
-    height: 150px;
+    width: 110px;
+    height: 110px;
     margin: none;
 }
 .img3{
-    width: 150px;
-    height: 150px;
+    width: 110px;
+    height: 110px;
     margin: none;
 }
 .img4{
-    width: 150px;
-    height: 150px;
+    width: 110px;
+    height: 110px;
     margin: none;
 }
 .img5{
-    width: 150px;
-    height: 150px;
+    width: 110px;
+    height: 110px;
     margin: none;
 }
 .img6{
-    width: 150px;
-    height: 150px;
+    width: 110px;
+    height: 110px;
     margin: none;
 }
 .img7{
-    width: 150px;
-    height: 150px;
+    width: 110px;
+    height: 110px;
     margin: none;
 }
