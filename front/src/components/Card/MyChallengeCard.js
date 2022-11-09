@@ -27,7 +27,7 @@ const MychallengeCard = ({ item }) => {
       id="cardBody12"
       className="mb-3 ms-3 mr-5 card-body"
       style={{
-        width: "16.5rem",
+        width: "14rem",
         borderRadius: "3%",
         border:
           new Date(item.challenge.fromDate) <= new Date(dateString)
