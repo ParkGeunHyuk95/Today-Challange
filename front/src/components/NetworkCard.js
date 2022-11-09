@@ -13,11 +13,11 @@ const NetworkCard = ({ item }) => {
   };
   const [challengeDetailModalOpen, setChallengeDetailModalOpen] =
     useState(false);
-  const [challengeItem, setChallengeItem] = useState(null);
+
 
   const showChallengeDetailModalOpen = () => {
     setChallengeDetailModalOpen(true);
-    setChallengeItem(item.challengeId);
+    
   };
   const today = new Date();
   const year = today.getFullYear();

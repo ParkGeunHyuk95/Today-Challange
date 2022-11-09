@@ -75,7 +75,7 @@ model joinedChallenge {
   joinedId    Int       @id @unique @default(autoincrement())
   countUpload Int
   addedImage  String    @db.Text
-  description String
+  description String?
   createAt    DateTime  @default(now())
   updateAt    DateTime  @updatedAt
   userId      String    @db.VarChar(50)

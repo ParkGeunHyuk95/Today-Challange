@@ -29,6 +29,11 @@ function ChallengeDetailModal({ setChallengeDetailModalOpen, item }) {
     return Math.abs(diffDate / (1000 * 60 * 60 * 24));
   };
   let dif = getDateDiff(item.fromDate, item.toDate);
+  const today = new Date();
+  const year = today.getFullYear();
+  const month = ("0" + (today.getMonth() + 1)).slice(-2);
+  const day = ("0" + today.getDate()).slice(-2);
+  const dateString = year + "-" + month + "-" + day;
   const { socket, currentRoom, setCurrentRoom } = useContext(AppContext);
   const [myPoint,setMyPoint]=useState(0)
   const navigate=useNavigate();
@@ -156,6 +161,19 @@ function ChallengeDetailModal({ setChallengeDetailModalOpen, item }) {
           className="challengeJoinBtn"
           type="submit"
           onClick={handleRoomSubmit}
+          disabled={
+            new Date(item.fromDate) <= new Date(dateString)
+          }
+          style={{
+            background:
+            new Date(item.fromDate) <= new Date(dateString)
+            ? "rgb(179, 176, 176, 0.6)"
+            : null,
+            color:
+            new Date(item.fromDate) <= new Date(dateString)
+            ? "rgb(0,0,0)"
+            : null
+          }}
         >
           참가하기
         </button>
