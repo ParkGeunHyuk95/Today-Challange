@@ -5,10 +5,12 @@ import axios from "axios";
 import * as Api from "../../api";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
-import { Button } from "react-bootstrap";
+import { Button, Carousel } from "react-bootstrap";
+import CheckImgSlide from "../CheckImgSlide";
 
 const CheckImg2 = ({ id }) => {
   console.log("id", id);
+  const [imgData,setImgData]=useState(null)
   const navigate = useNavigate();
   const [image, setImage] = useState({
     image_file: blankImg,
@@ -17,9 +19,11 @@ const CheckImg2 = ({ id }) => {
   let inputRef = useRef(null);
   useEffect(() => {
     Api.get(`joinedChallenge/mypage/${id}`).then((res) => {
-      console.log("res", res.data[0].addedImage);
+      // console.log("res", res.data[0].addedImage);
+      setImgData(res.data)
     });
-  });
+  },[]);
+  console.log(imgData)
   // const [firstImage, setFirstImage] = useState(blankImg);
   // const [secondImage, setSecondImage] = useState(blankImg);
   // const [thirdImage, setThirdImage] = useState(blankImg);
@@ -123,6 +127,7 @@ const CheckImg2 = ({ id }) => {
   //   }
   // };
   return (
+    <div className="allcheck">
     <form encType="multipart/form-data" acceptCharset="UTF-8">
       <input
         type="file"
@@ -132,10 +137,10 @@ const CheckImg2 = ({ id }) => {
         //사진 등록을 두 개 띄우고 첫번째 사진을 올리고 지우고 두번째에 같은 사진을 올리면 그 값이 남아있음!
         onClick={(e) => (e.target.value = null)}
         ref={(refParam) => (inputRef = refParam)}
-        style={{ display: "none" }}
+        style={{ display: "none"}}
       ></input>
       <div className="img-wrapper">
-        <img src={image.preview_URL}></img>
+        <img style={{width:'40%'}} src={image.preview_URL}></img>
       </div>
       <div className="upload-btn">
         <button type="button" onClick={() => inputRef.click()}>
@@ -298,6 +303,10 @@ const CheckImg2 = ({ id }) => {
         </form>
       </div> */}
     </form>
+    <div className="checkImgCarousel">
+    <CheckImgSlide imgData={imgData}/>
+    </div>
+    </div>
   );
 };
 

@@ -1,45 +1,32 @@
-#checkImgContainer{
+.img-wrapper{
     display: flex;
     justify-content: center;
 }
-#checkImgContainer form{
-    width: 5.7%;
-    height: 132px;
+.upload-btn{
+    display: flex;
+    justify-content: center;
 }
+.checkImgCarousel{
+    
+    height: 25vh;
+    width: 140%;
+    margin-top: 5%;
+}
+.allcheck{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.card{
+    width: 355px;
+    height: 200px;
+    background-position: center center;
+    background-size: cover;
+    resize: both;
+    overflow: scroll;
 
-.img1{
-    width: 110px;
-    height: 110px;
-    margin: none;
-    padding: none;
 }
-.img2{
-    width: 110px;
-    height: 110px;
-    margin: none;
-}
-.img3{
-    width: 110px;
-    height: 110px;
-    margin: none;
-}
-.img4{
-    width: 110px;
-    height: 110px;
-    margin: none;
-}
-.img5{
-    width: 110px;
-    height: 110px;
-    margin: none;
-}
-.img6{
-    width: 110px;
-    height: 110px;
-    margin: none;
-}
-.img7{
-    width: 110px;
-    height: 110px;
-    margin: none;
+.imgCheckCardContainer{
+    display: flex;
 }

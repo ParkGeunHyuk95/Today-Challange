@@ -1,9 +1,13 @@
 import React from 'react'
-
-const ImgCard = () => {
+import '../styles/checkChallenge/checkImg.css'
+const ImgCard = ({item}) => {
   return (
+    <div className='imgCheckCardContainer'>
     <img
-    src=''></img>
+    className='card'
+    src={item?.addedImage}>
+    </img>
+    </div>
   )
 }
 

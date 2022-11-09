@@ -12,6 +12,7 @@ import CheckImg1 from "../components/checkImg/CheckImg1";
 import CheckImg2 from "../components/checkImg/CheckImg2";
 import CheckImg3 from "../components/checkImg/CheckImg3";
 import CheckImg4 from "../components/checkImg/CheckImg4";
+import { Carousel } from "react-bootstrap";
 
 const CheckChallenge = () => {
   let { id } = useParams();
@@ -64,7 +65,7 @@ const CheckChallenge = () => {
           </div>
         </div>
         <div className="mainContent">
-          <div className="countweek">
+          {/* <div className="countweek">
             <button
               className="checkBtn"
               onClick={() => {
@@ -100,28 +101,14 @@ const CheckChallenge = () => {
             >
               4주차
             </button>
-          </div>
+          </div> */}
           <div className="imgContents">
-            {checkPerWeek === 1 ? <CheckImg1 id={id} /> : null}
-            {checkPerWeek === 2 ? <CheckImg2 id={id} /> : null}
-            {checkPerWeek === 3 ? <CheckImg3 id={id} /> : null}
-            {checkPerWeek === 4 ? <CheckImg4 id={id} /> : null}
+            
+            <CheckImg2 id={id} /> 
+         
           </div>
-          <div>
-            <label
-              htmlFor="input-file"
-              className="OOTDWrite-input-file"
-              onChange={addImg}
-            >
-              <input
-                type="file"
-                multiple="multiple"
-                id="input-file"
-                style={{ display: "none" }}
-                accept=".jpg,.jpeg,.png"
-              />
-            </label>
-          </div>
+          
+          
           <div className="pointContents">
             <div>참가 포인트 -50</div>
             <div>획득 최대 포인트 {dif * 10 + 10}</div>

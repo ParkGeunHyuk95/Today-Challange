@@ -24,10 +24,15 @@ const responsive = {
   };
 
 
-const CheckImgSlide = () => {
+const CheckImgSlide = ({imgData}) => {
   return (
     <div className='slide'>
         <Carousel responsive={responsive}>
+            {!!imgData&&imgData?.map((item)=>(
+              <ImgCard item={item}/>
+            ))}
+            
+            
             
         </Carousel>
       
@@ -35,4 +40,4 @@ const CheckImgSlide = () => {
   )
 }
 
-export default CheckImgSlide
+export default CheckImgSlide;
