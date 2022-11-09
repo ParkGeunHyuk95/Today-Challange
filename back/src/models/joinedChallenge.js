@@ -51,10 +51,15 @@ class JoinedChallenge {
     return challengeInfo;
   }
 
-  static async getChallengePointInfoList({ userId }) {
+  static async getChallengePointInfoList({ userId, challengeId }) {
+    console.log("model-0---challengeId:", challengeId.challengeId);
+    console.log("model-0---challengeId:", userId);
+    const chalngId = challengeId.challengeId;
+    // console.log("model-0---challengeId:", userId.userId);
     const ChallengePointInfoList = await prisma.joinedChallenge.findMany({
-      where: { userId: userId },
+      where: { chalngId: Number(chalngId) },
     });
+    console.log("model1---:", ChallengePointInfoList);
     return ChallengePointInfoList;
   }
 }

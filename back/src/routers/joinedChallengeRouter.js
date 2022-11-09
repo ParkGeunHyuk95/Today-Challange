@@ -76,16 +76,35 @@ joinedChallengeRouter.get("/:challengeId", loginRequired, async (req, res) => {
     res.json({ message: error.message });
   }
 });
+// joinedChallengeRouter.get("/point/:challengeId", loginRequired, async (req, res) => {
+//   try {
+//     const userId = req.currentUserId;
+//     const { challengeId } = req.params;
+
+//     // 해당 챌린지의 인증 정보 전부가져오는 코드
+//     const showCompletedChallenge =
+//       await joinedChallengeService.findJoinedChallenges(challengeId);
+
+//     res.status(200).json({ showCompletedChallenge });
+//   } catch (error) {
+//     res.json({ message: error.message });
+//   }
+// });
 
 //user별 참가한 챌린지별 포인트 조회(마이페이지)
 joinedChallengeRouter.get(
-  "/mypage/userToChallengePoint",
+  "/mypage/:challengeId",
   loginRequired,
   async function (req, res, next) {
     try {
-      const userId = req.currentUserId;
+      // const userId = req.currentUserId;
+      const userId = "cffb431d-0cd3-4613-9b90-b70db66a11ba";
+      const challengeId = req.params;
       const userJoinChallengeList =
-        await joinedChallengeService.getUserChallengePoint({ userId });
+        await joinedChallengeService.getUserChallengePoint({
+          userId,
+          challengeId,
+        });
       res.status(200).send(userJoinChallengeList);
     } catch (error) {
       next(error);
