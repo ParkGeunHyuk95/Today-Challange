@@ -28,8 +28,8 @@ const SideBar = () => {
   }, []);
   return (
     <div>
-      <h2>Avaliable rooms</h2>
-      <ListGroup>
+      <h2>참여중인 챌린지</h2>
+      <ListGroup style={{marginTop:30}}>
         {!!rooms &&
           rooms.map((room, idx) => (
             <ListGroup.Item

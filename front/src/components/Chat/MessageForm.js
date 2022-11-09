@@ -63,9 +63,9 @@ const MessageForm = () => {
     <>
       <div className="messagesOutput">
         {user ? (
-          <div className="alert alert-info">
+          <div id="chattingAlert" >
             {currentRoom
-              ? `You are in the ${currentRoom} room`
+              ? `${currentRoom} 채팅방`
               : "참여할 채팅방을 클릭해주세요"}
           </div>
         ) : (
@@ -90,7 +90,7 @@ const MessageForm = () => {
                     <div className="messageInner">
                       <div className="d-flex align-items-center mb-3">
                         <p className="messageSender">
-                          {sender == currentUserId ? "You" : name}
+                          {sender == currentUserId ? "나자신" : name}
                         </p>
                       </div>
                       <p className="messageContent">{content}</p>
@@ -120,7 +120,7 @@ const MessageForm = () => {
             <Button
               variant="primary"
               type="submit"
-              style={{ width: "100%", backgroundColor: "orange" }}
+              style={{ width: "100%", backgroundColor: "orange" ,border:'none' }}
               disabled={!isLogin}
             >
               <i className="fas fa-paper-plane"></i>

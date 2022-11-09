@@ -9,6 +9,14 @@
     width: 100%;
     height: 100vh;
     margin-top: 10%;
+    
+}
+#chattingAlert{
+    background-color: white;
+    border-bottom: 1px solid rgb(203, 198, 198);
+    color:rgb(0, 0, 0);
+    padding: 10px;
+    font-size: 1.3rem;
 }
 .messagesOutput {
     height: 70vh;
@@ -51,6 +59,10 @@
 }
 
 .messageDateIndicator {
-    width: 150px;
-    margin: 0 auto;
+    width: 130px;
+    margin: 15px auto;
+    background-color: rgb(203, 198, 198);
+    border: 1px rgb(203, 198, 198);
+    border-radius: 25px;
+    color: rgb(0, 0, 0);
 }
