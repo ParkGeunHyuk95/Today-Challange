@@ -20,11 +20,15 @@ const CheckChallenge = () => {
   const [countPerson, setCountPerson] = useState(0);
   const [challengeData, setChallengeData] = useState([]);
   const [checkPerWeek, setCheckPerWeek] = useState(1);
+  const [currentPoint,setCurrentPoint]=useState(null)
   useEffect(() => {
     Api.get(`challenges/mine/${realId}`).then((res) =>
       setChallengeData(res.data.updateChallenge)
     );
     Api.get(`countJoinUser/${id}`).then((res) => setCountPerson(res.data));
+    Api.get(`joinedChallenge/mypage/${id}`).then((res) => {
+      
+      setCurrentPoint(res.data.length)})
   }, []);
   // Api.get(`challenges/mine/:${realId}}`).then((res)=>console.log(res))
 
@@ -104,14 +108,16 @@ const CheckChallenge = () => {
           </div> */}
           <div className="imgContents">
             
-            <CheckImg2 id={id} /> 
+            <CheckImg2 id={id} dif={dif} /> 
          
           </div>
           
           
           <div className="pointContents">
             <div>참가 포인트 -50</div>
+            <div>현재 획득 포인트{currentPoint*10}</div>
             <div>획득 최대 포인트 {dif * 10 + 10}</div>
+            
           </div>
         </div>
       </div>

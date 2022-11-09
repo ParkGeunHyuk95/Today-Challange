@@ -31,9 +31,6 @@ const CheckImgSlide = ({imgData}) => {
             {!!imgData&&imgData?.map((item)=>(
               <ImgCard item={item}/>
             ))}
-            
-            
-            
         </Carousel>
       
     </div>

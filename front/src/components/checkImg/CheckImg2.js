@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { Button, Carousel } from "react-bootstrap";
 import CheckImgSlide from "../CheckImgSlide";
 
-const CheckImg2 = ({ id }) => {
+const CheckImg2 = ({ id,dif }) => {
   console.log("id", id);
   const [imgData,setImgData]=useState(null)
   const navigate = useNavigate();
@@ -23,7 +23,8 @@ const CheckImg2 = ({ id }) => {
       setImgData(res.data)
     });
   },[]);
-  console.log(imgData)
+  console.log(imgData?.length)
+  console.log(dif+1)
   // const [firstImage, setFirstImage] = useState(blankImg);
   // const [secondImage, setSecondImage] = useState(blankImg);
   // const [thirdImage, setThirdImage] = useState(blankImg);
@@ -140,16 +141,16 @@ const CheckImg2 = ({ id }) => {
         style={{ display: "none"}}
       ></input>
       <div className="img-wrapper">
-        <img style={{width:'40%'}} src={image.preview_URL}></img>
+        <img style={{width:'30%'}} src={image.preview_URL}></img>
       </div>
       <div className="upload-btn">
-        <button type="button" onClick={() => inputRef.click()}>
+        <button disabled={!!imgData&&dif&&imgData.length>=dif+1} type="button" onClick={() => inputRef.click()}>
           미리보기
         </button>
         <button type="button" onClick={deleteImage}>
           삭제하기
         </button>
-        <button type="button" onClick={sendImageToServer}>
+        <button disabled={!!imgData&&dif&&imgData.length>=dif+1} type="button" onClick={sendImageToServer}>
           업로드하기
         </button>
       </div>
