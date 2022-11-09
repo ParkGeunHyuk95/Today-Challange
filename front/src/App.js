@@ -77,9 +77,9 @@ function App() {
     handleStorageChange();
     console.log("로딩");
     return (
-      <>
+      <div className="align-items-center justify-content-center">
       <LoadingSpinner/>
-      </>
+      </div>
     )
   }
   
