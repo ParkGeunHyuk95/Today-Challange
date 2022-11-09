@@ -109,7 +109,7 @@ function ChallengeDetailModal({
                 <p className="expectedPoint colorGray">
                   <img src={Gift} alt="선물상자"></img>
                   포인트
-                  <span className="colorBlack"> 총 {dif*10}포인트</span>
+                  <span className="colorBlack"> 총 {dif*10+10}포인트</span>
                 </p>
               </div>
             </div>

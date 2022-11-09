@@ -14,6 +14,7 @@ const CheckChallenge = () => {
     let realId=parseInt(id);
     const [countPerson,setCountPerson]=useState(0)
     const [challengeData,setChallengeData]=useState([]);
+    const [checkPerWeek,setCheckPerWeek]=useState(1)
     useEffect(()=>{
       Api.get(`challenges/mine/${realId}`).then((res)=>setChallengeData(res.data.updateChallenge))
       Api.get(`countJoinUser/${id}`).then((res)=>setCountPerson(res.data))
@@ -46,7 +47,7 @@ const CheckChallenge = () => {
   return (
     <div className="checkChallenge">
       <NavBar />
-      <div className="upperSection"></div>
+      <div className="upperSection">asd</div>
       <div className="checkText">
         <a>챌린지 인증하기</a>
       </div>
@@ -57,7 +58,20 @@ const CheckChallenge = () => {
             </div>
         </div>
         <div className="mainContent">
-          
+          <div className="countweek">
+            <button onClick={()=>{
+              setCheckPerWeek(1)
+            }}>1주차</button>
+            <button disabled={countWeek<2} onClick={()=>{
+              setCheckPerWeek(2)
+            }}>2주차</button>
+            <button disabled={countWeek<3} onClick={()=>{
+              setCheckPerWeek(3)
+            }}>3주차</button>
+            <button disabled={countWeek<4} onClick={()=>{
+              setCheckPerWeek(4)
+            }}>4주차</button>
+          </div>
           <div className="imgContents">이미지들</div>
           <div>
             <label

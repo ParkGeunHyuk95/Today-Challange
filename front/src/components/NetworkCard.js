@@ -31,7 +31,7 @@ const NetworkCard = ({ item }) => {
   useEffect(() => {
     Api.get(`countJoinUser/${item.challengeId}`).then((res) => setPerson(res.data));
   }, []);
-  console.log('으음?',person?.data);
+  
   return (
     <Card
       id="cardBody"

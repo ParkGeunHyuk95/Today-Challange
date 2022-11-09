@@ -38,7 +38,8 @@ const MyPage = () => {
     Api.get('currentUser').then((res)=>setMyId(res.data.userId))
   }, []);
 
-  console.log('내챌린지',myChallengeList);
+  
+  
 
   return (
     <>
@@ -123,6 +124,7 @@ const MyPage = () => {
                         let results=originalData.filter(
                           (item)=>
                           item.holdUserId=myId
+                          
                         )
 
                         setChallengeData(results)

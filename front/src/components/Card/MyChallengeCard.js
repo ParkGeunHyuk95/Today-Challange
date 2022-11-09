@@ -13,9 +13,13 @@ const MychallengeCard = ({ item }) => {
   let navigate=useNavigate()
   const mainImg = item.challenge.mainImg;
   const [person, setPerson] = useState();
+  const [user,setUser]=useState('')
   useEffect(() => {
     Api.get(`countJoinUser/${item.challenge.challengeId}`).then((res) => setPerson(res));
+    Api.get("currentUser").then((res) => setUser(res.data));
   }, []);
+  console.log(item.challenge.holdUserId)
+  console.log(user.userId)
   return (
     <Card
       id="cardBody"
@@ -62,7 +66,12 @@ const MychallengeCard = ({ item }) => {
           >
             인증하기
           </button>
+          {user.userId===item.challenge.holdUserId?
           <button className="editButton">수정하기</button>
+          :
+          null
+          }
+          
           
         </div>
       </Card.Body>
