@@ -42,7 +42,7 @@ function ChallengeDetailModal({
     Api.post('userToChallenge',{
       "challengeId":item.challengeId
     })
-    
+    Api.put('minuspoint').then((res)=>console.log('포인트마이너스',res))
   }
   
   useEffect(()=>{
