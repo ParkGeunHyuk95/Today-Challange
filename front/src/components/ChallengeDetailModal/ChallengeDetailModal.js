@@ -30,6 +30,7 @@ function ChallengeDetailModal({ setChallengeDetailModalOpen, item }) {
   };
   let dif = getDateDiff(item.fromDate, item.toDate);
   const { socket, currentRoom, setCurrentRoom } = useContext(AppContext);
+  const [myPoint,setMyPoint]=useState(0)
   const navigate=useNavigate();
   const handleRoomSubmit = (e) => {
     e.preventDefault();
@@ -52,7 +53,9 @@ function ChallengeDetailModal({ setChallengeDetailModalOpen, item }) {
     Api.get("/countJoinUser", {
       challengeId: item.challengeId,
     }).then((res) => setPeopleCount(res));
+    Api.get("/point").then((res)=>setMyPoint(res))
   }, []);
+  
   return (
     <>
       <div className="modalBackground">
@@ -147,14 +150,18 @@ function ChallengeDetailModal({ setChallengeDetailModalOpen, item }) {
                 </div>
               </div>
             </div>
-
-            <button
-              className="challengeJoinBtn"
-              type="submit"
-              onClick={handleRoomSubmit}
-            >
-              참가하기
-            </button>
+          {myPoint>=50?
+          <button
+          className="challengeJoinBtn"
+          type="submit"
+          onClick={handleRoomSubmit}
+        >
+          참가하기
+        </button>
+        :
+        <button disabled='true' className="pointlessButton">포인트 부족</button>
+          }
+            
           </div>
         </div>
       </div>
