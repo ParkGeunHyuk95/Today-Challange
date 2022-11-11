@@ -22,6 +22,8 @@ const MychallengeCard = ({ item }) => {
   }, []);
   console.log(item.challenge.holdUserId);
   console.log(user.userId);
+  console.log(item.challenge.holdUserId);
+  console.log(user.userId);
   return (
     <Card
       id="cardBody12"
