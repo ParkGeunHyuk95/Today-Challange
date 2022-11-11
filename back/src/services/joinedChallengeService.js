@@ -27,10 +27,16 @@ class joinedChallengeService {
     const challengeInfo = await JoinedChallenge.findMany(challengeId);
     return challengeInfo;
   }
-  //user별 참가한 챌린지 포인트조회(마이페이지)
+  //user별 참가한 joinedChallenge
   static async getUserChallengePoint({ userId, challengeId }) {
     const getChallengePointInfoList =
       await JoinedChallenge.getChallengePointInfoList({ userId, challengeId });
+    return getChallengePointInfoList;
+  }
+  //user별 참가한 챌린지 포인트조회
+  static async getUserChallengePoint(userId) {
+    const getChallengePointInfoList =
+      await JoinedChallenge.getChallengePointInfoList({ userId });
     return getChallengePointInfoList;
   }
 }

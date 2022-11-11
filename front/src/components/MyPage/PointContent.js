@@ -173,21 +173,23 @@ const data2 = [
 ];
 // 참가버튼 누르면 포인트 10 획득, 챌린지 개설하기 버튼 누르면 포인트 -50
 
-const PointContent = ({ myChallengeList, pointContentData }) => {
-  const [visible, setVisible] = useState(4);
-  // console.log("여기선 되나?", myChallengeList[0]);
-  // console.log("여기선 되나?", pointContentData);
+const PointContent = ({ myChallengeList, challengeId }) => {
+  const [visible, setVisible] = useState(10);
+  const [joinedChallengeList, setJoinedChallengeList] = useState([]);
+  useEffect(() => {
+    Api.get("joinedChallenge/mypage/userToChallengePoint").then((res) => {
+      setJoinedChallengeList(res.data);
+      // console.log(res.data[0].challenges.challengeId);
+    });
+  }, []);
   return (
     <>
       <Border>
         <PointTitle>포인트 획득 내역</PointTitle>
         <Inner>
-          {/* {pointContentData
-            .slice(0, visible)
-            .map((data) => console.log("그럼이건되냐:", data))} */}
           {myChallengeList.slice(0, visible).map((x, i) => {
             return (
-              <Each>
+              <Each key={myChallengeList[i].challenge["challengeId"]}>
                 <ChallengeName className="item">
                   <ArrowDropImg src={expand_more}></ArrowDropImg>
                   <ChallengeTitle>
@@ -198,25 +200,32 @@ const PointContent = ({ myChallengeList, pointContentData }) => {
                 </ChallengeName>
                 <MinusPoint className="item">-50</MinusPoint>
                 <JoinedChallengePoint className="item">
-                  {pointContentData.slice(0, visible).map((x) => {
-                    return (
-                      <EachJoinedChallenge>
-                        <JoinedChallengeDate>22.11.01</JoinedChallengeDate>
-                        <JoinedChallengeDetail>
-                          포인트 획득
-                        </JoinedChallengeDetail>
-                        <Point>10</Point>
-                      </EachJoinedChallenge>
-                    );
+                  {joinedChallengeList.map((x, j) => {
+                    if (
+                      joinedChallengeList[j].challenges.challengeId ==
+                      myChallengeList[i].challenge["challengeId"]
+                    ) {
+                      return (
+                        <EachJoinedChallenge>
+                          <JoinedChallengeDate>
+                            {joinedChallengeList[j].createAt.substr(0, 10)}
+                          </JoinedChallengeDate>
+                          <JoinedChallengeDetail>
+                            포인트 획득
+                          </JoinedChallengeDetail>
+                          <Point>10</Point>
+                        </EachJoinedChallenge>
+                      );
+                    }
                   })}
                 </JoinedChallengePoint>
               </Each>
             );
           })}
         </Inner>
-        <ShoeMorePointButton>
+        {/* <ShoeMorePointButton>
           <CreateFont>더보기</CreateFont>
-        </ShoeMorePointButton>
+        </ShoeMorePointButton> */}
       </Border>
     </>
   );

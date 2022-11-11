@@ -60,6 +60,19 @@ class JoinedChallenge {
     });
     return ChallengePointInfoList;
   }
+  static async getChallengePointInfoList({ userId }) {
+    const ChallengePointInfoList = await prisma.joinedChallenge.findMany({
+      where: {
+        userId: userId.userId,
+      },
+      select: {
+        challenges: true,
+        createAt: true,
+        countUpload: true,
+      },
+    });
+    return ChallengePointInfoList;
+  }
 }
 
 export { JoinedChallenge };
