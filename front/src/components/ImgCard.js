@@ -4,7 +4,7 @@ const ImgCard = ({item}) => {
   return (
     <div className='imgCheckCardContainer'>
     <img
-    className='card'
+    className='card17'
     src={item?.addedImage}>
     </img>
     </div>
