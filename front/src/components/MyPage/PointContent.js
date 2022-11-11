@@ -173,8 +173,19 @@ const data2 = [
 ];
 // 참가버튼 누르면 포인트 10 획득, 챌린지 개설하기 버튼 누르면 포인트 -50
 
-const PointContent = ({ myChallengeList, joinedChallengeList }) => {
-  const [visible, setVisible] = useState(4);
+const PointContent = ({ myChallengeList, challengeId }) => {
+  const [visible, setVisible] = useState(10);
+  const [joinedChallengeList, setJoinedChallengeList] = useState([]);
+  // const [challengeId, setChallengeId] = useState();
+  // useEffect(() => {
+  //   myChallengeList.map((x, i) => {
+  //     Api.get(
+  //       `joinedChallenge/mypage/${myChallengeList[i].challenge["challengeId"]}`
+  //     ).then((res) => {
+  //       setJoinedChallengeList(res.data);
+  //     });
+  //   });
+  // }, []);
   return (
     <>
       <Border>
@@ -193,11 +204,11 @@ const PointContent = ({ myChallengeList, joinedChallengeList }) => {
                 </ChallengeName>
                 <MinusPoint className="item">-50</MinusPoint>
                 <JoinedChallengePoint className="item">
-                  {joinedChallengeList.slice(0, visible).map((x, i) => {
+                  {joinedChallengeList.map((x, i) => {
                     return (
                       <EachJoinedChallenge>
                         <JoinedChallengeDate>
-                          {joinedChallengeList[0].createAt.substr(0, 10)}
+                          {joinedChallengeList[i].createAt.substr(0, 10)}
                         </JoinedChallengeDate>
                         <JoinedChallengeDetail>
                           포인트 획득

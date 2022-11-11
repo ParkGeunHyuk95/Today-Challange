@@ -10,6 +10,7 @@ import { DispatchContext, UserStateContext } from "../App";
 import * as Api from "../api";
 import { useNavigate } from "react-router-dom";
 import LoadingSpinner from "../components/LoadingSpinner";
+import MychallengeCard from "../components/Card/MyChallengeCard";
 
 const MyPage = () => {
   const userState = useContext(UserStateContext);
@@ -35,7 +36,7 @@ const MyPage = () => {
   const [myId, setMyId] = useState("");
   const [myOriginalchallengeList, setMyOriginalChallengeList] = useState(null);
 
-  const [joinedChallengeList, setJoinedChallengeList] = useState([]);
+  // const [joinedChallengeList, setJoinedChallengeList] = useState([]);
   const [challengeId, setChallengeId] = useState();
 
   useEffect(() => {
@@ -45,14 +46,24 @@ const MyPage = () => {
     Api.get(`point`).then((res) => setMyPoint(res.data.toString()));
     Api.get("liked").then((res) => setLikedList(res.data));
     Api.get("userToChallenge").then((res) => setMyChallengeList(res.data));
+    myChallengeList.map((x, i) => {
+      setChallengeId("되어주라", myChallengeList[i].challenge["challengeId"]);
+    });
     Api.get("userToChallenge").then((res) =>
       setMyOriginalChallengeList(res.data)
     );
     Api.get("currentUser").then((res) => setMyId(res.data.userId));
     setLoading(false);
-    Api.get(`joinedChallenge/mypage/104`).then((res) =>
-      setJoinedChallengeList(res.data)
-    );
+
+    // Api.get(`joinedChallenge/mypage/${challengeId}`).then((res) => {
+    //   myChallengeList.map((x, i) => {
+    //     if (
+    //       myChallengeList[i].challenge["challengeId"] == res.data[i]["chalngId"]
+    //     ) {
+    //       setChallengeId(res.data[i]["chalngId"]);
+    //     }
+    //   });
+    // });
   }, []);
 
   if (loading === true) {
@@ -157,7 +168,8 @@ const MyPage = () => {
                 {contents === 1 && (
                   <PointContent
                     myChallengeList={myChallengeList}
-                    joinedChallengeList={joinedChallengeList}
+                    challengeId={challengeId}
+                    // joinedChallengeList={joinedChallengeList}
                   />
                 )}
                 {contents === 2 && (
