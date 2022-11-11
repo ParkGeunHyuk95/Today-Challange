@@ -29,7 +29,8 @@ const CheckImgSlide = ({imgData}) => {
     <div className='slide'>
         <Carousel responsive={responsive}>
             {!!imgData&&imgData?.map((item)=>(
-              <ImgCard item={item}/>
+              // <ImgCard item={item}/>
+              console.log(item)
             ))}
         </Carousel>
       

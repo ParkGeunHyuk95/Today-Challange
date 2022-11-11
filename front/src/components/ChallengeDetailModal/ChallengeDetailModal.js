@@ -16,7 +16,7 @@ import Swal from "sweetalert2";
 import UserLike from "../UserLike";
 import { AppContext } from "../../Context/AppContext";
 
-function ChallengeDetailModal({ setChallengeDetailModalOpen, item }) {
+function ChallengeDetailModal({ setChallengeDetailModalOpen, item,person }) {
   const closeChallengeDetailModal = () => {
     setChallengeDetailModalOpen(false);
   };
@@ -81,10 +81,7 @@ function ChallengeDetailModal({ setChallengeDetailModalOpen, item }) {
             <div className="challengeDetailTop">
               <div className="challengeTopLeft">
                 <img className="challengeImage" src={item.mainImg} alt=""></img>
-                <p className="chanllegeDday">
-                  <img src={TimeLight} alt="시계"></img> 챌린지 시작까지{" "}
-                  {/* {challengeDday}일 전 */} 일전
-                </p>
+               
               </div>
               <div className="challengeTopRight">
                 <span>
@@ -110,7 +107,7 @@ function ChallengeDetailModal({ setChallengeDetailModalOpen, item }) {
                 </p>
                 <span className="colorBlack">
                   {" "}
-                  {/*challengeJoinedNumber*/}명
+                  {person}명
                 </span>
               </div>
 
