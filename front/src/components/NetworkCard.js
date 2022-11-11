@@ -77,6 +77,7 @@ const NetworkCard = ({ item }) => {
             <ChallengeDetailModal
               setChallengeDetailModalOpen={setChallengeDetailModalOpen}
               item={item}
+              person={person}
             />
           )}
        
