@@ -9,6 +9,11 @@ import { Button, Carousel } from "react-bootstrap";
 import CheckImgSlide from "../CheckImgSlide";
 
 const CheckImg2 = ({ id,dif }) => {
+  const today = new Date();
+  const year = today.getFullYear();
+  const month = ("0" + (today.getMonth() + 1)).slice(-2);
+  const day = ("0" + today.getDate()).slice(-2);
+  const dateString = year + "-" + month + "-" + day;
   console.log("id", id);
   const [imgData,setImgData]=useState(null)
   const navigate = useNavigate();
@@ -23,22 +28,7 @@ const CheckImg2 = ({ id,dif }) => {
       setImgData(res.data)
     });
   },[]);
-  console.log(imgData?.length)
-  console.log(dif+1)
-  // const [firstImage, setFirstImage] = useState(blankImg);
-  // const [secondImage, setSecondImage] = useState(blankImg);
-  // const [thirdImage, setThirdImage] = useState(blankImg);
-  // const [fourthImage, setFourthImage] = useState(blankImg);
-  // const [fifthImage, setFifthImage] = useState(blankImg);
-  // const [sixthImage, setSixthImage] = useState(blankImg);
-  // const [seventhImage, setSeventhImage] = useState(blankImg);
-  // const firstFileInput = useRef(null);
-  // const secondFileInput = useRef(null);
-  // const thirdFileInput = useRef(null);
-  // const fourthFileInput = useRef(null);
-  // const fifthFileInput = useRef(null);
-  // const sixthFileInput = useRef(null);
-  // const seventhFileInput = useRef(null);
+
 
   //이미지 저장
   const saveImage = (e) => {
@@ -104,34 +94,7 @@ const CheckImg2 = ({ id,dif }) => {
       alert("사진을 등록하세요");
     }
   };
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   for (let keyValue of formData) {
-  //     console.log("keyValue -> ", keyValue);
-  //   }
-  //   let res = {};
-  //   try {
-  //     res = await axios({
-  //       method: "post",
-  //       url: `http://localhost:5001/joinedChallenge/${id}`,
-  //       data: formData,
-  //       headers: {
-  //         "Content-Type": "multipart/form-data",
-  //         Authorization: `Bearer ${sessionStorage.getItem("accessToken")}`,
-  //       },
-  //     });
-  //     if (res.status === 200 || res.status === 201) {
-  //       Swal.fire({
-  //         position: "top-center",
-  //         icon: "success",
-  //         text: "챌린지 생성 성공",
-  //       });
-  //     }
-  //   } catch (err) {
-  //     //handle fail
-  //     console.log("인증하기 실패", err);
-  //   }
-  // };
+ 
   return (
     <div className="allcheck">
     <form encType="multipart/form-data" acceptCharset="UTF-8">
@@ -149,165 +112,17 @@ const CheckImg2 = ({ id,dif }) => {
         <img style={{width:'30%'}} src={image.preview_URL}></img>
       </div>
       <div className="upload-btn">
-        <button disabled={!!imgData&&dif&&imgData.length>=dif+1} type="button" onClick={() => inputRef.click()}>
+        <button disabled={!!imgData&&dif&&imgData?.length>=dif+1 || !!imgData&&imgData[imgData.length-1]?.createAt.substring(0,10)==dateString} type="button" onClick={() => inputRef.click()}>
           미리보기
         </button>
-        <button type="button" onClick={deleteImage}>
+       
+        <button  type="button" onClick={deleteImage}>
           삭제하기
         </button>
-        <button disabled={!!imgData&&dif&&imgData.length>=dif+1} type="button" onClick={sendImageToServer}>
+        <button disabled={!!imgData&&dif&&imgData?.length>=dif+1 || !!imgData&&imgData[imgData.length-1]?.createAt.substring(0,10)==dateString} type="button" onClick={sendImageToServer}>
           업로드하기
         </button>
       </div>
-      {/* <div id="checkImgContainer">
-        <form
-          name="firstImg"
-          encType="multipart/form-data"
-          acceptCharset="UTF-8"
-        >
-          <img
-            className="img1"
-            src={firstImage}
-            onClick={(e) => {
-              firstFileInput.current.click();
-            }}
-          />
-          <input
-            type="file"
-            style={{ opacity: "0" }}
-            accept="image/jpg, image/png, image/jpeg"
-            name="explain"
-            multiple
-            ref={firstFileInput}
-          />
-        </form>
-        <form
-          name="secondImg"
-          encType="multipart/form-data"
-          acceptCharset="UTF-8"
-        >
-          <img
-            className="img2"
-            src={firstImage}
-            onClick={() => {
-              secondFileInput.current.click();
-            }}
-          />
-          <input
-            type="file"
-            style={{ opacity: "0" }}
-            accept="image/jpg, image/png, image/jpeg"
-            name="explain"
-            multiple
-            ref={secondFileInput}
-          />
-        </form>
-        <form
-          name="thirdImg"
-          encType="multipart/form-data"
-          acceptCharset="UTF-8"
-        >
-          <img
-            className="img3"
-            src={firstImage}
-            onClick={() => {
-              thirdFileInput.current.click();
-            }}
-          />
-          <input
-            type="file"
-            style={{ opacity: "0" }}
-            accept="image/jpg, image/png, image/jpeg"
-            name="explain"
-            multiple
-            ref={thirdFileInput}
-          />
-        </form>
-        <form
-          name="fourthImg"
-          encType="multipart/form-data"
-          acceptCharset="UTF-8"
-        >
-          <img
-            className="img4"
-            src={firstImage}
-            onClick={() => {
-              fourthFileInput.current.click();
-            }}
-          />
-          <input
-            type="file"
-            style={{ opacity: "0" }}
-            accept="image/jpg, image/png, image/jpeg"
-            name="explain"
-            multiple
-            ref={fourthFileInput}
-          />
-        </form>
-        <form
-          name="fifthImg"
-          encType="multipart/form-data"
-          acceptCharset="UTF-8"
-        >
-          <img
-            className="img5"
-            src={firstImage}
-            onClick={() => {
-              fifthFileInput.current.click();
-            }}
-          />
-          <input
-            type="file"
-            style={{ opacity: "0" }}
-            accept="image/jpg, image/png, image/jpeg"
-            name="explain"
-            multiple
-            ref={fifthFileInput}
-          />
-        </form>
-        <form
-          name="sixthImg"
-          encType="multipart/form-data"
-          acceptCharset="UTF-8"
-        >
-          <img
-            className="img6"
-            src={firstImage}
-            onClick={() => {
-              sixthFileInput.current.click();
-            }}
-          />
-          <input
-            type="file"
-            style={{ opacity: "0" }}
-            accept="image/jpg, image/png, image/jpeg"
-            name="explain"
-            multiple
-            ref={sixthFileInput}
-          />
-        </form>
-        <form
-          name="seventhImg"
-          encType="multipart/form-data"
-          acceptCharset="UTF-8"
-        >
-          <img
-            className="img7"
-            src={firstImage}
-            onClick={() => {
-              seventhFileInput.current.click();
-            }}
-          />
-          <input
-            type="file"
-            style={{ opacity: "0" }}
-            accept="image/jpg, image/png, image/jpeg"
-            name="explain"
-            multiple
-            ref={seventhFileInput}
-          />
-        </form>
-      </div> */}
     </form>
     <div className="checkImgCarousel">
     <CheckImgSlide imgData={imgData}/>
