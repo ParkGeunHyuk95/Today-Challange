@@ -81,6 +81,10 @@ const CheckImg2 = ({ id,dif }) => {
         });
         if (res.status === 200 || res.status === 201) {
           Api.put('addpoint').then((res)=>console.log('하핫',res))
+          Api.get(`joinedChallenge/mypage/${id}`).then((res) => {
+            // console.log("res", res.data[0].addedImage);
+            setImgData(res.data)
+          });
           Swal.fire({
             position: "top-center",
             icon: "success",
