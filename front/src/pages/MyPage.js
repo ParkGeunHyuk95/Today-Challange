@@ -46,24 +46,11 @@ const MyPage = () => {
     Api.get(`point`).then((res) => setMyPoint(res.data.toString()));
     Api.get("liked").then((res) => setLikedList(res.data));
     Api.get("userToChallenge").then((res) => setMyChallengeList(res.data));
-    myChallengeList.map((x, i) => {
-      setChallengeId("되어주라", myChallengeList[i].challenge["challengeId"]);
-    });
     Api.get("userToChallenge").then((res) =>
       setMyOriginalChallengeList(res.data)
     );
     Api.get("currentUser").then((res) => setMyId(res.data.userId));
     setLoading(false);
-
-    // Api.get(`joinedChallenge/mypage/${challengeId}`).then((res) => {
-    //   myChallengeList.map((x, i) => {
-    //     if (
-    //       myChallengeList[i].challenge["challengeId"] == res.data[i]["chalngId"]
-    //     ) {
-    //       setChallengeId(res.data[i]["chalngId"]);
-    //     }
-    //   });
-    // });
   }, []);
 
   if (loading === true) {

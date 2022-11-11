@@ -176,16 +176,12 @@ const data2 = [
 const PointContent = ({ myChallengeList, challengeId }) => {
   const [visible, setVisible] = useState(10);
   const [joinedChallengeList, setJoinedChallengeList] = useState([]);
-  // const [challengeId, setChallengeId] = useState();
-  // useEffect(() => {
-  //   myChallengeList.map((x, i) => {
-  //     Api.get(
-  //       `joinedChallenge/mypage/${myChallengeList[i].challenge["challengeId"]}`
-  //     ).then((res) => {
-  //       setJoinedChallengeList(res.data);
-  //     });
-  //   });
-  // }, []);
+  useEffect(() => {
+    Api.get("joinedChallenge/mypage/userToChallengePoint").then((res) => {
+      setJoinedChallengeList(res.data);
+      // console.log(res.data[0].challenges.challengeId);
+    });
+  }, []);
   return (
     <>
       <Border>
@@ -193,7 +189,7 @@ const PointContent = ({ myChallengeList, challengeId }) => {
         <Inner>
           {myChallengeList.slice(0, visible).map((x, i) => {
             return (
-              <Each>
+              <Each key={myChallengeList[i].challenge["challengeId"]}>
                 <ChallengeName className="item">
                   <ArrowDropImg src={expand_more}></ArrowDropImg>
                   <ChallengeTitle>
@@ -204,18 +200,23 @@ const PointContent = ({ myChallengeList, challengeId }) => {
                 </ChallengeName>
                 <MinusPoint className="item">-50</MinusPoint>
                 <JoinedChallengePoint className="item">
-                  {joinedChallengeList.map((x, i) => {
-                    return (
-                      <EachJoinedChallenge>
-                        <JoinedChallengeDate>
-                          {joinedChallengeList[i].createAt.substr(0, 10)}
-                        </JoinedChallengeDate>
-                        <JoinedChallengeDetail>
-                          포인트 획득
-                        </JoinedChallengeDetail>
-                        <Point>10</Point>
-                      </EachJoinedChallenge>
-                    );
+                  {joinedChallengeList.map((x, j) => {
+                    if (
+                      joinedChallengeList[j].challenges.challengeId ==
+                      myChallengeList[i].challenge["challengeId"]
+                    ) {
+                      return (
+                        <EachJoinedChallenge>
+                          <JoinedChallengeDate>
+                            {joinedChallengeList[j].createAt.substr(0, 10)}
+                          </JoinedChallengeDate>
+                          <JoinedChallengeDetail>
+                            포인트 획득
+                          </JoinedChallengeDetail>
+                          <Point>10</Point>
+                        </EachJoinedChallenge>
+                      );
+                    }
                   })}
                 </JoinedChallengePoint>
               </Each>
